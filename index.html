@@ -1,58 +1,86 @@
 <html>
     <head>
         <title>Tick Tock</title>
+        <style>
+            body
+            {
+                background-color: #212836;
+                color: #faf9db;
+                font-family: Arial, Helvetica, sans-serif;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                margin: 0;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+
+            section
+            {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+                align-items: center;
+                max-width: 1800;
+            }
+            
+            .target-box
+            {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                color: #faf9db;
+                font-size: 1.1rem;
+                margin-top: 10;
+                margin-bottom: 30px;
+            }
+            
+            #target-label
+            {
+                color: #fffa65;
+                align-items: center;
+                font-size: 1.8rem;
+                font-weight: bold;
+            }
+
+            .time-box
+            {
+                background: #ffffff10;
+                padding: 36px 20px;
+                border-radius: 30px;
+                text-align: center;
+                width: 100px;
+            }
+
+            .time-box div
+            {
+                font-size: 2.5rem;
+                font-weight: bold;
+                color: #fffa65;
+            }
+
+            .time-box span
+            {
+                font-size: 0.8rem;
+                color: #c5c5c5;
+                display: block;
+                margin: 5px;
+            }
+        </style>
     </head>
     <body> 
         <header>
             <h1>Tick Tock</h1>
-            <style>
-                body
-                {
-                    background-color: #212836;
-                    color: #faf9db;
-                    font-family: Arial, Helvetica, sans-serif;
-
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
-                    margin: 0;
-                }
-
-                section
-                {
-                    display: flex;
-                    gap: 20px;
-                    justify-content: center;
-                    align-items: center;
-                    margin-top: 20px;
-                }
-
-                .time-box
-                {
-                    background: #ffffff10;
-                    padding: 15px 25px;
-                    border-radius: 30px;
-                    text-align: center;
-                    min-width: 80px;
-                }
-
-                .time-box div
-                {
-                    font-size: 2.5rem;
-                    font-weight: bold;
-                    color: #fffa65;
-                }
-
-                .time-box span
-                {
-                    font-size: 0.8rem;
-                    color: #c5c5c5;
-                    display: block;
-                    margin: 5px;
-                }
-            </style>
+            <div class="target-box">
+                <span>距離</span>
+                <span id="target-label"></span>
+                <span>還有...</span>
+            </div>
         </header>
         <main>
             <section>
@@ -65,8 +93,11 @@
             </section>
         </main>
         <script>
-            const targetDate=new Date("2027-01-01T00:00:00+08:00").getTime();
+            const targetString="2027-01-01"
+            const targetDate=new Date(targetString+"T00:00:00+08:00").getTime();
             
+            document.getElementById("target-label").innerText=targetString;
+
             function updateTimer()
             {
                 const nowTime=new Date().getTime();
