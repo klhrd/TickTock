@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Tick Tock</title>
+    </head>
+    <body> 
+        <header>
+            <h1>Tick Tock</h1>
+        </header>
+        <main>
+            <section>
+                <div id="years">00</div> years
+                <div id="months">00</div> months
+                <div id="days">00</div> days
+                <div id="hours">00</div> hours
+                <div id="minutes">00</div> minutes
+                <div id="seconds">00</div> seconds
+            </section>
+        </main>
+        <script>
+            const targetDate=new Date("2027-01-01T00:00:00+08:00").getTime();
+            
+            function updateTimer()
+            {
+                const nowTime=new Date().getTime();
+                const timeLeft=Math.floor((targetDate-nowTime)/1000);
+                
+                if (timeLeft<=0)
+                {
+                    clearInterval(timerId);
+                    document.getElementById("seconds").innerText=0;
+                    return;
+
+                }
+
+                const d=Math.floor(timeLeft/(60*60*24));
+                const h=Math.floor((timeLeft%(60*60*24))/(60*60));
+                const m=Math.floor((timeLeft%(60*60))/(60));
+                const s=(timeLeft%(60));
+
+                document.getElementById("days").innerText=d;
+                document.getElementById("hours").innerText=h;
+                document.getElementBsyId("minutes").innerText=m;
+                document.getElementById("seconds").innerText=s;
+            }
+            
+            const timerId=setInterval(updateTimer,100);
+            updateTimer();
+
+        </script>
+    </body>
+</html>
