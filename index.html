@@ -123,13 +123,13 @@
                 let mo=target.getMonth()-now.getMonth();
                 let d=target.getDate()-now.getDate();
                 let h=target.getHours()-now.getHours();
-                let m=target.getMinutes()-now.getMonth();
+                let m=target.getMinutes()-now.getMinutes();
                 let s=target.getSeconds()-now.getSeconds();
 
                 if(s<0){s+=60;m--;}
                 if(m<0){m+=60;h--;}
                 if(h<0){h+=24;d--} 
-                if(mo<0)
+                if(d<0)
                 {
                     // 將日期設為本月第 0 天，就能拿到上個月的最後一天（即總天數）
                     const daysInPrevMonth=new Date(now.getFullYear(),now.getMonth(),0).getDate();
