@@ -8,7 +8,7 @@ A long-term countdown timer for events.
 
 ## Built With
 - HTML5
-- Css3
+- CSS3
 - JavaScript
 
 ## How to Use
@@ -19,3 +19,9 @@ A long-term countdown timer for events.
 - [x] basic CSS
 - [ ] months and years calculation logic
 - [ ] changable target (#date in url)
+- [ ] add hamburger button and a menu
+- [ ] better UI
+
+## LOG
+- 2026-06-16
+    - basic func and UI
