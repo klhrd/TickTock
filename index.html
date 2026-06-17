@@ -94,10 +94,10 @@
         </main>
         <script>
             const targetString="2027-01-01"
+            document.getElementById("target-label").innerText=targetString;
+            
             const targetDate=new Date(targetString+"T00:00:00+08:00").getTime();
             
-            document.getElementById("target-label").innerText=targetString;
-
             function updateTimer()
             {
                 const nowTime=new Date().getTime();
@@ -106,16 +106,40 @@
                 if (timeLeft<=0)
                 {
                     clearInterval(timerId);
+                    document.getElementById("years").innerText=0;
+                    document.getElementById("months").innerText=0;
+                    document.getElementById("days").innerText=0;
+                    document.getElementById("hours").innerText=0;
+                    document.getElementById("minutes").innerText=0;
                     document.getElementById("seconds").innerText=0;
                     return;
 
                 }
+                
+                const target=new Date(targetString+"T00:00:00+08:00");
+                const now=new Date();
+                
+                let y=target.getFullYear()-now.getFullYear();
+                let mo=target.getMonth()-now.getMonth();
+                let d=target.getDate()-now.getDate();
+                let h=target.getHours()-now.getHours();
+                let m=target.getMinutes()-now.getMonth();
+                let s=target.getSeconds()-now.getSeconds();
 
-                const d=Math.floor(timeLeft/(60*60*24));
-                const h=Math.floor((timeLeft%(60*60*24))/(60*60));
-                const m=Math.floor((timeLeft%(60*60))/(60));
-                const s=(timeLeft%(60));
+                if(s<0){s+=60;m--;}
+                if(m<0){m+=60;h--;}
+                if(h<0){h+=24;d--} 
+                if(mo<0)
+                {
+                    // 將日期設為本月第 0 天，就能拿到上個月的最後一天（即總天數）
+                    const daysInPrevMonth=new Date(now.getFullYear(),now.getMonth(),0).getDate();
+                    d+=daysInPrevMonth;
+                    mo--;
+                }
+                if(mo<=0){mo+=12;y--}
 
+                document.getElementById("years").innerText=y;
+                document.getElementById("months").innerText=mo;
                 document.getElementById("days").innerText=d;
                 document.getElementById("hours").innerText=h;
                 document.getElementById("minutes").innerText=m;

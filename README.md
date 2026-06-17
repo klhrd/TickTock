@@ -17,11 +17,13 @@ A long-term countdown timer for events.
 ## TODO
 - [x] basic countdown func
 - [x] basic CSS
-- [ ] months and years calculation logic
+- [x] months and years calculation logic
 - [ ] changable target (#date in url)
 - [ ] add hamburger button and a menu
 - [ ] better UI
 
 ## LOG
+- 2026-06-17
+    - month and years calc logic
 - 2026-06-16
     - basic func and UI
