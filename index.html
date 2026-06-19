@@ -136,7 +136,7 @@
                     d+=daysInPrevMonth;
                     mo--;
                 }
-                if(mo<=0){mo+=12;y--}
+                if(mo<0){mo+=12;y--}
 
                 document.getElementById("years").innerText=y;
                 document.getElementById("months").innerText=mo;
@@ -144,6 +144,60 @@
                 document.getElementById("hours").innerText=h;
                 document.getElementById("minutes").innerText=m;
                 document.getElementById("seconds").innerText=s;
+
+                let hasValue=false;
+
+                if(y>0)
+                {
+                    hasValue=true;
+                    document.getElementById("years").parentElement.style.display="";
+                }
+                else
+                {
+                    document.getElementById("years").parentElement.style.display="none";
+                }
+
+                if(mo>0||hasValue)
+                {
+                    hasValue=true;
+                    document.getElementById("months").parentElement.style.display="";
+                }
+                else
+                {
+                    document.getElementById("months").parentElement.style.display="none";
+                }
+
+                if(d>0||hasValue)
+                {
+                    hasValue=true;
+                    document.getElementById("days").parentElement.style.display="";
+                }
+                else
+                {
+                    document.getElementById("days").parentElement.style.display="none";
+                }
+
+                if(h>0||hasValue)
+                {
+                    hasValue=true;
+                    document.getElementById("hours").parentElement.style.display="";
+                }
+                else
+                {
+                    document.getElementById("hours").parentElement.style.display="none";
+                }
+                
+                if(m>0||hasValue)
+                {
+                    hasValue=true;
+                    document.getElementById("minutes").parentElement.style.display="";
+                }
+                else
+                {
+                    document.getElementById("minutes").parentElement.style.display="none";
+                }
+
+                document.getElementById("seconds").parentElement.style.display="";
             }
             
             const timerId=setInterval(updateTimer,100);

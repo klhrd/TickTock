@@ -18,12 +18,17 @@ A long-term countdown timer for events.
 - [x] basic countdown func
 - [x] basic CSS
 - [x] months and years calculation logic
+- [x] not showing 0
 - [ ] changable target (#date in url)
 - [ ] add hamburger button and a menu
 - [ ] better UI
 
 ## LOG
+- 2026-06-19
+    - not showing 0
 - 2026-06-17
     - month and years calc logic
 - 2026-06-16
     - basic func and UI
+
+
