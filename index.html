@@ -1,6 +1,9 @@
 <html>
     <head>
         <title>Tick Tock</title>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
         <style>
             body
             {
@@ -71,10 +74,35 @@
                 display: block;
                 margin: 5px;
             }
+
+            .menu-btn
+            {
+                background: #c5c5c530;
+                border-radius: 12px;
+                border: none;
+                color: #c5c5c5;
+                cursor: pointer;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+
+            .menu-btn .material-icons
+            {
+                font-size: 1.2rem;
+            }
         </style>
     </head>
     <body> 
         <header>
+            <button class="menu-btn">
+                <span class="material-icons">menu</span>
+            </button>
             <h1>Tick Tock</h1>
             <div class="target-box">
                 <span>距離</span>

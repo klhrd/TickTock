@@ -19,8 +19,9 @@ A long-term countdown timer for events.
 - [x] basic CSS
 - [x] months and years calculation logic
 - [x] not showing 0
+- [x] add hamburger button
+- [ ] a menu
 - [ ] changable target (#date in url)
-- [ ] add hamburger button and a menu
 - [ ] better UI
 
 ## LOG
