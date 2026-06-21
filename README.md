@@ -20,8 +20,9 @@ A long-term countdown timer for events.
 - [x] months and years calculation logic
 - [x] not showing 0
 - [x] add hamburger button
-- [ ] a menu
-- [ ] changable target (#date in url)
+- [x] a menu
+- [x] changeable target
+- [ ] #date in url
 - [ ] better UI
 
 ## LOG
