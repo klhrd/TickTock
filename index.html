@@ -208,14 +208,30 @@
             </section>
         </main>
         <script>
-            let targetString=localStorage.getItem("targetDate")||"2027-01-01"
+            let targetString=getInitialDate();
+            let targetDate;
+            let timerId;
 
-            document.getElementById("target-label").innerText=targetString;
-            document.getElementById("date-input").value=targetString;
+            function getInitialDate()
+            {
+                // 1. url #tag
+                const hash=window.location.hash.substring(1);
+                if(hash&& /^\d{4}-\d{2}-\d{2}$/.test(hash))
+                {
+                    return hash;
+                }
 
+                // 2. local storage
+                const local=localStorage.getItem("targetDate");
+                if(local)
+                {
+                    return local;
+                }
+                
+                // 3. default
+                return "2027-01-01";
+            }
 
-            let targetDate=new Date(targetString+"T00:00:00+08:00").getTime();
-            
             function updateTimer()
             {
                 const nowTime=new Date().getTime();
@@ -318,13 +334,25 @@
                 document.getElementById("seconds").parentElement.style.display="";
             }
             
-            let timerId=setInterval(updateTimer,100);
-            updateTimer();
-
+            function initTimer(newDateString)
+            {
+                targetString=newDateString;
+                targetDate=new Date(targetString+"T00:00:00+08:00").getTime();
+                
+                document.getElementById("target-label").innerText=targetString;
+                document.getElementById("date-input").value=targetString;
+                
+                clearInterval(timerId);
+                timerId=setInterval(updateTimer,100);
+                updateTimer();
+            }
+            
             const sidebar=document.getElementById("sidebar");
             const menuBtn=document.querySelector(".menu-btn");
             const closeMenuBtn=document.getElementById("close-menu-btn");
             const dateInput=document.getElementById("date-input");
+
+            initTimer(targetString);
 
             menuBtn.addEventListener("click",()=>
             {
@@ -339,19 +367,13 @@
             dateInput.addEventListener("change",(e)=>
             {
                 const newDate=e.target.value;
-
                 // 防呆：沒選日期就跳出
                 if(!newDate)return;
 
                 localStorage.setItem("targetDate",newDate);
+                window.location.hash=newDate;
 
-                targetString=newDate;
-                targetDate=new Date(targetString+"T00:00:00+08:00").getTime();
-                document.getElementById("target-label").innerText=targetString;
-
-                clearInterval(timerId);
-                timerId=setInterval(updateTimer,100);
-                updateTimer();
+                initTimer(newDate);
             })
 
         </script>

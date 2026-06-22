@@ -22,10 +22,16 @@ A long-term countdown timer for events.
 - [x] add hamburger button
 - [x] a menu
 - [x] changeable target
-- [ ] #date in url
+- [x] #date in url
+- [ ] changeable time
 - [ ] better UI
 
 ## LOG
+- 2026-06-22
+    - #date in url
+- 2026-06-21
+    - add a hamburger button and a menu
+    - changeable target
 - 2026-06-19
     - not showing 0
 - 2026-06-17
