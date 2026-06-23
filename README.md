@@ -24,9 +24,13 @@ A long-term countdown timer for events.
 - [x] changeable target
 - [x] #date in url
 - [ ] changeable time
-- [ ] better UI
+- [/] better UI
 
 ## LOG
+- 2026-06-23
+    - title font
+    - overlay blur when menu opened
+    - better UI on mobile
 - 2026-06-22
     - #date in url
 - 2026-06-21

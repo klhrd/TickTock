@@ -1,8 +1,16 @@
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
         <title>Tick Tock</title>
 
+        <!--icons--> 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <!--fonts-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
 
         <style>
             body
@@ -28,19 +36,31 @@
                 gap: 15px;
                 justify-content: center;
                 align-items: center;
-                max-width: 1800;
+                max-width: 1200px;
+                width: 100%;
             }
             
+            .header h1
+            {
+                font-family: Carter One;
+                font-size: 3rem;
+                justify-self: center;
+
+                margin: 18px;
+            }
+
             .target-box
             {
                 display: flex;
+                flex-wrap: wrap;
                 justify-content: center;
                 align-items: center;
                 gap: 10px;
                 color: #faf9db;
                 font-size: 1.1rem;
-                margin-top: 10;
+                margin-top: 10px;
                 margin-bottom: 30px;
+                padding: 0 10px;
             }
             
             #target-label
@@ -58,6 +78,7 @@
                 border-radius: 30px;
                 text-align: center;
                 width: 100px;
+                box-sizing: border-box;
             }
 
             .time-box div
@@ -172,10 +193,63 @@
                 font-family: inherit;
                 outline: none;
             }
+
+            .overlay
+            {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: #00000070;
+                backdrop-filter: blur(5px);
+                z-index: 999;
+
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+
+            .overlay.show
+            {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            @media (max-width: 600px) 
+            {
+                section
+                {
+                    gap: 10px;
+                }
+
+                .time-box
+                {
+                    width: 75px;
+                    padding: 20px 10px;
+                    border-radius: 15px;
+                }
+
+                .time-box div 
+                {
+                    font-size: 1.6rem;
+                }
+
+                .header h1 
+                {
+                    font-size: 2rem;
+                    margin: 10px;
+                }
+
+                #target-label
+                {
+                    font-size: 1.3rem;
+                }
+            }
         </style>
     </head>
     <body> 
-        <header>
+        <header class="header">
             <button class="menu-btn">
                 <span class="material-icons">menu</span>
             </button>
@@ -207,6 +281,7 @@
                 <div class="time-box"><div id="seconds">00</div><span>seconds</span></div>
             </section>
         </main>
+        <div class="overlay" id="overlay"></div>
         <script>
             let targetString=getInitialDate();
             let targetDate;
@@ -351,17 +426,20 @@
             const menuBtn=document.querySelector(".menu-btn");
             const closeMenuBtn=document.getElementById("close-menu-btn");
             const dateInput=document.getElementById("date-input");
+            const overLay=document.getElementById("overlay");
 
             initTimer(targetString);
 
             menuBtn.addEventListener("click",()=>
             {
                 sidebar.classList.add("open");
+                overLay.classList.add("show");
             });
 
             closeMenuBtn.addEventListener("click",()=>
             {
                 sidebar.classList.remove("open");
+                overLay.classList.remove("show");
             });
 
             dateInput.addEventListener("change",(e)=>
@@ -376,6 +454,20 @@
                 initTimer(newDate);
             })
 
+            window.addEventListener("hashchange",()=>
+            {
+                const newHash=window.location.hash.substring(1);
+                if(newHash&&/^\d{4}-\d{2}-\d{2}$/.test(newHash))
+                {
+                    initTimer(initTimer);
+                }
+            })
+
+            overLay.addEventListener("click",()=>
+            {
+                sidebar.classList.remove("open");
+                overLay.classList.remove("show");
+            });
         </script>
     </body>
 </html>
