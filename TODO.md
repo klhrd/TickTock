@@ -1,0 +1,16 @@
+## TODO
+- [x] basic countdown func
+- [x] basic CSS
+- [x] months and years calculation logic
+- [x] not showing 0
+- [x] add hamburger button
+- [x] a menu
+- [x] changeable target
+- [x] #date in url
+- [ ] changeable time
+- [/] better UI
+- [ ] animation
+- [ ] changeable lang
+- [ ] #title in url
+- [ ] share link btn
+- [ ] rewrite README.md

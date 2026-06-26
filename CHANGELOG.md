@@ -1,0 +1,16 @@
+## LOG
+- 2026-06-23
+    - title font
+    - overlay blur when menu opened
+    - better UI on mobile
+- 2026-06-22
+    - #date in url
+- 2026-06-21
+    - add a hamburger button and a menu
+    - changeable target
+- 2026-06-19
+    - not showing 0
+- 2026-06-17
+    - month and years calc logic
+- 2026-06-16
+    - basic func and UI
