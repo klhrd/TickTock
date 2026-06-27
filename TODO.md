@@ -11,6 +11,6 @@
 - [/] better UI
 - [ ] animation
 - [ ] changeable lang
-- [ ] #title in url
+- [X] #title in url
 - [ ] share link btn
 - [ ] rewrite README.md

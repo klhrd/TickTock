@@ -63,7 +63,7 @@
                 padding: 0 10px;
             }
             
-            #target-label
+            #target-label, #event-label
             {
                 color: #fffa65;
                 align-items: center;
@@ -182,7 +182,7 @@
                 color: #c5c5c5;
             }
 
-            #date-input
+            #date-input, #title-input
             {
                 background: #ffffff10;
                 border: 1px solid #ffffff20;
@@ -255,6 +255,7 @@
             </button>
             <h1>Tick Tock</h1>
             <div class="target-box">
+                <span id="event-label"></span>
                 <span>距離</span>
                 <span id="target-label"></span>
                 <span>還有...</span>
@@ -265,10 +266,14 @@
                 <span class="material-icons">close</span>
             </button>
 
-            <h3>設定目標</h3>
+            <h3>設定</h3>
             <div class="menu-item">
                 <label for="date-input">更換目標日期：</label>
                 <input type="date" id="date-input">
+            </div>
+            <div class="menu-item" style="margin-top: 15px;">
+                <label for="title-input">修改事件名稱：</label>
+                <input type="text" id="title-input" placeholder="新年">
             </div>
         </aside>
         <main>
@@ -283,28 +288,33 @@
         </main>
         <div class="overlay" id="overlay"></div>
         <script>
-            let targetString=getInitialDate();
+            // default
+            let targetString="2027-01-01";
+            let eventTitle="目標日";
+            loadInitialState();
+
             let targetDate;
             let timerId;
 
-            function getInitialDate()
+            function loadInitialState()
             {
+                const hash=decodeURIComponent(window.location.hash.substring(1));
+               
                 // 1. url #tag
-                const hash=window.location.hash.substring(1);
-                if(hash&& /^\d{4}-\d{2}-\d{2}$/.test(hash))
+                if(hash&& /^\d{4}-\d{2}-\d{2}(&.*)?$/.test(hash))
                 {
+                    const parts=hash.split('&');
+                    targetString=parts[0];
+                    eventTitle=parts[1]||localStorage.getItem("eventTitle")||"目標";
                     return hash;
                 }
 
                 // 2. local storage
-                const local=localStorage.getItem("targetDate");
-                if(local)
-                {
-                    return local;
-                }
-                
-                // 3. default
-                return "2027-01-01";
+                const localDate=localStorage.getItem("targetDate");
+                const localTitle=localStorage.getItem("eventTitle");
+                if(localDate) targetString=localDate;
+                if(localTitle) eventTitle=localTitle;
+
             }
 
             function updateTimer()
@@ -409,26 +419,33 @@
                 document.getElementById("seconds").parentElement.style.display="";
             }
             
-            function initTimer(newDateString)
+            function initTimer(newDateString, newTitleString)
             {
                 targetString=newDateString;
+                if(newTitleString!==undefined) eventTitle=newTitleString;
+                
                 targetDate=new Date(targetString+"T00:00:00+08:00").getTime();
                 
+                // 更新畫面
                 document.getElementById("target-label").innerText=targetString;
                 document.getElementById("date-input").value=targetString;
-                
+                document.getElementById("event-label").innerText=eventTitle;
+                document.getElementById("title-input").value=eventTitle;
+
                 clearInterval(timerId);
                 timerId=setInterval(updateTimer,100);
                 updateTimer();
             }
             
+            // 事件監聽
             const sidebar=document.getElementById("sidebar");
             const menuBtn=document.querySelector(".menu-btn");
             const closeMenuBtn=document.getElementById("close-menu-btn");
             const dateInput=document.getElementById("date-input");
             const overLay=document.getElementById("overlay");
+            const titleInput=document.getElementById("title-input");
 
-            initTimer(targetString);
+            initTimer(targetString, eventTitle);
 
             menuBtn.addEventListener("click",()=>
             {
@@ -442,24 +459,37 @@
                 overLay.classList.remove("show");
             });
 
+            titleInput.addEventListener("change",(e)=>
+            {
+                const newTitle=e.target.value.trim();
+                
+                if(newTitle==="")newTitle="目標";
+
+                localStorage.setItem("eventTitle",newTitle);
+                window.location.hash=targetString+"&"+encodeURIComponent(newTitle);
+
+                initTimer(targetString, newTitle);
+            })
+
             dateInput.addEventListener("change",(e)=>
             {
                 const newDate=e.target.value;
-                // 防呆：沒選日期就跳出
+                // 防呆：沒選就跳出
                 if(!newDate)return;
 
                 localStorage.setItem("targetDate",newDate);
-                window.location.hash=newDate;
+                window.location.hash=newDate+"&"+encodeURIComponent(eventTitle);
 
-                initTimer(newDate);
+                initTimer(newDate, eventTitle);
             })
 
             window.addEventListener("hashchange",()=>
             {
-                const newHash=window.location.hash.substring(1);
-                if(newHash&&/^\d{4}-\d{2}-\d{2}$/.test(newHash))
+                const newHash=encodeURIComponent(window.location.hash.substring(1));
+                if(newHash&&/^\d{4}-\d{2}-\d{2}(&.*)?$/.test(newHash))
                 {
-                    initTimer(initTimer);
+                    const parts=newHash.split('&');
+                    initTimer(parts[0],parts[1]||"目標日");
                 }
             })
 

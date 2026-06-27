@@ -1,4 +1,6 @@
 ## LOG
+- 2026-06-28
+    - event label
 - 2026-06-23
     - title font
     - overlay blur when menu opened
