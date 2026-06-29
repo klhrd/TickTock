@@ -99,8 +99,8 @@ section
     align-items: center;
     color: #faf9db;
     font-size: 3rem;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: clamp(5px, 2vh, 30px);
     padding: 0 10px;
 }
 
@@ -226,7 +226,6 @@ section
     border-radius: 30px;
     text-align: center;
     min-width: 100px;
-    width: auto;
     box-sizing: border-box;
 }
 
@@ -301,7 +300,7 @@ section
 
     display: block;      /* 讓 margin 作用 */
     text-align: center;  /* 文字置中 */
-    margin-top: 40px;
+    margin-top: clamp(15px, 3vh, 40px);
     width: 100%;         /* 強制換行，推開到倒數方塊下方 */
 }
 
