@@ -1,5 +1,9 @@
 ## LOG
+- 2026-06-29
+    - add days mode
 - 2026-06-28
+    - build style.css script.js
+- 2026-06-27
     - event label
 - 2026-06-23
     - title font

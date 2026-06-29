@@ -7,10 +7,9 @@
 - [x] a menu
 - [x] changeable target
 - [x] #date in url
-- [ ] changeable time
+- [x] days mode
 - [/] better UI
 - [ ] animation
-- [ ] changeable lang
-- [X] #title in url
+- [x] #title in url
 - [ ] share link btn
 - [ ] rewrite README.md
