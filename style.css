@@ -25,37 +25,6 @@ section
     width: 100%;
 }
 
-@media (max-width: 600px) 
-{
-    section
-    {
-        gap: 10px;
-    }
-
-    .time-box
-    {
-        width: 75px;
-        padding: 15px 8px;
-        border-radius: 15px;
-    }
-
-    .time-box div 
-    {
-        font-size: 1.6rem;
-    }
-
-    .header h1 
-    {
-        font-size: 2rem;
-        margin: 10px;
-    }
-
-    #target-label
-    {
-        font-size: 1.3rem;
-    }
-}
-
 /* header header header header header header header header header header */
 
 .title-label h1
@@ -304,3 +273,33 @@ section
     width: 100%;         /* 強制換行，推開到倒數方塊下方 */
 }
 
+/* on moblie */
+
+@media (max-width: 600px) 
+{
+    section
+    {
+        gap: 10px;
+    }
+
+    .time-box div 
+    {
+        font-size: 1.6rem;
+    }
+    
+    .time-box.mode-single
+    {
+        padding: 10px 30px;
+    }
+    
+    .time-box.mode-single div
+    {
+        letter-spacing: 0.4rem;
+    }
+
+    .time-box.mode-single span
+    {
+        margin-top: -10px;
+    }
+
+}
