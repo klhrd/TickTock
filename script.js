@@ -231,9 +231,9 @@ shareMenuBtn.addEventListener("click",async()=>
 
     try
     {
-        if(navigation.share)
+        if(navigator.share)
         {
-            await navigation.share(shareData);
+            await navigator.share(shareData);
         }
         else
         {
