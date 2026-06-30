@@ -86,7 +86,7 @@ section
     background-color: #1a1f2a;
     box-shadow: -5px 0 15px #00000075;
 
-    padding: 30px 20px;
+    padding: 15px 20px;
     box-sizing: border-box;
     z-index: 1000;
 
@@ -99,7 +99,27 @@ section
     transform: translateX(0);
 }
 
-.close-btn
+.sidebar-header
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-header h3
+{
+    margin: 0px;
+}
+
+.header-actions
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.share-btn, .close-btn
 {
     background: #c5c5c530;
     border-radius: 12px;
@@ -107,24 +127,19 @@ section
     color: #c5c5c5;
     cursor: pointer;
     padding: 5px;
+    margin: 5px;
     
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
 }
 
-.close-btn:hover
+.share-btn:hover, .close-btn:hover
 {
     color: #ffffff;
 }
 
-.sidebar h3
-{
-    font-size: 1.4rem;
-    margin-top: auto;
-    margin-bottom: 20px;
-    color: #faf9db;
-}
 
 .mode-toggle-container
 {
@@ -191,11 +206,15 @@ section
 .time-box
 {
     background: #ffffff10;
-    padding: 20px 25px;
+    padding: 15px 20px;
     border-radius: 30px;
     text-align: center;
     min-width: 100px;
     box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .time-box.mode-single
@@ -212,6 +231,7 @@ section
     font-weight: bold;
     color: #fffa65;
 
+    width: max-content;
     /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */
     font-variant-numeric: tabular-nums;
 }
@@ -229,6 +249,7 @@ section
     color: #c5c5c5;
     display: block;
     margin: 5px;
+    width: 55px;
 }
 
 .time-box.mode-single span
@@ -282,6 +303,12 @@ section
         gap: 10px;
     }
 
+    .time-box
+    {
+        padding: 10px 5px;
+        border-radius: 15px;
+    }
+
     .time-box div 
     {
         font-size: 1.6rem;
@@ -289,7 +316,7 @@ section
     
     .time-box.mode-single
     {
-        padding: 10px 15px;
+        padding: 5px 15px;
     }
     
     .time-box.mode-single div

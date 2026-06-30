@@ -26,11 +26,18 @@
             <div id="event-label"></div>
         </header>
         <aside class="sidebar" id="sidebar">
-            <button class="close-btn" id="close-menu-btn">
-                <span class="material-icons">close</span>
-            </button>
-
-            <h3>設定</h3>
+            <div class="sidebar-header">
+                <h3>設定</h3>
+                <div class="header-actions" id="header-actions">
+                    <button class="share-btn" id="share-menu-btn">
+                        <span class="material-icons">share</span>
+                    </button>
+                    <button class="close-btn" id="close-menu-btn">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+            </div>
+            
             <div class="mode-toggle-container">
                 <button id="mode-full" class="mode-btn-item active">完整模式</button>
                 <button id="mode-days" class="mode-btn-item">天數模式</button>

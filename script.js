@@ -17,7 +17,6 @@ function loadInitialState()
         const parts=hash.split('&');
         targetString=parts[0];
         eventTitle=parts[1]||localStorage.getItem("eventTitle")||"Untitled";
-        return hash;
     }
     else
     {
@@ -188,6 +187,12 @@ function initTimer(newDateString, newTitleString)
             break;
     }
 
+    const currentExpectedHash="#"+targetString+"&"+encodeURIComponent(eventTitle);
+    if(window.location.hash!==currentExpectedHash)
+    {
+        // 使用 replaceState 可以替換網址而不觸發額外的瀏覽器上一頁歷史紀錄
+        window.history.replaceState(null,"",currentExpectedHash);
+    }
     clearInterval(timerId);
     timerId=setInterval(updateTimer,100);
     updateTimer();
@@ -197,9 +202,13 @@ function initTimer(newDateString, newTitleString)
 const sidebar=document.getElementById("sidebar");
 const menuBtn=document.querySelector(".menu-btn");
 const closeMenuBtn=document.getElementById("close-menu-btn");
+const shareMenuBtn=document.getElementById("share-menu-btn");
+
 const dateInput=document.getElementById("date-input");
-const overLay=document.getElementById("overlay");
 const titleInput=document.getElementById("title-input");
+
+const overLay=document.getElementById("overlay");
+
 const btnFull=document.getElementById("mode-full");
 const btnDays=document.getElementById("mode-days");
 
@@ -210,6 +219,43 @@ menuBtn.addEventListener("click",()=>
     sidebar.classList.add("open");
     overLay.classList.add("show");
 });
+
+shareMenuBtn.addEventListener("click",async()=>
+{
+    const shareData=
+    {
+        title: `Tick Tock - ${eventTitle}`,
+        text: `來看看這個倒數計時器：${eventTitle}`,
+        url: window.location.href // 包含當前日期與名稱的 hash 網址
+    }
+
+    try
+    {
+        if(navigation.share)
+        {
+            await navigation.share(shareData);
+        }
+        else
+        {
+            await navigator.clipboard.writeText(window.location.href);
+
+            const icon=shareMenuBtn.querySelector(".material-icons");
+            icon.innerText="check";
+            shareMenuBtn.style.color="#fffa65"
+
+            setTimeout(()=>
+            {
+                icon.innerText="share";
+                shareMenuBtn.style.color="";
+            },2000);
+
+        }
+    }
+    catch(err)
+    {
+        console.log("分享失敗或取消:", err);
+    }
+})
 
 closeMenuBtn.addEventListener("click",()=>
 {
@@ -274,3 +320,4 @@ overLay.addEventListener("click",()=>
     sidebar.classList.remove("open");
     overLay.classList.remove("show");
 });
+
