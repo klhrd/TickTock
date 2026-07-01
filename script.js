@@ -225,7 +225,7 @@ shareMenuBtn.addEventListener("click",async()=>
     const shareData=
     {
         title: `Tick Tock - ${eventTitle}`,
-        text: `來看看這個倒數計時器：${eventTitle}`,
+        text: `Check out this countdown timer:${eventTitle}`,
         url: window.location.href // 包含當前日期與名稱的 hash 網址
     }
 

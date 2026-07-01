@@ -1,4 +1,9 @@
 ## LOG
+- 2026-07-01
+    - remove Hans
+    - rewrite readme
+- 2026-06-30
+    - add share btn
 - 2026-06-29
     - add days mode
 - 2026-06-28

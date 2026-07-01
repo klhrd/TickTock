@@ -8,8 +8,8 @@
 - [x] changeable target
 - [x] #date in url
 - [x] days mode
-- [/] better UI
+- [x] better UI
 - [ ] animation
 - [x] #title in url
-- [ ] share link btn
+- [x] share link btn
 - [ ] rewrite README.md
