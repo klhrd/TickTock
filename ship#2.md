@@ -31,3 +31,9 @@ I've read all the replies of the ship#1. And lots of them mentioned the same thi
 ### 3. ABOUT DEVLOG
 
 > I've leveled up my devlog game for this update—documented all the engineering details and bugs I fixed this time.
+
+## TRY IT!
+
+- [2027 New Year](https://klhrd.github.io/TickTock/#2027-01-01&New%20Year)
+- [NC Finals Weekend](https://klhrd.github.io/TickTock/#2026-11-27&NC%20Finals%20Weekend)
+- [US Open](https://klhrd.github.io/TickTock/#2026-08-31&US%20Open)
