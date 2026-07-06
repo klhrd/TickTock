@@ -1,0 +1,192 @@
+---
+// src/pages/index.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+    <div slot="head">
+        <title>TickTock | Multi-Tool Hub</title>
+    </div>
+
+    <div slot="header-content">
+        <div class="title-label">
+            <h1>Tick Tock</h1>
+        </div>
+    </div>
+
+    <div slot="custom-menu">
+        <div class="menu-intro">
+            <h3>Welcome</h3>
+            <p>Select a tool from the directory below or use the quick links on the dashboard.</p>
+        </div>
+    </div>
+
+    <div slot="main-content" class="home-container">
+        <header class="hero">
+            <h2>TickTock Tool Hub</h2>
+            <p>Simplifying your time management with clean, functional tools.</p>
+        </header>
+
+        <section class="tool-grid">
+            <a href="/TickTock/countdown" class="tool-card">
+                <div class="card-icon">
+                    <span class="material-icons">hourglass_empty</span>
+                </div>
+
+                <div class="card-info">
+                    <h3>Countdown Clock</h3>
+                    <p>Track your important events with custom target dates.</p>
+                </div>
+            </a>
+
+            <div class="tool-card coming-soon">
+                <div class="card-icon">
+                    <span class="material-icons">more_horiz</span>
+                </div>
+
+                <div class="card-info">
+                    <h3>More Coming Soon</h3>
+                    <p>Stay tuned for Clock, Timer, and Stopwatch tools.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</BaseLayout>
+
+<style>
+.home-container
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 900px;
+    width: 100%;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh-60px);
+}
+
+.title-label h1
+{
+    font-family: 'Carter One', cursive;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    margin: 0;
+}
+
+.hero
+{
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.hero h2
+{
+    font-family: 'Carter One', cursive;
+    font-size: 3rem;
+    color: #fffa65;
+    margin-bottom: 10px;
+}
+
+.hero p
+{
+    color: #c5c5c5;
+    font-size: 1.1rem;
+}
+
+.tool-grid
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+.tool-card
+{
+    background: #ffffff08;
+    border: 1px solid #ffffff15;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.tool-card:hover
+{
+    background: #ffffff12;
+    border-color: #fffa65;
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+
+.card-icon
+{
+    background: #fffa6520;
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-icon .material-icons
+{
+    color: #faf9db;
+    font-size: 2rem;
+}
+
+.card-info h3
+{
+    color: #faf9db;
+    margin: 0 0 5px 0;
+    font-size: 1.2rem;
+}
+.card-info p
+{
+    color: #aaaaaa;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.coming-soon
+{
+    opacity: 0.5;
+    cursor: default;
+}
+
+.coming-soon:hover
+{
+    transform: none;
+    border-color: #ffffff15;
+}
+
+.menu-intro h3
+{
+    margin-top: 0;
+    color: #fffa65;
+}
+
+.menu-intro p
+{
+    font-size: 0.85rem;
+    color: #aaaaaa;
+    line-height: 1.6;
+}
+
+@media (max-width: 600px)
+{
+    .hero h2
+    {
+        font-size: 2rem;
+    }
+}
+
+</style>

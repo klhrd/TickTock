@@ -199,26 +199,15 @@ function initTimer(newDateString, newTitleString)
 }
 
 // 事件監聽
-const sidebar=document.getElementById("sidebar");
-const menuBtn=document.querySelector(".menu-btn");
-const closeMenuBtn=document.getElementById("close-menu-btn");
 const shareMenuBtn=document.getElementById("share-menu-btn");
 
 const dateInput=document.getElementById("date-input");
 const titleInput=document.getElementById("title-input");
 
-const overLay=document.getElementById("overlay");
-
 const btnFull=document.getElementById("mode-full");
 const btnDays=document.getElementById("mode-days");
 
 initTimer(targetString, eventTitle);
-
-menuBtn.addEventListener("click",()=>
-{
-    sidebar.classList.add("open");
-    overLay.classList.add("show");
-});
 
 shareMenuBtn.addEventListener("click",async()=>
 {
@@ -257,12 +246,6 @@ shareMenuBtn.addEventListener("click",async()=>
     }
 })
 
-closeMenuBtn.addEventListener("click",()=>
-{
-    sidebar.classList.remove("open");
-    overLay.classList.remove("show");
-});
-
 btnFull.addEventListener("click",()=>
 {
     displayMode="full";
@@ -283,7 +266,7 @@ btnDays.addEventListener("click",()=>
 
 titleInput.addEventListener("change",(e)=>
 {
-    const newTitle=e.target.value.trim();
+    let newTitle=e.target.value.trim();
     
     if(newTitle==="")newTitle="Untitled";
 
@@ -314,10 +297,3 @@ window.addEventListener("hashchange",()=>
         initTimer(parts[0],parts[1]||"Untitled");
     }
 })
-
-overLay.addEventListener("click",()=>
-{
-    sidebar.classList.remove("open");
-    overLay.classList.remove("show");
-});
-

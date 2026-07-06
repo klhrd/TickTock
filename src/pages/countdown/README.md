@@ -20,3 +20,8 @@ A long-term countdown timer for events.
 
 ## How to Use
 - Go [Tick Tock](https://klhrd.github.io/TickTock/) Website
+
+### Try Some Samples
+- [2027 New Year](https://klhrd.github.io/TickTock/#2027-01-01&New%20Year)
+- [NC Finals Weekend](https://klhrd.github.io/TickTock/#2026-11-27&NC%20Finals%20Weekend)
+- [US Open](https://klhrd.github.io/TickTock/#2026-08-31&US%20Open)

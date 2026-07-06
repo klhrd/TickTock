@@ -1,0 +1,14 @@
+# 依賴套件（npm install 產生的巨大資料夾）
+node_modules/
+
+# Astro 執行與編譯產生的快取、暫存資料夾
+.astro/
+dist/
+
+# 環境變數機密檔案（雖然你目前沒用，但先防禦）
+.env
+.env.*
+
+# 系統產生的雜物檔案
+.DS_Store
+Thumbs.db

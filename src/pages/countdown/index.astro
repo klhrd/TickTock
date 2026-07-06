@@ -1,15 +1,63 @@
+---
+// src/pages/countdown/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout>
+    <div slot="head">
+        <title>Tick Tock</title>
+    </div>
+
+    <div slot="header-content">
+        <div class="title-label">
+            <h1>Tick Tock</h1>
+        </div>
+        <div id="event-label"></div>
+    </div>
+
+    <div slot="custom-menu">
+        <div class="mode-toggle-container">
+            <button id="mode-full" class="mode-btn-item active">Full Mode</button>
+            <button id="mode-days" class="mode-btn-item">Days Mode</button>
+        </div>
+        <div class="menu-item" style="margin-top: 15px;">
+            <label for="date-input">Change Target Date:</label>
+            <input type="date" id="date-input">
+        </div>
+        <div class="menu-item" style="margin-top: 15px;">
+            <label for="title-input">Edit Event Title:</label>
+            <input type="text" id="title-input" placeholder="New Year">
+        </div>
+    </div>
+
+    <div slot="main-content" class="countdown-container">
+        <section>
+            <div class="time-box"><div id="years">00</div><span>years</span></div>
+            <div class="time-box"><div id="months">00</div><span>months</span></div>
+            <div class="time-box"><div id="days">00</div><span>days</span></div>
+            <div class="time-box"><div id="hours">00</div><span>hours</span></div>
+            <div class="time-box"><div id="minutes">00</div><span>minutes</span></div>
+            <div class="time-box"><div id="seconds">00</div><span>seconds</span></div>
+        </section>
+    </div>
+
+    <div slot="footer-content">
+        <div id="target-label"></div>
+    </div>
+
+    <script slot="foot-script" src="/src/pages/countdown/script.js"></script>
+</BaseLayout>
+
+<style>
 body
 {
-    background-color: #212836;
-    color: #faf9db;
     font-family: Carter One;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+    min-height: calc(100vh - 60px); /* 扣掉頂部 header 的高度 */
+    width: 100%;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -39,28 +87,6 @@ section
     margin: 0px;
 }
 
-.menu-btn
-{
-    background: #c5c5c530;
-    border-radius: 12px;
-    border: none;
-    color: #c5c5c5;
-    cursor: pointer;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: absolute;
-    top: 12px;
-    right: 15px;
-}
-
-.menu-btn.material-icons
-{
-    font-size: 1.5rem;
-}
-
 #event-label
 {
     flex-wrap: wrap;
@@ -75,77 +101,10 @@ section
 
 /* aside aside aside aside aside aside aside aside aside aside */
 
-.sidebar
-{
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    width: 280px;
-    height: 100vh;
-
-    background-color: #1a1f2a;
-    box-shadow: -5px 0 15px #00000075;
-
-    padding: 15px 20px;
-    box-sizing: border-box;
-    z-index: 1000;
-
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-}
-
-.sidebar.open
-{
-    transform: translateX(0);
-}
-
-.sidebar-header
-{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.sidebar-header h3
-{
-    margin: 0px;
-}
-
-.header-actions
-{
-    display: flex;
-    flex-direction: row;
-}
-
-.share-btn, .close-btn
-{
-    background: #c5c5c530;
-    border-radius: 12px;
-    border: none;
-    color: #c5c5c5;
-    cursor: pointer;
-    padding: 5px;
-    margin: 5px;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s ease;
-}
-
-.share-btn:hover, .close-btn:hover
-{
-    color: #ffffff;
-}
-
-
 .mode-toggle-container
 {
     display: flex;
     gap: 10px;
-    margin-top: 20px;
 }
 
 .mode-btn-item
@@ -257,28 +216,6 @@ section
     font-size: 1.5rem;
 }
 
-.overlay
-{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #00000070;
-    backdrop-filter: blur(5px);
-    z-index: 999;
-
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.overlay.show
-{
-    opacity: 1;
-    pointer-events: auto;
-}
-
 /* footer footer footer footer footer footer footer footer footer footer */
 
 #target-label
@@ -330,3 +267,4 @@ section
     }
 
 }
+</style>
