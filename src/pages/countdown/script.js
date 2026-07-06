@@ -9,6 +9,11 @@ let timerId;
 
 function loadInitialState()
 {
+    // 如果目前不是在瀏覽器環境（例如在伺服器端編譯），就直接中斷不執行
+    if (typeof window === 'undefined')
+    {
+        return;
+    }
     const hash=decodeURIComponent(window.location.hash.substring(1));
     
     // 1. url #tag

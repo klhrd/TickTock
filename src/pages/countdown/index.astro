@@ -44,9 +44,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <div id="target-label"></div>
     </div>
 
-    <script slot="foot-script">
-        import './script.js';
-    </script>
+    <script slot="foot-script" is:inline src="/TickTock/src/pages/countdown/script.js"></script>
 </BaseLayout>
 
 <style>
