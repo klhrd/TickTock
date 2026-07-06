@@ -44,7 +44,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <div id="target-label"></div>
     </div>
 
-    <script slot="foot-script" src="/src/pages/countdown/script.js"></script>
+    <script slot="foot-script">
+        import './script.js';
+    </script>
 </BaseLayout>
 
 <style>
