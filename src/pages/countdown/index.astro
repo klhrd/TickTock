@@ -1,6 +1,7 @@
 ---
 // src/pages/countdown/index.astro
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import countdownScript from "../../scripts/countdown.js?url";
 ---
 <BaseLayout>
     <div slot="head">
@@ -44,7 +45,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <div id="target-label"></div>
     </div>
 
-    <script slot="foot-script" is:inline src="/TickTock/src/pages/countdown/script.js"></script>
+    <script
+        slot="foot-script"
+        type="module"
+        src={countdownScript}>
+    </script>
 </BaseLayout>
 
 <style>

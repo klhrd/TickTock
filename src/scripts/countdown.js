@@ -2,7 +2,6 @@
 let targetString="2027-01-01";
 let eventTitle="New Year";
 let displayMode="full"; // "full", "days"
-loadInitialState();
 
 let targetDate;
 let timerId;
@@ -203,102 +202,114 @@ function initTimer(newDateString, newTitleString)
     updateTimer();
 }
 
-// 事件監聽
-const shareMenuBtn=document.getElementById("share-menu-btn");
-
-const dateInput=document.getElementById("date-input");
-const titleInput=document.getElementById("title-input");
-
-const btnFull=document.getElementById("mode-full");
-const btnDays=document.getElementById("mode-days");
-
-initTimer(targetString, eventTitle);
-
-shareMenuBtn.addEventListener("click",async()=>
+function initializeApp()
 {
-    const shareData=
-    {
-        title: `Tick Tock - ${eventTitle}`,
-        text: `Check out this countdown timer:${eventTitle}`,
-        url: window.location.href // 包含當前日期與名稱的 hash 網址
-    }
+    // 事件監聽
+    const shareMenuBtn=document.getElementById("share-menu-btn");
 
-    try
+    const dateInput=document.getElementById("date-input");
+    const titleInput=document.getElementById("title-input");
+
+    const btnFull=document.getElementById("mode-full");
+    const btnDays=document.getElementById("mode-days");
+
+    initTimer(targetString, eventTitle);
+
+    shareMenuBtn?.addEventListener("click",async()=>
     {
-        if(navigator.share)
+        const shareData=
         {
-            await navigator.share(shareData);
+            title: `Tick Tock - ${eventTitle}`,
+            text: `Check out this countdown timer:${eventTitle}`,
+            url: window.location.href // 包含當前日期與名稱的 hash 網址
         }
-        else
+
+        try
         {
-            await navigator.clipboard.writeText(window.location.href);
-
-            const icon=shareMenuBtn.querySelector(".material-icons");
-            icon.innerText="check";
-            shareMenuBtn.style.color="#fffa65"
-
-            setTimeout(()=>
+            if(navigator.share)
             {
-                icon.innerText="share";
-                shareMenuBtn.style.color="";
-            },2000);
+                await navigator.share(shareData);
+            }
+            else
+            {
+                await navigator.clipboard.writeText(window.location.href);
 
+                const icon=shareMenuBtn.querySelector(".material-icons");
+                icon.innerText="check";
+                shareMenuBtn.style.color="#fffa65"
+
+                setTimeout(()=>
+                {
+                    icon.innerText="share";
+                    shareMenuBtn.style.color="";
+                },2000);
+
+            }
         }
-    }
-    catch(err)
+        catch(err)
+        {
+            console.log("分享失敗或取消:", err);
+        }
+    })
+
+    btnFull?.addEventListener("click",()=>
     {
-        console.log("分享失敗或取消:", err);
-    }
-})
+        displayMode="full";
+        localStorage.setItem("displayMode","full");
+        btnFull.classList.add("active");
+        btnDays.classList.remove("active");
+        updateTimer();
+    })
 
-btnFull.addEventListener("click",()=>
-{
-    displayMode="full";
-    localStorage.setItem("displayMode","full");
-    btnFull.classList.add("active");
-    btnDays.classList.remove("active");
-    updateTimer();
-})
-
-btnDays.addEventListener("click",()=>
-{
-    displayMode="days";
-    localStorage.setItem("displayMode","days");
-    btnDays.classList.add("active");
-    btnFull.classList.remove("active");
-    updateTimer();
-})
-
-titleInput.addEventListener("change",(e)=>
-{
-    let newTitle=e.target.value.trim();
-    
-    if(newTitle==="")newTitle="Untitled";
-
-    localStorage.setItem("eventTitle",newTitle);
-    window.location.hash=targetString+"&"+encodeURIComponent(newTitle);
-
-    initTimer(targetString, newTitle);
-})
-
-dateInput.addEventListener("change",(e)=>
-{
-    const newDate=e.target.value;
-    // 防呆：沒選就跳出
-    if(!newDate)return;
-
-    localStorage.setItem("targetDate",newDate);
-    window.location.hash=newDate+"&"+encodeURIComponent(eventTitle);
-
-    initTimer(newDate, eventTitle);
-})
-
-window.addEventListener("hashchange",()=>
-{
-    const newHash=decodeURIComponent(window.location.hash.substring(1));
-    if(newHash&&/^\d{4}-\d{2}-\d{2}(&.*)?$/.test(newHash))
+    btnDays?.addEventListener("click",()=>
     {
-        const parts=newHash.split('&');
-        initTimer(parts[0],parts[1]||"Untitled");
-    }
-})
+        displayMode="days";
+        localStorage.setItem("displayMode","days");
+        btnDays.classList.add("active");
+        btnFull.classList.remove("active");
+        updateTimer();
+    })
+
+    titleInput?.addEventListener("change",(e)=>
+    {
+        let newTitle=e.target.value.trim();
+        
+        if(newTitle==="")newTitle="Untitled";
+
+        localStorage.setItem("eventTitle",newTitle);
+        window.location.hash=targetString+"&"+encodeURIComponent(newTitle);
+
+        initTimer(targetString, newTitle);
+    })
+
+    dateInput?.addEventListener("change",(e)=>
+    {
+        const newDate=e.target.value;
+        // 防呆：沒選就跳出
+        if(!newDate)return;
+
+        localStorage.setItem("targetDate",newDate);
+        window.location.hash=newDate+"&"+encodeURIComponent(eventTitle);
+
+        initTimer(newDate, eventTitle);
+    })
+
+    window.addEventListener("hashchange",()=>
+    {
+        const newHash=decodeURIComponent(window.location.hash.substring(1));
+        if(newHash&&/^\d{4}-\d{2}-\d{2}(&.*)?$/.test(newHash))
+        {
+            const parts=newHash.split('&');
+            initTimer(parts[0],parts[1]||"Untitled");
+        }
+    })
+}
+
+if (typeof window !== "undefined")
+{
+    window.addEventListener("DOMContentLoaded",()=>
+    {
+        loadInitialState();
+        initializeApp();
+    });
+}
