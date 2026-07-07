@@ -80,12 +80,20 @@
         </script>
 
         <style>
-
-            body {
+            body
+            {
+                font-family: Carter One;
                 background-color: #212836;
                 color: #faf9db;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                min-height: calc(100vh - 60px); /* 扣掉頂部 header 的高度 */
+                width: 100%;
+                padding: 20px;
                 margin: 0;
-                padding: 0px;
                 box-sizing: border-box;
             }
             /* header header header header header header header header header header */
@@ -137,7 +145,7 @@
                 height: 100vh;
 
                 color: #faf9db;
-                box-shadow: -5px 0 15px #00000075;
+                box-shadow: -5px 0 15px #00000000;
                 
                 padding: 15px 20px;
                 box-sizing: border-box;
@@ -157,6 +165,7 @@
             .sidebar.open
             {
                 transform: translateX(0);
+                box-shadow: -5px 0 15px #00000075;
             }
 
             .sidebar-header
@@ -207,18 +216,21 @@
                 overflow-y: auto;
             }
 
+            ::-webkit-scrollbar, 
             .custom-menu-content::-webkit-scrollbar
             {
                 /* 讓捲動條變細 */
                 width: 6px;
             }
 
+            ::-webkit-scrollbar-track, 
             .custom-menu-content::-webkit-scrollbar-track
             {
                 /* 軌道透明 */
                 background: transparent;
             }
 
+            ::-webkit-scrollbar-thumb, 
             .custom-menu-content::-webkit-scrollbar-thumb
             {
                 /* 滾輪主體設定為半透明白 */
@@ -226,11 +238,13 @@
                 border-radius: 10px;
             }
 
+            ::-webkit-scrollbar-thumb:hover, 
             .custom-menu-content::-webkit-scrollbar-thumb:hover
             {
                 /* 滑鼠懸停時變亮一點 */
                 background: #ffffff40;
             }
+
             .menu-divider
             {
                 border: 0;
@@ -266,7 +280,7 @@
                 transition: color 0.2s ease;
 
                 /* 偽縮排 */
-                padding-left: 25px;
+                padding-left: 20px;
             }
 
             .director-link a:hover
