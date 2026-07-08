@@ -49,21 +49,53 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     <p>Stay tuned for Clock, Timer, and Stopwatch tools.</p>
                 </div>
             </div>
+            <div class="tool-card coming-soon">
+                <div class="card-icon">
+                    <span class="material-icons">more_horiz</span>
+                </div>
+
+                <div class="card-info">
+                    <h3>More Coming Soon</h3>
+                    <p>Stay tuned for Clock, Timer, and Stopwatch tools.</p>
+                </div>
+            </div>
+            <div class="tool-card coming-soon">
+                <div class="card-icon">
+                    <span class="material-icons">more_horiz</span>
+                </div>
+
+                <div class="card-info">
+                    <h3>More Coming Soon</h3>
+                    <p>Stay tuned for Clock, Timer, and Stopwatch tools.</p>
+                </div>
+            </div>
         </section>
     </div>
 </BaseLayout>
 
 <style>
+* 
+{
+    box-sizing: border-box; /* 確保所有元素的 padding 不會撐開寬度 */
+}
+
+body 
+{
+    margin: 0;   /* 關鍵：清除瀏覽器內建的外邊距 */
+    padding: 0;
+}
+
 .home-container
 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 900px;
-    width: 100%;
+    width: 100svw;             /* 建議將 100svw 改為 100%，對瀏覽器相容性更好 */
+    box-sizing: border-box;   /* 關鍵：讓 padding 包含在 100% 寬度內，不爆出螢幕 */
+    overflow-x: hidden;      /* 保險：防止任何意外的水平捲軸 */
     padding: 40px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: calc(100vh-60px);
+    min-height: calc(100vh - 60px);
 }
 
 .title-label h1
@@ -99,9 +131,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 .tool-grid
 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
+
     width: 100%;
+    max-width: 1200px;
 }
 
 .tool-card
@@ -115,6 +149,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     gap: 20px;
     text-decoration: none;
     transition: all 0.3s ease;
+
+    width: 100%;             /* 讓卡片寬度百分之百服從 Grid 的分配 */
+    box-sizing: border-box;   /* 確保卡片內襯 padding 不會撐大卡片 */
 }
 
 .tool-card:hover
@@ -134,6 +171,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex-shrink: 0;
 }
 
 .card-icon .material-icons
