@@ -9,11 +9,11 @@
     </tr>
 </table>
 
-<div style="text-align: center; font-size: 3rem; font-weight: bold;">
+<h1 align="center"><b><font size="12">
     <a href="https://klhrd.github.io/TickTock/">
         TickTock
     </a>
-</div>
+</font></b></h1>
 
 <p align="center">
     <img src="https://github.com/klhrd/TickTock/actions/workflows/deploy.yml/badge.svg" alt="GitHub Actions Build Status">
