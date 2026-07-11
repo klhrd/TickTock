@@ -12,4 +12,4 @@
 - [ ] animation
 - [x] #title in url
 - [x] share link btn
-- [ ] rewrite README.md
+- [x] rewrite README.md

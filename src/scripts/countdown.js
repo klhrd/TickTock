@@ -222,7 +222,7 @@ function initializeApp()
             title: `Tick Tock - ${eventTitle}`,
             text: `Check out this countdown timer:${eventTitle}`,
             url: window.location.href // 包含當前日期與名稱的 hash 網址
-        }
+        };
 
         try
         {
@@ -250,7 +250,7 @@ function initializeApp()
         {
             console.log("分享失敗或取消:", err);
         }
-    })
+    });
 
     btnFull?.addEventListener("click",()=>
     {
@@ -259,7 +259,7 @@ function initializeApp()
         btnFull.classList.add("active");
         btnDays.classList.remove("active");
         updateTimer();
-    })
+    });
 
     btnDays?.addEventListener("click",()=>
     {
@@ -268,7 +268,7 @@ function initializeApp()
         btnDays.classList.add("active");
         btnFull.classList.remove("active");
         updateTimer();
-    })
+    });
 
     titleInput?.addEventListener("change",(e)=>
     {
@@ -280,7 +280,7 @@ function initializeApp()
         window.location.hash=targetString+"&"+encodeURIComponent(newTitle);
 
         initTimer(targetString, newTitle);
-    })
+    });
 
     dateInput?.addEventListener("change",(e)=>
     {
@@ -292,7 +292,7 @@ function initializeApp()
         window.location.hash=newDate+"&"+encodeURIComponent(eventTitle);
 
         initTimer(newDate, eventTitle);
-    })
+    });
 
     window.addEventListener("hashchange",()=>
     {
@@ -302,7 +302,7 @@ function initializeApp()
             const parts=newHash.split('&');
             initTimer(parts[0],parts[1]||"Untitled");
         }
-    })
+    });
 }
 
 if (typeof window !== "undefined")
