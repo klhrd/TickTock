@@ -1,11 +1,13 @@
 <table align="center" border="0" cellpadding="0" cellspacing="10">
     <tr>
-        <td width="50%"><img src="./public/images/home.png" width="100%"></td>
-        <td width="50%"><img src="./public/images/countdown.png" width="100%"></td>
+        <td width="33%"><img src="./public/images/home.png" width="100%"></td>
+        <td width="33%"><img src="./public/images/countdown.png" width="100%"></td>
+        <td width="33%"><img src="./public/images/digital-clock.png" width="100%"></td>
     </tr>
     <tr>
         <td>Home</td>
         <td>Countdown</td>
+        <td>Digital Clock</td>
     </tr>
 </table>
 
@@ -36,9 +38,10 @@ TickTock will expand to include the following time utility tools:
 
 - [x] [**Home Page Hub**](https://klhrd.github.io/TickTock/)
 - [x] [**Long-term Countdown**](https://klhrd.github.io/TickTock/countdown)
+- [x] [**Digital Clock**](https://klhrd.github.io/TickTock/digital-clock)
+- [ ] 🎯 **Minimalist Timer** (coming soon)
 - [ ] ⏳ **Pomodoro Timer** (coming soon)
 - [ ] 🌐 **World Clock Board** (coming soon)
-- [ ] 🎯 **Minimalist Timer** (coming soon)
 - [ ] 📊 **Time Progress Bar** (coming soon)
 
 ---
@@ -53,10 +56,13 @@ src/
 │   └── BaseLayout.astro       # Unified layout (Sidebar, Header, Overlay)
 ├── pages/
 │   ├── index.astro            # Dashboard Hub / Home
-│   └── countdown/
-│       └── index.astro        # Countdown Clock tool page
+│   ├── countdown/
+│   │   └── index.astro        # Countdown Clock tool page
+│   └── digital-clock/
+│       └── index.astro        # Digital Clock tool page
 ├── scripts/
-│   └── countdown.js           # Client-side countdown logic
+│   ├── countdown.js           # Client-side countdown logic
+│   └── digital-clock.js       # Client-side clock logic
 └── styles/
     └── (Scoped styles within Astro components)
 
