@@ -219,7 +219,7 @@ function initializeApp()
     {
         const shareData=
         {
-            title: `Tick Tock - ${eventTitle}`,
+            title: `TickTock - ${eventTitle}`,
             text: `Check out this countdown timer:${eventTitle}`,
             url: window.location.href // 包含當前日期與名稱的 hash 網址
         };
@@ -234,21 +234,24 @@ function initializeApp()
             {
                 await navigator.clipboard.writeText(window.location.href);
 
-                const icon=shareMenuBtn.querySelector(".material-icons");
-                icon.innerText="check";
-                shareMenuBtn.style.color="#fffa65"
-
-                setTimeout(()=>
+                const icon=shareMenuBtn.querySelector(".material-symbols-outlined");
+                
+                if(icon)
                 {
-                    icon.innerText="share";
-                    shareMenuBtn.style.color="";
-                },2000);
+                    icon.innerText="check";
+                    shareMenuBtn.style.color="#fffa65"
 
+                    setTimeout(()=>
+                    {
+                        icon.innerText="share";
+                        shareMenuBtn.style.color="";
+                    },2000);
+                }
             }
         }
         catch(err)
         {
-            console.log("分享失敗或取消:", err);
+            console.log("Fail to Share: ", err);
         }
     });
 

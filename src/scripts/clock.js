@@ -8,6 +8,93 @@ let state=
     isFullscreen:false
 };
 
+function loadSavedState()
+{
+    if (typeof window==="undefined")return;
+
+    const hash=window.location.hash.replace('#','');
+    let saved24hr=localStorage.getItem('clock_is24hr');
+    let savedFont=localStorage.getItem('clock_fontStyle');
+    
+    if(hash)
+    {
+        const params=hash.split('&');
+        params.forEach(param=>
+        {
+            if(param==='12hr')saved24hr='false';
+            if(param==='24hr')saved24hr='true';
+            if(['sans','serif','mono'].includes(param))savedFont=param;
+        });
+    }
+
+    if(saved24hr!==null)state.is24hr=(saved24hr==='true');
+    if(savedFont!==null)state.fontStyle=savedFont;
+
+}
+
+function syncStateToURLAndStorage()
+{
+    if(typeof window==="undefined")return;
+
+    const hrParam=state.is24hr?'24hr':'12hr';
+
+    localStorage.setItem('clock_is24hr',state.is24hr);
+    localStorage.setItem('clock_fontStyle',state.fontStyle);
+
+    window.location.hash=`${hrParam}&${state.fontStyle}`;
+}
+
+function applyStateToUI()
+{
+    const btn24hr=document.getElementById("btn-24hr");
+    const btn12hr=document.getElementById("btn-12hr");
+
+    if(state.is24hr)
+    {
+        btn24hr.classList.add("active");
+        btn12hr.classList.remove("active");
+    }
+    else
+    {
+        btn12hr.classList.add("active");
+        btn24hr.classList.remove("active");
+    }
+
+    const fontBtns=
+    {
+        sans:document.getElementById("font-sans"),
+        serif:document.getElementById("font-serif"),
+        mono:document.getElementById("font-mono")
+    };
+
+    Object.keys(fontBtns).forEach(key=>
+    {
+        if (key===state.fontStyle)
+            fontBtns[key]?.classList.add("active");
+        else
+            fontBtns[key]?.classList.remove("active");
+    });
+
+    let fontValue='ui-sans-serif, system-ui, sans-serif';
+
+    switch (state.fontStyle)
+    {
+        case 'sans':
+            fontValue='ui-sans-serif, system-ui, sans-serif';
+            break;
+        case 'serif':
+            fontValue='ui-serif, Georgia, serif';
+            break;
+        case 'mono':
+            fontValue='ui-monospace, monospace';
+            break;
+    }
+
+    document.documentElement.style.setProperty('--clock-font',fontValue);
+
+}
+
+
 // DOM
 let txtHours, txtMinutes, txtSeconds, txtAmPm, colons, dateLabel;
 
@@ -21,6 +108,10 @@ function initClock()
     txtAmPm=document.getElementById("txt-ampm");
     colons=document.querySelectorAll(".colon");
     dateLabel=document.getElementById("date-label");
+
+    loadSavedState();
+    applyStateToUI();
+    syncStateToURLAndStorage();
 
     startClockLoop();
     startColonAnimation();
@@ -49,7 +140,7 @@ function startClockLoop()
 
         if(!state.is24hr)
         {
-            const ampm=hours>=12?'PM':'AM';
+            const ampm=hours>=12?'Post Meridiem':'Ante Meridiem';
             txtAmPm.innerText=ampm;
             hours=hours%12;
             hours=hours?hours:12;
@@ -100,15 +191,15 @@ function initListeners()
     btn24hr?.addEventListener("click",()=>
     {
         state.is24hr=true;
-        btn24hr.classList.add("active");
-        btn12hr.classList.remove("active");
+        applyStateToUI();
+        syncStateToURLAndStorage();
     });
 
     btn12hr?.addEventListener("click",()=>
     {
         state.is24hr=false;
-        btn12hr.classList.add("active");
-        btn24hr.classList.remove("active");
+        applyStateToUI();
+        syncStateToURLAndStorage();
     });
 
     const fontBtns=
@@ -117,42 +208,27 @@ function initListeners()
         serif:document.getElementById("font-serif"),
         mono:document.getElementById("font-mono")
     };
-    const clockContainer=document.querySelector(".clock-container");
 
-    function updateFont(selectedStyle)
-    {
-        state.fontStyle=selectedStyle;
-
-        // 移除所有字體按鈕的 active 狀態，並為當前選中的加上 active
-        Object.keys(fontBtns).forEach(key=>
-        {
-            if (key===selectedStyle)
-                fontBtns[key]?.classList.add("active");
-            else
-                fontBtns[key]?.classList.remove("active");
-        });
-
-        if(clockContainer)
-        {
-            switch (selectedStyle)
-            {
-                case 'sans':
-                    clockContainer.style.fontFamily='ui-sans-serif, system-ui, sans-serif';
-                    break;
-                case 'serif':
-                    clockContainer.style.fontFamily='ui-serif, Georgia, serif';
-                    break;
-                case 'mono':
-                    clockContainer.style.fontFamily='ui-monospace, monospace';
-                    break;
-            }
-        }
-    }
     // 綁定三個字體按鈕的點擊事件
-    fontBtns.sans?.addEventListener("click",()=>updateFont('sans'));
-    fontBtns.serif?.addEventListener("click",()=>updateFont('serif'));
-    fontBtns.mono?.addEventListener("click",()=>updateFont('mono'));
-
+    fontBtns.sans?.addEventListener("click",()=>
+    {
+        state.fontStyle='sans';
+        applyStateToUI();
+        syncStateToURLAndStorage();
+    });
+    fontBtns.serif?.addEventListener("click",()=>
+    {
+        state.fontStyle='serif';
+        applyStateToUI();
+        syncStateToURLAndStorage();
+    });
+    fontBtns.mono?.addEventListener("click",()=>
+    {
+        state.fontStyle='mono';
+        applyStateToUI();
+        syncStateToURLAndStorage();
+    });
+    
     const btnFullscreen=document.getElementById("btn-fullscreen");
     const btnFullscreenExit=document.getElementById("btn-fullscreen-exit");
     const clockScreen=document.getElementById("clock-screen");
@@ -196,6 +272,48 @@ function initListeners()
     {
         const isCurrentlyFullscreen=!!document.fullscreenElement;
         updateFullscreenBtns(isCurrentlyFullscreen);
+    });
+
+    const shareMenuBtn=document.getElementById("share-menu-btn");
+
+    shareMenuBtn?.addEventListener("click",async()=>
+    {
+        const shareData=
+        {
+            title: `TickTock | Clock`,
+            text: `Check out this digital clock!`,
+            url: window.location.href // 包含當前日期與名稱的 hash 網址
+        };
+
+        try
+        {
+            if(navigator.share)
+            {
+                await navigator.share(shareData);
+            }
+            else
+            {
+                await navigator.clipboard.writeText(window.location.href);
+
+                const icon=shareMenuBtn.querySelector(".material-symbols-outlined");
+                
+                if(icon)
+                {
+                    icon.innerText="check";
+                    shareMenuBtn.style.color="#fffa65"
+
+                    setTimeout(()=>
+                    {
+                        icon.innerText="share";
+                        shareMenuBtn.style.color="";
+                    },2000);
+                }
+            }
+        }
+        catch(err)
+        {
+            console.log("Fail to Share: ", err);
+        }
     });
 
 }

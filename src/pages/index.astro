@@ -30,18 +30,29 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <section class="tool-grid">
             <a href="/TickTock/countdown" class="tool-card">
                 <div class="card-icon">
-                    <span class="material-icons">hourglass_empty</span>
+                    <span class="material-symbols-outlined">calendar_clock</span>
                 </div>
 
                 <div class="card-info">
-                    <h3>Countdown Clock</h3>
+                    <h3>Countdown Timer</h3>
                     <p>Track your important events with custom target dates.</p>
                 </div>
             </a>
 
+            <a href="/TickTock/clock" class="tool-card">
+                <div class="card-icon">
+                    <span class="material-symbols-outlined">nest_clock_farsight_digital</span>
+                </div>
+
+                <div class="card-info">
+                    <h3>Digital Clock</h3>
+                    <p>A beautiful digital clock with customizable formats and fonts.</p>
+                </div>
+            </a>
+            
             <div class="tool-card coming-soon">
                 <div class="card-icon">
-                    <span class="material-icons">more_horiz</span>
+                    <span class="material-symbols-outlined">more_horiz</span>
                 </div>
 
                 <div class="card-info">
@@ -51,17 +62,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             </div>
             <div class="tool-card coming-soon">
                 <div class="card-icon">
-                    <span class="material-icons">more_horiz</span>
-                </div>
-
-                <div class="card-info">
-                    <h3>More Coming Soon</h3>
-                    <p>Stay tuned for Clock, Timer, and Stopwatch tools.</p>
-                </div>
-            </div>
-            <div class="tool-card coming-soon">
-                <div class="card-icon">
-                    <span class="material-icons">more_horiz</span>
+                    <span class="material-symbols-outlined">more_horiz</span>
                 </div>
 
                 <div class="card-info">
@@ -175,7 +176,7 @@ body
     flex-shrink: 0;
 }
 
-.card-icon .material-icons
+.card-icon .material-symbols-outlined
 {
     color: #faf9db;
     font-size: 2rem;
@@ -255,21 +256,24 @@ body
                 {
                     await navigator.clipboard.writeText(window.location.href);
 
-                    const icon=shareMenuBtn.querySelector(".material-icons");
-                    if(icon)icon.innerText="check";
-                    shareMenuBtn.style.color="#fffa65"
-
-                    setTimeout(()=>
+                    const icon=shareMenuBtn.querySelector(".material-symbols-outlined");
+                
+                    if(icon)
                     {
-                        icon.innerText="share";
-                        shareMenuBtn.style.color="";
-                    },2000);
+                        icon.innerText="check";
+                        shareMenuBtn.style.color="#fffa65"
 
+                        setTimeout(()=>
+                        {
+                            icon.innerText="share";
+                            shareMenuBtn.style.color="";
+                        },2000);
+                    }
                 }
             }
             catch(err)
             {
-                console.log("分享失敗或取消:", err);
+                console.log("Fail to Share: ", err);
             }
         });
     }
