@@ -256,9 +256,10 @@ function initListeners()
 
     btnFullscreen?.addEventListener("click",()=>
     {
-        if(clockScreen&&clockScreen.requestFullscreen)
+        const rootElement=document.documentElement;
+        if(rootElement&&rootElement.requestFullscreen)
         {
-            clockScreen.requestFullscreen()
+            rootElement.requestFullscreen()
                 .then(()=>updateFullscreenBtns(true))
                 .catch(err=>console.log("Fail to Fullscreen: ",err));
         }

@@ -71,6 +71,49 @@ import clockScript from "../../scripts/digital-clock.js?url";
     --clock-colon-width:clamp(1rem, calc(7vw - 1.2rem), 8rem);
 }
 
+/* ==========================================================================
+   當 HTML 最頂層進入全螢幕時的版面修正
+   ========================================================================== */
+:root:fullscreen,
+:root:-webkit-full-screen 
+{
+    background-color: #212836 !important;
+}
+
+/* 確保全螢幕下，整頁的 Layout 容器高度撐滿，且不會隱藏/剪裁子元素 */
+:root:fullscreen body,
+:root:-webkit-full-screen body
+{
+    height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important; /* 防止出現滾動條 */
+}
+
+/* 確保時鐘主容器在全螢幕下，會自動伸縮，把 header 與 footer 撐到兩端 */
+:root:fullscreen .time-container,
+:root:-webkit-full-screen .time-container
+{
+    flex: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+}
+
+/* 確保全螢幕下，Header 與 Footer 的 Z-Index 在最上層，且維持正常高度 */
+:root:fullscreen header,
+:root:-webkit-full-screen header,
+:root:fullscreen footer,
+:root:-webkit-full-screen footer,
+:root:fullscreen .menu-btn,
+:root:-webkit-full-screen .menu-btn
+{
+    position: relative !important;
+    z-index: 100 !important; /* 確保不會被時鐘的背景色蓋過去 */
+    display: flex !important; /* 強制顯示，避免被其他 CSS 隱藏 */
+}
+
 #date-label,
 .clock-container,
 #txt-ampm,
