@@ -6,7 +6,7 @@ node_modules/
 dist/
 
 # 筆記檔案
-src/pages/countdown/docs
+/docs
 
 # 環境變數機密檔案（雖然你目前沒用，但先防禦）
 .env

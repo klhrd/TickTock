@@ -3,15 +3,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import countdownScript from "../../scripts/countdown.js?url";
 ---
+
 <BaseLayout>
     <div slot="head">
         <title>TickTock | Countdown</title>
     </div>
 
     <div slot="header-content">
-        <div class="title-label">
-            <h1>Tick Tock</h1>
-        </div>
         <div id="event-label"></div>
     </div>
 
@@ -65,18 +63,6 @@ section
 }
 
 /* header header header header header header header header header header */
-
-.title-label h1
-{
-    font-family: Carter One;
-    font-size: 1.5rem;
-    
-    position: absolute;
-    left: 15px;
-    top: 12px;
-
-    margin: 0px;
-}
 
 #event-label
 {
