@@ -74,7 +74,7 @@ import clockScript from "../../scripts/digital-clock.js?url";
 :root:fullscreen,
 :root:-webkit-full-screen 
 {
-    background-color: #212836 !important;
+    background-color: var(--bg-app) !important;
 }
 
 /* 確保全螢幕下，整頁的 Layout 容器高度撐滿，且不會隱藏/剪裁子元素 */
@@ -127,7 +127,7 @@ import clockScript from "../../scripts/digital-clock.js?url";
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    color: #faf9db;
+    color: var(--text-heading);
     font-size: clamp(0.5rem, calc(8vw - 1.2rem), 3rem);
     margin-top: clamp(-8px, calc(12.5vh - 36.25px), 30px);
     margin-bottom: clamp(-8px, calc(12.5vh - 36.25px), 30px);
@@ -145,10 +145,10 @@ import clockScript from "../../scripts/digital-clock.js?url";
 .toggle-btn
 {
     flex: 1;
-    background: #ffffff10;
-    border: 1px solid #ffffff20;
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-standard);
     border-radius: 8px;
-    color: #c5c5c5;
+    color: var(--text-secondary);
     padding: 8px;
     font-size: 0.9rem;
     font-family: inherit;
@@ -162,15 +162,16 @@ import clockScript from "../../scripts/digital-clock.js?url";
 
 .toggle-btn:hover
 {
-    background: #ffffff20;
-    color: #faf9db;
+    background: var(--component-bg-hover);
+    border-color: var(--border-hover);
+    color: var(--text-heading);
 }
 
 .toggle-btn.active
 {
-    background: #fffa65;
-    border-color: #fffa65;
-    color: #212836;
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--accent-contract-text);
     font-weight: bold;
 }
 
@@ -184,7 +185,7 @@ import clockScript from "../../scripts/digital-clock.js?url";
 .menu-item label
 {
     font-size: 0.9rem;
-    color: #c5c5c5;
+    color: var(--text-secondary);
 }
 
 #font-selector
@@ -197,10 +198,10 @@ import clockScript from "../../scripts/digital-clock.js?url";
 .font-btn
 {
     flex: none;
-    background: #ffffff10;
-    border: 1px solid #ffffff20;
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-standard);
     border-radius: 8px;
-    color: #c5c5c5;
+    color: var(--text-secondary);
     padding: 8px;
     font-size: 0.9rem;
     font-family: inherit;
@@ -210,15 +211,16 @@ import clockScript from "../../scripts/digital-clock.js?url";
 
 .font-btn:hover
 {
-    background: #ffffff20;
-    color: #faf9db;
+    background: var(--component-bg-hover);
+    border-color: var(--border-hover);
+    color: var(--text-heading);
 }
 
 .font-btn.active
 {
-    background: #fffa65;
-    border-color: #fffa65;
-    color: #212836;
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--accent-contract-text);
     font-weight: bold;
 }
 
@@ -264,7 +266,7 @@ import clockScript from "../../scripts/digital-clock.js?url";
 {
     font-size: clamp(2rem, calc(20vw - 0.5rem), 12rem);
     font-weight: bold;
-    color: #fffa65;
+    color: var(--accent-color);
 
     width: max-content;
     /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */
@@ -279,7 +281,7 @@ import clockScript from "../../scripts/digital-clock.js?url";
 .colon
 {
     font-size: clamp(1rem, calc(12vw - 1.5rem), 8rem);
-    color: #c5c5c5;
+    color: var(--text-secondary);
     display: block;
     margin: 5px;
     
@@ -290,7 +292,7 @@ import clockScript from "../../scripts/digital-clock.js?url";
 
 #txt-ampm
 {
-    color: #c5c5c5;
+    color: var(--text-secondary);
     align-items: center;
     font-size: clamp(0.5rem, calc(8vw - 1.2rem), 3rem);
     font-weight: normal;

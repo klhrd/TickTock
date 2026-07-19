@@ -116,13 +116,13 @@ body
 {
     font-family: Carter One;
     font-size: 3rem;
-    color: #fffa65;
+    color: var(--accent-color);
     margin-bottom: 10px;
 }
 
 .hero p
 {
-    color: #c5c5c5;
+    color: var(--text-secondary);
     font-size: 1.1rem;
 }
 
@@ -138,8 +138,8 @@ body
 
 .tool-card
 {
-    background: #ffffff08;
-    border: 1px solid #ffffff15;
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-standard);
     border-radius: 20px;
     padding: 30px;
     display: flex;
@@ -154,15 +154,15 @@ body
 
 .tool-card:hover
 {
-    background: #ffffff12;
-    border-color: #fffa65;
+    background: var(--component-bg-hover);
+    border-color: var(--border-hover);
     cursor: pointer;
     transform: translateY(-5px);
 }
 
 .card-icon
 {
-    background: #fffa6520;
+    background: var(--accent-bg-alpha);
     width: 60px;
     height: 60px;
     border-radius: 15px;
@@ -175,20 +175,20 @@ body
 
 .card-icon .material-symbols-outlined
 {
-    color: #faf9db;
+    color: var(--text-heading);
     font-size: 2rem;
 }
 
 .card-info h3
 {
-    color: #faf9db;
+    color: var(--text-heading);
     margin: 0 0 5px 0;
     font-size: 1.2rem;
 }
 
 .card-info p
 {
-    color: #aaaaaa;
+    color: var(--text-muted);
     margin: 0;
     font-size: 0.9rem;
     line-height: 1.4;
@@ -203,19 +203,18 @@ body
 .coming-soon:hover
 {
     transform: none;
-    border-color: #ffffff15;
 }
 
 .menu-intro h3
 {
     margin-top: 0;
-    color: #fffa65;
+    color: var(--accent-color);
 }
 
 .menu-intro p
 {
     font-size: 0.85rem;
-    color: #aaaaaa;
+    color: var(--text-muted);
     line-height: 1.6;
 }
 
@@ -258,7 +257,7 @@ body
                     if(icon)
                     {
                         icon.innerText="check";
-                        shareMenuBtn.style.color="#fffa65"
+                        shareMenuBtn.style.color="var(--accent-color)"
 
                         setTimeout(()=>
                         {

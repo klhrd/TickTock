@@ -69,7 +69,7 @@ section
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    color: #faf9db;
+    color: var(--text-heading);
     font-size: 3rem;
     margin-top: 15px;
     margin-bottom: clamp(5px, 2vh, 30px);
@@ -87,10 +87,10 @@ section
 .mode-btn-item
 {
     flex: 1;
-    background: #ffffff10;
-    border: 1px solid #ffffff20;
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-standard);
     border-radius: 8px;
-    color: #c5c5c5;
+    color: var(--text-secondary);
     padding: 8px;
     font-size: 0.9rem;
     font-family: inherit;
@@ -100,15 +100,16 @@ section
 
 .mode-btn-item:hover
 {
-    background: #ffffff20;
-    color: #faf9db;
+    background: var(--component-bg-hover);
+    border-color: var(--border-hover);
+    color: var(--text-heading);
 }
 
 .mode-btn-item.active
 {
-    background: #fffa65;
-    border-color: #fffa65;
-    color: #212836;
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--accent-contract-text);
     font-weight: bold;
 }
 
@@ -122,15 +123,15 @@ section
 .menu-item label
 {
     font-size: 0.9rem;
-    color: #c5c5c5;
+    color: var(--text-secondary);
 }
 
 #date-input, #title-input
 {
-    background: #ffffff10;
-    border: 1px solid #ffffff20;
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-standard);
     border-radius: 8px;
-    color: #faf9db;
+    color: var(--text-heading);
     padding: 10px;
     font-size: 1rem;
     font-family: inherit;
@@ -141,7 +142,7 @@ section
 
 .time-box
 {
-    background: #ffffff10;
+    background: var(--component-bg-standard);
     padding: 15px 20px;
     border-radius: 30px;
     text-align: center;
@@ -165,7 +166,7 @@ section
 {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #fffa65;
+    color: var(--accent-color);
 
     width: max-content;
     /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */
@@ -182,7 +183,7 @@ section
 .time-box span
 {
     font-size: 0.8rem;
-    color: #c5c5c5;
+    color: var(--text-secondary);
     display: block;
     margin: 5px;
     width: 55px;
@@ -197,7 +198,7 @@ section
 
 #target-label
 {
-    color: #c5c5c5;
+    color: var(--text-secondary);
     align-items: center;
     font-size: 1rem;
     font-weight: bold;

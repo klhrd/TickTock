@@ -21,18 +21,23 @@
     --bg-sidebar-shadow: #00000075;
     --bg-overlay: #00000070;
 
-    /* 互動元件（按鈕、卡片、滾輪） */
-    --component-bg-alpha: #ffffff08;
-    --component-bg-hover: #ffffff10;
+    /* 卡片 */
+    --component-bg-standard: #ffffff08;
+    --component-bg-hover: #ffffff15;
     --component-bg-active: #ffffff12;
+    
+    /* 邊框 */
+    --border-standard: #ffffff15;
+    --border-hover: #ffffff25;
+    --border-subtle: #ffffff15;
+
+    /* 按鈕 */
     --button-secondary-bg: #c5c5c530;
+    
+    /* 滾輪 */
     --scrollbar-thumb: #ffffff20;
     --scrollbar-thumb-hover: #ffffff40;
-
-    /* 邊框 */
-    --border-subtle: #ffffff15;
-    --border-standard: #ffffff20;
-
+    
     /* 文字 */
     --text-heading: var(--color-brand-cream);       /* #faf9db */
     --text-body: var(--color-gray-pure-white);      /* #ffffff */

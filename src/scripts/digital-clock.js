@@ -307,7 +307,7 @@ function initListeners()
                 if(icon)
                 {
                     icon.innerText="check";
-                    shareMenuBtn.style.color="#fffa65"
+                    shareMenuBtn.style.color="var(--accent-color)"
 
                     setTimeout(()=>
                     {
