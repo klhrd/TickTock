@@ -242,7 +242,7 @@ function initListeners()
     function updateFullscreenBtns(isFullscreenMode)
     {
         state.isFullscreen=isFullscreenMode;
-        if(isFullscreenMode)
+        if(!isFullscreenMode)
         {
             btnFullscreenExit?.classList.add("active");
             btnFullscreen?.classList.remove("active");

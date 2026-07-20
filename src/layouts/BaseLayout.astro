@@ -33,6 +33,9 @@ import '../styles/global.css'; // 引入獨立出來的全域 CSS 檔案
             <div class="sidebar-header">
                 <h3>Settings</h3>
                 <div class="header-actions" id="header-actions">
+                    <button class="theme-btn" id="theme-toggle-btn">
+                        <span class="material-symbols-outlined">dark_mode</span>
+                    </button>
                     <button class="share-btn" id="share-menu-btn">
                         <span class="material-symbols-outlined">share</span>
                     </button>
@@ -72,25 +75,59 @@ import '../styles/global.css'; // 引入獨立出來的全域 CSS 檔案
         <slot name="foot-script" />
 
         <script>
-            const sidebar=document.getElementById("sidebar");
-            const overLay=document.getElementById("overlay");
-            const menuBtn=document.getElementById("menu-btn");
-            const closeMenuBtn=document.getElementById("close-menu-btn");
+const sidebar=document.getElementById("sidebar");
+const overLay=document.getElementById("overlay");
+const menuBtn=document.getElementById("menu-btn");
+const closeMenuBtn=document.getElementById("close-menu-btn");
 
-            menuBtn?.addEventListener('click',()=>
-            {
-                sidebar?.classList.add('open');
-                overLay?.classList.add('show');
-            })
+menuBtn?.addEventListener('click',()=>
+{
+    sidebar?.classList.add('open');
+    overLay?.classList.add('show');
+})
 
-            const handleClose=()=>
-            {
-                sidebar?.classList.remove('open');
-                overLay?.classList.remove('show');
-            }
-            closeMenuBtn?.addEventListener('click',handleClose);
-            overLay?.addEventListener('click',handleClose);
+const handleClose=()=>
+{
+    sidebar?.classList.remove('open');
+    overLay?.classList.remove('show');
+}
+closeMenuBtn?.addEventListener('click',handleClose);
+overLay?.addEventListener('click',handleClose);
 
+document.addEventListener("DOMContentLoaded",()=>
+{
+    const themeBtn=document.getElementById("theme-toggle-btn");
+    const themeIcon=themeBtn?.querySelector(".material-symbols-outlined");
+    
+    const savedTheme=localStorage.getItem("theme");
+    const systemPrefersLight=window.matchMedia("(prefers-color-scheme: light)")?.matches;
+
+    let currentTheme=savedTheme||(systemPrefersLight?"light":"dark");
+
+    function applyTheme(theme:string)
+    {
+        if(theme==="light")
+        {
+            document.documentElement.setAttribute("data-theme","light");
+            if(themeIcon)themeIcon.textContent="light_mode";
+        }
+        else
+        {
+            document.documentElement.removeAttribute("data-theme");
+            if(themeIcon)themeIcon.textContent="dark_mode";
+        }
+        localStorage.setItem("theme",theme);
+        currentTheme=theme;
+    }
+
+    applyTheme(currentTheme);
+    
+    themeBtn?.addEventListener("click",()=>
+    {
+        const nextTheme=currentTheme==="light"?"dark":"light";
+        applyTheme(nextTheme);
+    });
+});
         </script>
     </body>
 

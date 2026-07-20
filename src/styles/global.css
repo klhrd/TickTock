@@ -14,6 +14,12 @@
     --color-gray-dark: #aaaaaa;
     --color-gray-muted: #555555;
 
+    --color-light-bg: #f8fafc;
+    --color-light-sidebar: #ffffff;
+    --color-light-border: #e2e8f0;
+    --color-light-amber: #d97706;
+
+
     /* 2. 語意化變數 THEME TOKENS =================================================*/
     /* 網頁背景與層級 */
     --bg-app: var(--color-slate-800);        /* #212836 */
@@ -51,11 +57,50 @@
     --accent-bg-alpha: #fffa6520;
 }
 
+:root[data-theme="light"]
+{
+    /* 網頁背景與層級 */
+    --bg-app: var(--color-light-bg);
+    --bg-sidebar: var(--color-light-sidebar);
+    --bg-sidebar-shadow: #00000015;
+    --bg-overlay: #00000030;
+
+    /* 卡片 */
+    --component-bg-standard: #00000005;
+    --component-bg-hover: #0000000a;
+    --component-bg-active: #0000000f;
+    
+    /* 邊框 */
+    --border-standard: var(--color-light-border);
+    --border-hover: #cbd5e1;
+    --border-subtle: #e2e8f0;
+
+    /* 按鈕 */
+    --button-secondary-bg: #00000010;
+    
+    /* 滾輪 */
+    --scrollbar-thumb: #00000020;
+    --scrollbar-thumb-hover: #00000040;
+    
+    /* 文字 */
+    --text-heading: #0f172a;
+    --text-body: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --text-dimmed: #94a3b8;
+
+    /* 強調 */
+    --accent-color: var(--color-brand-amber);
+    --accent-contract-text: #ffffff;
+    --accent-bg-alpha: #d9770620;
+}
+
 body
 {
     font-family: Carter One;
     background-color: var(--bg-app);
     color: var(--text-heading);
+    transition: background-color 0.3s ease, color 0.3s ease;
 
     display: flex;
     flex-direction: column;
@@ -174,7 +219,7 @@ body
     flex-direction: row;
 }
 
-.share-btn, .close-btn
+.header-actions button
 {
     background: var(--button-secondary-bg);
     border-radius: 12px;
@@ -190,7 +235,7 @@ body
     transition: color 0.2s ease;
 }
 
-.share-btn:hover, .close-btn:hover
+.header-actions button:hover
 {
     color: var(--text-body);
 }
