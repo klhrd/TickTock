@@ -90,7 +90,7 @@
     --text-dimmed: #94a3b8;
 
     /* 強調 */
-    --accent-color: var(--color-brand-amber);
+    --accent-color: var(--color-light-amber);
     --accent-contract-text: #ffffff;
     --accent-bg-alpha: #d9770620;
 }
@@ -284,25 +284,65 @@ body
     margin: 0;
 }
 
-.director-link
+details.director-link
 {
-    padding: 20px;
+    padding: 15px 20px 10px;
     background: var(--bg-sidebar);
     margin: 0 -20px -15px -20px; /* 撐滿側邊欄底部 */
 }
 
-.director-link h3
+.director-title
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+
+    /* 移除預設小箭頭 */
+    list-style: none;
+}
+
+.director-title::-webkit-details-marker
+{
+    display: none;
+}
+
+.director-title h3
 {
     font-size: 0.8rem;
     color: var(--text-dimmed);
-    margin: 0 0 10px;
+    margin: 0;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-.director-link a
+.director-title .toggle-icon
 {
-    display: block;
+    font-size: 1.2rem;
+    color: var(--text-dimmed);
+    transition: transform 0.3s ease, color 0.2s ease;
+}
+
+.director-title:hover h3,
+.director-title:hover .toggle-icon
+{
+    color: var(--text-secondary);
+}
+
+details[open] .toggle-icon
+{
+    transform: rotate(180deg);
+}
+
+.director-menu-list
+{
+
+}
+
+.director-menu-list a
+{
+    display: flex;
     color: var(--text-muted);
     margin: 10px 0;
     text-decoration: none;
@@ -312,11 +352,13 @@ body
 
     /* 偽縮排 */
     padding-left: 20px;
+
+
 }
 
-.director-link a:hover
+.director-menu-list a:hover
 {
-    color: var(--color-brand-yellow);
+    color: var(--accent-color);
 }
 
 /* main main main main main main main main main main */

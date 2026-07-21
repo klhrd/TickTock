@@ -2,6 +2,10 @@
 // src/layouts/BaseLayout.astro
 import '../styles/global.css'; // 引入獨立出來的全域 CSS 檔案
 
+// 取的目前網址路徑
+const currentPath=Astro.url.pathname;
+// 判斷為首頁否
+const isHomePage=currentPath==='/TickTock/'||currentPath==='/TickTock'||currentPath==='/';
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -50,18 +54,23 @@ import '../styles/global.css'; // 引入獨立出來的全域 CSS 檔案
             </div>
 
             <hr class="menu-divider" />
-            <div class="director-link">
-                <h3>Tools Directory</h3>
-                <a href="/TickTock/">
-                    <span class="material-symbols-outlined">home</span> Home Hub
-                </a>
-                <a href="/TickTock/countdown">
-                    <span class="material-symbols-outlined">calendar_clock</span> Countdown
-                </a>
-                <a href="/TickTock/digital-clock">
-                    <span class="material-symbols-outlined">nest_clock_farsight_digital</span> Digital Clock
-                </a>
-            </div>
+            <details class="director-link" open={isHomePage}>
+                <summary class="director-title">
+                    <h3>Tools Directory</h3>
+                    <span class="material-symbols-outlined toggle-icon">expand_more</span>
+                </summary>
+                <div class="director-menu-list">
+                    <a href="/TickTock/">
+                        <span class="material-symbols-outlined">home</span> Home Hub
+                    </a>
+                    <a href="/TickTock/countdown">
+                        <span class="material-symbols-outlined">calendar_clock</span> Countdown
+                    </a>
+                    <a href="/TickTock/digital-clock">
+                        <span class="material-symbols-outlined">nest_clock_farsight_digital</span> Digital Clock
+                    </a>
+                </div>
+            </details>
         </aside>
 
         <main class="main-container">
