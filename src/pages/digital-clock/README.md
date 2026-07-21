@@ -16,7 +16,6 @@ A beautiful, highly customizable responsive digital clock with seamless state me
     - Automatically saves preferences to `localStorage` & `url#` hash
 - Instant Sharing & Control
     - One-click configuration share button and native HTML5 Fullscreen mode
-- Lightweight Dark Mode UI
 
 ## Built With
 - Astro

@@ -149,7 +149,7 @@ body
     background: var(--button-secondary-bg);
     border-radius: 12px;
     border: none;
-    color: var(--color-gray-standard);
+    color: var(--text-secondary);
     cursor: pointer;
     padding: 5px;
     display: flex;
@@ -164,6 +164,11 @@ body
 .menu-btn .material-symbols-outlined
 {
     font-size: 1.5rem;
+}
+
+.menu-btn:hover
+{
+    color: var(--text-body);
 }
 
 /* aside aside aside aside aside aside aside aside aside aside */
@@ -333,11 +338,6 @@ details.director-link
 details[open] .toggle-icon
 {
     transform: rotate(180deg);
-}
-
-.director-menu-list
-{
-
 }
 
 .director-menu-list a

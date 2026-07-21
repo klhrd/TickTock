@@ -11,9 +11,6 @@ A long-term countdown timer for events.
     - Change Target Date
     - Edit Event Title
 - automatically save in localStorage & url#
-- share btn
-- Dark Mode UI
-- Lightweight
 
 ## Built With
 - Astro
