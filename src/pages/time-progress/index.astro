@@ -180,4 +180,169 @@ import timeProgressScript from "../../scripts/time-progress.js?url";
 
 <style>
 
+/* ================================================
+    Time Progress Styles
+   ================================================ */
+/* aside */
+.checkbox-group
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-item
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--component-bg-standard);
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.checkbox-item:hover
+{
+    background: var(--component-bg-hover);
+    color: var(--text-body);
+}
+
+.checkbox-item input[type="checkbox"]
+{
+    accent-color: var(--accent-color);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.time-progress-container
+{
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.progress-card
+{
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-subtle);
+    padding: 1.2rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.progress-card.hidden
+{
+    display: none;
+}
+
+.info-header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.8rem;
+}
+
+.card-title
+{
+    font-weight: 600;
+    color: var(--text-heading);
+    font-size: 1rem;
+}
+
+.percent
+{
+    font-family: monospace;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+.track-wrapper
+{
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.track
+{
+    width: 100;
+    height: 12px;
+    background: var(--button-secondary-bg);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bar
+{
+    height: 100%;
+    width: 0%;
+    background: var(--accent-color);
+    border-radius: 6px;
+    transition: width 0.1s linear;
+}
+
+.thumb-tag
+{
+    position: absolute;
+    top: -28px;
+    transform: translateX(-50%);
+    background: var(--accent-color);
+    color: var(--accent-contrast-text);
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.thumb-tag::after
+{
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px 4px 0;
+    border-style: solid;
+    border-color: var(--accent-color) transparent;
+}
+
+.thumb
+{
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    background-color: var(--text-body);
+    border: 3px solid var(--accent-color);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-bg-alpha);
+    pointer-events: none;
+}
+
+.ticks
+{
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-family: monospace;
+    padding: 0 2px;
+}
+
 </style>
