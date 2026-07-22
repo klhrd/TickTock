@@ -1,0 +1,183 @@
+---
+// src/pages/time-progress/index.astro
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import timeProgressScript from "../../scripts/time-progress.js?url";
+---
+
+<BaseLayout>
+    <div slot="head">
+        <title>TickTock | Time Progress</title>
+    </div>
+
+    <div slot="header-content">
+        <div id="header-time-overview" class="header-time-overview">
+            Time Progress Dashboard
+        </div>
+    </div>
+
+    <div slot="custom-menu">
+        <div class="menu-intro">
+            <label class="menu-section-label">Display Settings</label>
+        </div>
+        <div class="checkbox-group">
+            <label class="checkbox-item">
+                <input type="checkbox" value="year" checked class="progress-toggle">
+                <span>Year Progress</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" value="month" checked class="progress-toggle">
+                <span>Month Progress</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" value="day" checked class="progress-toggle">
+                <span>Day Progress</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" value="hour" checked class="progress-toggle">
+                <span>Hour Progress</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" value="minute" checked class="progress-toggle">
+                <span>Minute Progress</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" value="year" checked class="progress-toggle">
+                <span>Year Progress</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" value="second" checked class="progress-toggle">
+                <span>second Progress</span>
+            </label>
+        </div>
+    </div>
+
+    <div slot="main-content" class="time-progress-container">
+        
+        <div class="progress-card" data-unit="year">
+            <div class="info-header">
+                <span class="card-title">Year</span>
+                <span class="percent" id="pct-year">0%</span>
+            </div>
+            <div class="track-wrapper">
+                <div class="thumb-tag" id="tag-year">0%</div>
+                <div class="track">
+                    <div class="bar" id="bar-year"></div>
+                </div>
+                <div class="thumb" id="thumb-year"></div>
+            </div>
+            <div class="ticks" id="ticks-year"></div>
+        </div>
+
+        <div class="progress-card" data-unit="month">
+            <div class="info-header">
+                <span class="card-title">Month</span>
+                <span class="percent" id="pct-month">0%</span>
+            </div>
+            <div class="track-wrapper">
+                <div class="thumb-tag" id="tag-month">0d</div>
+                <div class="track">
+                    <div class="bar" id="bar-month"></div>
+                </div>
+                <div class="thumb" id="thumb-month"></div>
+            </div>
+            <div class="ticks" id="ticks-month"></div>
+        </div>
+
+        <div class="progress-card" data-unit="day">
+            <div class="info-header">
+                <span class="card-title">Day</span>
+                <span class="percent" id="pct-day">0%</span>
+            </div>
+            <div class="track-wrapper">
+                <div class="thumb-tag" id="tag-day">0h</div>
+                <div class="track">
+                    <div class="bar" id="bar-day"></div>
+                </div>
+                <div class="thumb" id="thumb-day"></div>
+            </div>
+            <div class="ticks">
+                <span>0</span>
+                <span>6</span>
+                <span>12</span>
+                <span>18</span>
+                <span>24h</span>
+            </div>
+        </div>
+
+        <div class="progress-card" data-unit="hour">
+            <div class="info-header">
+                <span class="card-title">Hour</span>
+                <span class="percent" id="pct-hour">0%</span>
+            </div>
+            <div class="track-wrapper">
+                <div class="thumb-tag" id="tag-hour">0h</div>
+                <div class="track">
+                    <div class="bar" id="bar-hour"></div>
+                </div>
+                <div class="thumb" id="thumb-hour"></div>
+            </div>
+            <div class="ticks">
+                <span>0</span>
+                <span>15</span>
+                <span>30</span>
+                <span>45</span>
+                <span>60m</span>
+            </div>
+        </div>
+
+        <div class="progress-card" data-unit="minute">
+            <div class="info-header">
+                <span class="card-title">Minute</span>
+                <span class="percent" id="pct-minute">0%</span>
+            </div>
+            <div class="track-wrapper">
+                <div class="thumb-tag" id="tag-minute">0h</div>
+                <div class="track">
+                    <div class="bar" id="bar-minute"></div>
+                </div>
+                <div class="thumb" id="thumb-minute"></div>
+            </div>
+            <div class="ticks">
+                <span>0</span>
+                <span>15</span>
+                <span>30</span>
+                <span>45</span>
+                <span>60s</span>
+            </div>
+
+        <div class="progress-card" data-unit="second">
+            <div class="info-header">
+                <span class="card-title">Second</span>
+                <span class="percent" id="pct-second">0%</span>
+            </div>
+            <div class="track-wrapper">
+                <div class="thumb-tag" id="tag-second">0h</div>
+                <div class="track">
+                    <div class="bar" id="bar-second"></div>
+                </div>
+                <div class="thumb" id="thumb-second"></div>
+            </div>
+            <div class="ticks">
+                <span>0</span>
+                <span>250</span>
+                <span>500</span>
+                <span>750</span>
+                <span>1000ms</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div slot="footer-content"></div>
+</BaseLayout>
+
+<script
+    slot="foot-script"
+    type="module"
+    src={timeProgressScript}
+    is:inline>
+</script>
+
+<style>
+
+</style>
