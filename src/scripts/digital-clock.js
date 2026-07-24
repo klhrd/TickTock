@@ -281,48 +281,6 @@ function initListeners()
         updateFullscreenBtns(isCurrentlyFullscreen);
     });
 
-    const shareMenuBtn=document.getElementById("share-menu-btn");
-
-    shareMenuBtn?.addEventListener("click",async()=>
-    {
-        const shareData=
-        {
-            title: `TickTock | Clock`,
-            text: `Check out this digital clock!`,
-            url: window.location.href // 包含當前日期與名稱的 hash 網址
-        };
-
-        try
-        {
-            if(navigator.share)
-            {
-                await navigator.share(shareData);
-            }
-            else
-            {
-                await navigator.clipboard.writeText(window.location.href);
-
-                const icon=shareMenuBtn.querySelector(".material-symbols-outlined");
-                
-                if(icon)
-                {
-                    icon.innerText="check";
-                    shareMenuBtn.style.color="var(--accent-color)"
-
-                    setTimeout(()=>
-                    {
-                        icon.innerText="share";
-                        shareMenuBtn.style.color="";
-                    },2000);
-                }
-            }
-        }
-        catch(err)
-        {
-            console.log("Fail to Share: ", err);
-        }
-    });
-
 }
 
 if(typeof window!=="undefined")

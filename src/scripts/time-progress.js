@@ -6,15 +6,24 @@ document.addEventListener("DOMContentLoaded",()=>
 
 function initSidebarToggles()
 {
-    const checkboxs=document.querySelectorAll('.progress-toggle');
+    const checkboxes=document.querySelectorAll('.progress-toggle');
+    const activeUnits=getSavedUnits();
 
-    checkboxs.forEach(checkbox=>
+    checkboxes.forEach(checkbox=>
     {
-        checkbox.addEventListener('change',(e)=>
+        const unit=checkbox.value;
+        const isChecked=activeUnits.includes(unit);
+
+        checkbox.checked=isChecked;
+        toggleCardVisibility(unit,isChecked);
+
+        checkbox.addEventListener('change',()=>
         {
-            const target=e.target;
-            const unit=target.value;
-            toggleCardVisibility(unit,target.checked);
+            const currentActive=Array.from(checkboxes)
+                .filter(cb=>cb.checked)
+                .map(cb=>cb.value);
+            toggleCardVisibility(unit,checkbox.checked);
+            saveUnitsState(currentActive);
         });
     });
 }
@@ -146,3 +155,38 @@ function updateSingleCardUI(unit,pct,tagText)
         tagEl.textContent=tagText;
     }
 }
+
+const ALL_UNITS=['year','month','day','hour','minute','second'];
+
+function getSavedUnits()
+{
+    const hash =window.location.hash.replace('#','').trim();
+    if(hash)
+    {
+        return hash.split(',').filter(u=>ALL_UNITS.includes(u));
+    }
+
+    const saved=localStorage.getItem('time_progress_units');
+    if(saved)
+    {
+        try
+        {
+            return JSON.parse(saved);
+        }
+        catch(e)
+        {
+            console.error('Failed to parse saved units', e);
+        }
+    }
+
+    return ALL_UNITS;
+}
+
+function saveUnitsState(activeUnits)
+{
+    localStorage.setItem('time_progress_units',JSON.stringify(activeUnits));
+
+    const hashValue=activeUnits.length>0?`#${activeUnits.join(',')}`:`#`;
+    history.replaceState(null,'',hashValue||window.location.pathname);
+}
+

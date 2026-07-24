@@ -205,8 +205,6 @@ function initTimer(newDateString, newTitleString)
 function initializeApp()
 {
     // 事件監聽
-    const shareMenuBtn=document.getElementById("share-menu-btn");
-
     const dateInput=document.getElementById("date-input");
     const titleInput=document.getElementById("title-input");
 
@@ -214,46 +212,6 @@ function initializeApp()
     const btnDays=document.getElementById("mode-days");
 
     initTimer(targetString, eventTitle);
-
-    shareMenuBtn?.addEventListener("click",async()=>
-    {
-        const shareData=
-        {
-            title: `TickTock - ${eventTitle}`,
-            text: `Check out this countdown timer:${eventTitle}`,
-            url: window.location.href // 包含當前日期與名稱的 hash 網址
-        };
-
-        try
-        {
-            if(navigator.share)
-            {
-                await navigator.share(shareData);
-            }
-            else
-            {
-                await navigator.clipboard.writeText(window.location.href);
-
-                const icon=shareMenuBtn.querySelector(".material-symbols-outlined");
-                
-                if(icon)
-                {
-                    icon.innerText="check";
-                    shareMenuBtn.style.color="var(--accent-color)"
-
-                    setTimeout(()=>
-                    {
-                        icon.innerText="share";
-                        shareMenuBtn.style.color="";
-                    },2000);
-                }
-            }
-        }
-        catch(err)
-        {
-            console.log("Fail to Share: ", err);
-        }
-    });
 
     btnFull?.addEventListener("click",()=>
     {
