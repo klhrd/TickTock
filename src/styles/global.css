@@ -95,6 +95,14 @@
     --accent-bg-alpha: #d9770620;
 }
 
+html {
+    /* 預留縱向滾動條空間，防止出現/隱藏時撐開寬度 */
+    scrollbar-gutter: stable;
+
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
 body
 {
     font-family: Carter One;

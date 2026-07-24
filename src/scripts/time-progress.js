@@ -63,7 +63,7 @@ function calculateTimeprogress()
     const currentDayVal=(now.getDate()-1+(now-new Date(now.getFullYear(),now.getMonth(),now.getDate()))/86400000).toFixed(1);
 
     // day
-    const startOfDay=new Date(now.getFullYear(),now.getMonth,now.getDate());
+    const startOfDay=new Date(now.getFullYear(),now.getMonth(),now.getDate());
     const dayPct=((now-startOfDay)/86400000)*100;
     const currentHourVal=(now.getHours()+now.getMinutes()/60).toFixed(1);
 
