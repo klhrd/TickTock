@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded",()=>
 {
     initSidebarToggles();
     startProgressLoop();
-    initExportImageFeature();
 });
 
 function initSidebarToggles()
@@ -191,65 +190,3 @@ function saveUnitsState(activeUnits)
     history.replaceState(null,'',hashValue||window.location.pathname);
 }
 
-function initExportImageFeature()
-{
-    const exportBtn=document.getElementById("export-img-btn");
-    const template=document.getElementById("export-watermark-template");
-
-    if(!exportBtn||!template)
-    {
-        console.warn("Export button or template not found!");
-        return;
-    }
-
-    exportBtn.addEventListener("click",async()=>
-    {
-        const targetContainer=document.querySelector(".time-progress-container");
-        if(!targetContainer)return;
-
-        const clone=template.content.cloneNode(true);
-        const stampEl = clone.firstElementChild;
-        const timeTextEl=clone.querySelector(".watermark-time");
-        
-        const now=new Date();
-        timeTextEl.textContent=now.toLocaleString('en-US',
-        {
-            dateStyle:'full',
-            timeStyle:'medium'
-        });
-
-        targetContainer.insertBefore(stampEl, targetContainer.firstChild);
-
-        try
-        {
-            const canvas= await html2canvas(targetContainer,
-            {
-                backgroundColor:getComputedStyle(document.documentElement)
-                    .getPropertyValue('--bg-app').trim()||'#212836',
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                padding: 20,
-                ignoreElements:(element) => element.classList.contains('hidden')
-            });
-
-            stampEl.remove();
-
-            const imageURL=canvas.toDataURL("image/png");
-            const downloadLink=document.createElement("a");
-            const dateStr=now.toISOString().split('T')[0];
-
-            downloadLink.download=`ticktock-progress-${dateStr}.png`;
-            downloadLink.href=imageURL;
-            downloadLink.click();
-        }
-        catch(err)
-        {
-            console.error("Export image failed: ",err);
-            if(targetContainer.contains(watermarkEl))
-            {
-                watermarkEl.remove();
-            }
-        }
-    });
-}
