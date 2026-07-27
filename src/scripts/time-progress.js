@@ -207,16 +207,13 @@ function initExportImageFeature()
         const targetContainer=document.querySelector(".time-progress-container");
         if(!targetContainer)return;
 
-        const clone=template.content.cloneNode(true);
-        const stampEl = clone.firstElementChild;
-        const timeTextEl=clone.querySelector(".watermark-time");
-        
-        const now=new Date();
-        timeTextEl.textContent=now.toLocaleString('en-US',
-        {
-            dateStyle:'full',
-            timeStyle:'medium'
-        });
+        const originalStyle=targetContainer.getAttribute("style")||"";
+
+        targetContainer.style.aspectRatio="1/1";
+        targetContainer.style.display="flex";
+        targetContainer.style.flexDirection="column";
+        targetContainer.style.justifyContent="space-evenly";
+        targetContainer.style.padding="24px";
 
         targetContainer.insertBefore(stampEl, targetContainer.firstChild);
 
@@ -235,6 +232,8 @@ function initExportImageFeature()
 
             stampEl.remove();
 
+            targetContainer.setAttribute("style",originalStyle);
+            
             const imageURL=canvas.toDataURL("image/png");
             const downloadLink=document.createElement("a");
             const dateStr=now.toISOString().split('T')[0];
@@ -250,6 +249,8 @@ function initExportImageFeature()
             {
                 watermarkEl.remove();
             }
+
+            targetContainer.setAttribute("style",originalStyle);
         }
     });
 }
