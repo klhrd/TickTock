@@ -207,6 +207,17 @@ function initExportImageFeature()
         const targetContainer=document.querySelector(".time-progress-container");
         if(!targetContainer)return;
 
+        const clone=template.content.cloneNode(true);
+        const stampEl = clone.firstElementChild;
+        const timeTextEl=clone.querySelector(".watermark-time");
+        
+        const now=new Date();
+        timeTextEl.textContent=now.toLocaleString('en-US',
+        {
+            dateStyle:'full',
+            timeStyle:'medium'
+        });
+        
         const originalStyle=targetContainer.getAttribute("style")||"";
 
         targetContainer.style.aspectRatio="1/1";
