@@ -170,12 +170,17 @@ import timeProgressScript from "../../scripts/time-progress.js?url";
         </div>
 
         <template id="export-watermark-template">
-            <div class="export-header-stamp">
-                <div class="stamp-brand">
-                    <span class="material-symbols-outlined">analytics</span>
-                    <span>TickTock Time Progress</span>
+            <div class="export-canvas">
+
+                <div class="export-header-stamp">
+                    <div class="stamp-brand">
+                        <span class="material-symbols-outlined">analytics</span>
+                        <span>TickTock Time Progress</span>
+                    </div>
+                    <div class="stamp-time watermark-time">--</div>
                 </div>
-                <div class="stamp-time watermark-time">--</div>
+                <div class="export-cards-holder"></div>
+
             </div>
         </template>
     </div>
@@ -270,6 +275,37 @@ body
     font-family: monospace;
     font-size: 0.85rem;
     color: var(--text-secondary);
+}
+
+.export-canvas
+{
+    width: 600px;
+    height: 600px;
+    padding: 32px;
+    box-sizing: border-box;
+    background-color: var(--bg-app);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.export-canvas .export-cards-holder
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    justify-content: center;
+}
+
+.export-canvas .progress-card
+{
+    font-size: 1.1rem;
+}
+
+.export-canvas .progress-title
+{
+    font-size: 1.2rem;
 }
 
 .checkbox-group

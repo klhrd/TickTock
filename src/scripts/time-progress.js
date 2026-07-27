@@ -204,11 +204,9 @@ function initExportImageFeature()
 
     exportBtn.addEventListener("click",async()=>
     {
-        const targetContainer=document.querySelector(".time-progress-container");
-        if(!targetContainer)return;
-
         const clone=template.content.cloneNode(true);
-        const stampEl = clone.firstElementChild;
+        const canvasEl=clone.querySelector(".export-canvas");
+        const cardsHolder=clone.querySelector(".export-cards-holder");
         const timeTextEl=clone.querySelector(".watermark-time");
         
         const now=new Date();
@@ -218,37 +216,27 @@ function initExportImageFeature()
             timeStyle:'medium'
         });
 
-        const originalStyle=targetContainer.getAttribute("style")||"";
+        const activeCards=document.querySelectorAll(".time-progress-container .progress-card:not(.hidden)");
+        activeCards.forEach(card=>
+        {
+            cardsHolder.appendChild(card.cloneNode(true));
+        });
 
-
-        targetContainer.style.width="800px";
-        targetContainer.style.minHeight="800px";
-        targetContainer.style.fontSize="18px";
-        targetContainer.style.aspectRatio="1/1";
-        targetContainer.style.display="flex";
-        targetContainer.style.flexDirection="column";
-        targetContainer.style.justifyContent="space-evenly";
-        targetContainer.style.padding="32px";
-
-        targetContainer.insertBefore(stampEl, targetContainer.firstChild);
+        canvasEl.style.position="fixed";
+        canvasEl.style.left="-9999px";
+        document.body.appendChild(canvasEl);
 
         try
         {
-            const canvas= await html2canvas(targetContainer,
+            const canvas= await html2canvas(canvasEl,
             {
-                backgroundColor:getComputedStyle(document.documentElement)
-                    .getPropertyValue('--bg-app').trim()||'#212836',
                 scale: 2,
                 useCORS: true,
                 logging: false,
-                windoeWidth:800,
-                ignoreElements:(element) => element.classList.contains('hidden')
             });
 
-            stampEl.remove();
+            canvasEl.remove();
 
-            targetContainer.setAttribute("style",originalStyle);
-            
             const imageURL=canvas.toDataURL("image/png");
             const downloadLink=document.createElement("a");
             const dateStr=now.toISOString().split('T')[0];
@@ -260,12 +248,7 @@ function initExportImageFeature()
         catch(err)
         {
             console.error("Export image failed: ",err);
-            if(targetContainer.contains(watermarkEl))
-            {
-                stampEl.remove();
-            }
-
-            targetContainer.setAttribute("style",originalStyle);
+            canvasEl.remove();
         }
     });
 }
