@@ -217,14 +217,18 @@ function initExportImageFeature()
             dateStyle:'full',
             timeStyle:'medium'
         });
-        
+
         const originalStyle=targetContainer.getAttribute("style")||"";
 
+
+        targetContainer.style.width="800px";
+        targetContainer.style.minHeight="800px";
+        targetContainer.style.fontSize="18px";
         targetContainer.style.aspectRatio="1/1";
         targetContainer.style.display="flex";
         targetContainer.style.flexDirection="column";
         targetContainer.style.justifyContent="space-evenly";
-        targetContainer.style.padding="24px";
+        targetContainer.style.padding="32px";
 
         targetContainer.insertBefore(stampEl, targetContainer.firstChild);
 
@@ -237,7 +241,7 @@ function initExportImageFeature()
                 scale: 2,
                 useCORS: true,
                 logging: false,
-                padding: 20,
+                windoeWidth:800,
                 ignoreElements:(element) => element.classList.contains('hidden')
             });
 
@@ -258,7 +262,7 @@ function initExportImageFeature()
             console.error("Export image failed: ",err);
             if(targetContainer.contains(watermarkEl))
             {
-                watermarkEl.remove();
+                stampEl.remove();
             }
 
             targetContainer.setAttribute("style",originalStyle);
