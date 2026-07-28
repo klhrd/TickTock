@@ -252,9 +252,8 @@ body
 }
 
 .export-header-stamp {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: block;
+    width: 90%;
     padding: 12px 16px;
     margin-bottom: 20px;
     background: var(--component-bg-standard);
@@ -269,12 +268,16 @@ body
     font-weight: bold;
     color: var(--accent-color);
     font-size: 1rem;
+    align-self: left;
+    width: 100%;
 }
 
 .export-header-stamp .stamp-time {
     font-family: monospace;
     font-size: 0.85rem;
     color: var(--text-secondary);
+    align-self: right;
+    width: 100%;
 }
 
 .export-canvas
@@ -285,8 +288,11 @@ body
     box-sizing: border-box;
     background-color: var(--bg-app);
     display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
 }
 
 .export-canvas .export-cards-holder
@@ -294,18 +300,18 @@ body
     display: flex;
     flex-direction: column;
     gap: 20px;
-    flex: 1;
     justify-content: center;
+    width: 90%;
 }
 
 .export-canvas .progress-card
 {
-    font-size: 1.1rem;
+    width: auto;
 }
 
 .export-canvas .progress-title
 {
-    font-size: 1.2rem;
+    font-size: 3rem;
 }
 
 .checkbox-group
