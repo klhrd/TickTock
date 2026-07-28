@@ -1,0 +1,243 @@
+---
+// src/pages/pomodoro/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import pomodoroScript from "../../scripts/pomodoro.js?url";
+---
+
+<BaseLayout>
+    <div slot="head">
+        <title>TickTock | Pomodoro Timer</title>
+    </div>
+
+    <div slot="header-content">
+        <div class="header-title">
+            Pomodoro Timer
+        </div>
+    </div>
+
+    <div slot="custom-menu">
+        <div class="menu-item">
+            <label for="cycles-input">Total Cycles</label>
+            <input type="number" id="cycles-input" min="1" max="12" value="4">
+        </div>
+
+        <div class="menu-item">
+            <label>Estimated Time</label>
+            <span id="estimated-time-display">2h 00m</span>
+        </div>
+
+        <hr class="menu-divider" />
+
+        <button id="menu-start-btn" class="menu-action-btn">
+            <span class="material-symbols-outlined">play_arrow</span> Start Session
+        </button>
+    </div>
+
+    <div slot="main-content" class="countdown-container">
+
+    </div>
+
+    <div slot="footer-content">
+
+    </div>
+
+    <script
+        slot="foot-script"
+        type="module"
+        src={pomodoroScript}>
+    </script>
+</BaseLayout>
+
+<style>
+section
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* header header header header header header header header header header */
+
+#event-label
+{
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-heading);
+    font-size: 3rem;
+    margin-top: 15px;
+    margin-bottom: clamp(5px, 2vh, 30px);
+    padding: 0 10px;
+}
+
+/* aside aside aside aside aside aside aside aside aside aside */
+
+.menu-item
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0px;
+}
+
+.menu-item label
+{
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+#cycles-input
+{
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-standard);
+    border-radius: 8px;
+    color: var(--text-heading);
+    padding: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+}
+
+.menu-action-btn
+{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-standard);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    padding: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menu-action-btn:hover
+{
+    background: var(--component-bg-hover);
+    border-color: var(--border-hover);
+    color: var(--text-heading);
+}
+
+.menu-action-btn.active
+{
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--accent-contract-text);
+    font-weight: bold;
+}
+
+/* main main main main main main main main main main */
+
+.time-box
+{
+    background: var(--component-bg-standard);
+    padding: 15px 20px;
+    border-radius: 30px;
+    text-align: center;
+    min-width: 100px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-box.mode-single
+{
+    min-width: 280px;
+    width: auto;
+    padding: 25px 30px;
+}
+
+/* 數字 */
+.time-box div
+{
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+
+    width: max-content;
+    /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */
+    font-variant-numeric: tabular-nums;
+}
+
+.time-box.mode-single div
+{
+    font-size: 3.5rem;
+    letter-spacing: 0.8rem;
+}
+
+/* 單位 */
+.time-box span
+{
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: block;
+    margin: 5px;
+    width: 55px;
+}
+
+.time-box.mode-single span
+{
+    font-size: 1.5rem;
+}
+
+/* footer footer footer footer footer footer footer footer footer footer */
+
+#target-label
+{
+    color: var(--text-secondary);
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+
+    display: block;      /* 讓 margin 作用 */
+    text-align: center;  /* 文字置中 */
+    margin-top: clamp(15px, 3vh, 40px);
+    width: 100%;         /* 強制換行，推開到倒數方塊下方 */
+}
+
+/* on moblie */
+
+@media (max-width: 600px) 
+{
+    section
+    {
+        gap: 10px;
+    }
+
+    .time-box
+    {
+        padding: 10px 5px;
+        border-radius: 15px;
+    }
+
+    .time-box div 
+    {
+        font-size: 1.6rem;
+    }
+    
+    .time-box.mode-single
+    {
+        padding: 5px 15px;
+    }
+    
+    .time-box.mode-single div
+    {
+        letter-spacing: 0.4rem;
+    }
+
+    .time-box.mode-single span
+    {
+        margin-top: -10px;
+    }
+
+}
+</style>
