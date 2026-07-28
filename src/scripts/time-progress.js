@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded",()=>
 {
     initSidebarToggles();
     startProgressLoop();
+    initExportImageFeature();
 });
 
 function initSidebarToggles()
@@ -226,7 +227,7 @@ function initExportImageFeature()
         });
 
         const calculatedHeight=140*cardCount+180;
-        canvasEl.style.height=`${calculatedHeight}px`
+        canvasEl.style.height=`${calculatedHeight}px`;
         
         canvasEl.style.position="fixed";
         canvasEl.style.left="-9999px";
