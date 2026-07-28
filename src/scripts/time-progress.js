@@ -217,11 +217,18 @@ function initExportImageFeature()
         });
 
         const activeCards=document.querySelectorAll(".time-progress-container .progress-card:not(.hidden)");
+        const cardCount=activeCards.length;
+
+        if(cardCount===0)return;
+
         activeCards.forEach(card=>
         {
             cardsHolder.appendChild(card.cloneNode(true));
         });
 
+        const calculatedHeight=140*cardCount+180;
+        canvasEl.style.height=`${calculatedHeight}px`
+        
         canvasEl.style.position="fixed";
         canvasEl.style.left="-9999px";
         document.body.appendChild(canvasEl);
