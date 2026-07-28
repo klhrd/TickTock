@@ -39,10 +39,10 @@ TickTock will expand to include the following time utility tools:
 - [x] [**Home Page Hub**](https://klhrd.github.io/TickTock/)
 - [x] [**Long-term Countdown**](https://klhrd.github.io/TickTock/countdown)
 - [x] [**Digital Clock**](https://klhrd.github.io/TickTock/digital-clock)
+- [x] [**Time Progress Bar**](https://klhrd.github.io/TickTock/time-progress)
 - [ ] 🎯 **Minimalist Timer** (coming soon)
 - [ ] ⏳ **Pomodoro Timer** (coming soon)
 - [ ] 🌐 **World Clock Board** (coming soon)
-- [ ] 📊 **Time Progress Bar** (coming soon)
 
 ---
 
