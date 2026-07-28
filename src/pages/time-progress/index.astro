@@ -16,6 +16,13 @@ import timeProgressScript from "../../scripts/time-progress.js?url";
     </div>
 
     <div slot="custom-menu">
+        <button id="export-img-btn">
+            <span class="material-symbols-outlined">image</span>
+            <span>Export as Image</span>
+        </button>
+
+        <hr class="menu-divider" style="margin: 15px 0;"/>
+
         <div class="menu-intro">
             <label class="menu-section-label">Display Settings</label>
         </div>
@@ -163,6 +170,15 @@ import timeProgressScript from "../../scripts/time-progress.js?url";
             </div>
         </div>
 
+        <template id="export-watermark-template">
+            <div class="export-header-stamp">
+                <div class="stamp-brand">
+                    <span class="material-symbols-outlined">analytics</span>
+                    <span>TickTock Time Progress</span>
+                </div>
+                <div class="stamp-time watermark-time">--</div>
+            </div>
+        </template>
     </div>
 
     <div slot="footer-content"></div>
@@ -181,6 +197,79 @@ body
 {
     display: flex;
     align-items: center;
+}
+
+#export-img-btn
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 16px;
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-standard);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#export-img-btn:hover
+{
+    background: var(--component-bg-hover);
+    border-color: var(--border-hover);
+    color: var(--text-heading);
+}
+
+.export-timestamp-watermark
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 15px;
+    margin-top: 15px;
+    border-top: 1px dashed var(--border-subtle);
+    font-family: monospace;
+}
+
+.export-timestamp-watermark .watermark-title
+{
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: var(--accent-color);
+}
+
+.export-timestamp-watermark .watermark-time
+{
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.export-header-stamp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+}
+
+.export-header-stamp .stamp-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: var(--accent-color);
+    font-size: 1rem;
+}
+
+.export-header-stamp .stamp-time {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
 }
 
 .checkbox-group

@@ -190,3 +190,71 @@ function saveUnitsState(activeUnits)
     history.replaceState(null,'',hashValue||window.location.pathname);
 }
 
+function initExportImageFeature()
+{
+    const exportBtn=document.getElementById("export-img-btn");
+    const template=document.getElementById("export-watermark-template");
+
+    if(!exportBtn||!template)
+    {
+        console.warn("Export button or template not found!");
+        return;
+    }
+
+    exportBtn.addEventListener("click",async()=>
+    {
+        const clone=template.content.cloneNode(true);
+        const canvasEl=clone.querySelector(".export-canvas");
+        const cardsHolder=clone.querySelector(".export-cards-holder");
+        const timeTextEl=clone.querySelector(".watermark-time");
+        
+        const now=new Date();
+        timeTextEl.textContent=now.toLocaleString('en-US',
+        {
+            dateStyle:'full',
+            timeStyle:'medium'
+        });
+
+        const activeCards=document.querySelectorAll(".time-progress-container .progress-card:not(.hidden)");
+        const cardCount=activeCards.length;
+
+        if(cardCount===0)return;
+
+        activeCards.forEach(card=>
+        {
+            cardsHolder.appendChild(card.cloneNode(true));
+        });
+
+        const calculatedHeight=140*cardCount+180;
+        canvasEl.style.height=`${calculatedHeight}px`
+        
+        canvasEl.style.position="fixed";
+        canvasEl.style.left="-9999px";
+        document.body.appendChild(canvasEl);
+
+        try
+        {
+            const canvas= await html2canvas(canvasEl,
+            {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+            });
+
+            canvasEl.remove();
+
+            const imageURL=canvas.toDataURL("image/png");
+            const downloadLink=document.createElement("a");
+            const dateStr=now.toISOString().split('T')[0];
+
+            downloadLink.download=`ticktock-progress-${dateStr}.png`;
+            downloadLink.href=imageURL;
+            downloadLink.click();
+        }
+        catch(err)
+        {
+            console.error("Export image failed: ",err);
+            canvasEl.remove();
+        }
+    });
+}
