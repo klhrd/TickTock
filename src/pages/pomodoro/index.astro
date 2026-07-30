@@ -33,8 +33,33 @@ import pomodoroScript from "../../scripts/pomodoro.js?url";
         </button>
     </div>
 
-    <div slot="main-content" class="countdown-container">
+    <div slot="main-content" class="pomodoro-container">
+        <div class="phase-indicator" id="phase-label">Focus Session</div>
+        <div class="timer-display" id="timer-display">25:00</div>
 
+        <div class="timeline-container">
+            <div class="timeline-track" id="timeline-track">
+                <div class="segment work-segment" id="work-segment">
+                    <span class="segment-label">Work</span>
+                </div>
+                <div class="segment break-segment" id="break-segment">
+                    <span class="segment-label">Break</span>
+                </div>
+                <div class="timeline-pin" id="timeline-pin"></div>
+            </div>
+            <div class="timeline-markers">
+                <span>0m</span>
+                <span id="work-end-mark">25m</span>
+                <span id="total-end-mark">30m</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <button id="start-btn" class="action-btn primary">Start</button>
+            <button id="pause-btn" class="action-btn secondary" disabled>Pause</button>
+            <button id="reset-btn" class="action-btn ghost">Reset</button>
+            
+        </div>
     </div>
 
     <div slot="footer-content">
@@ -80,14 +105,36 @@ section
 {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin: 10px 0px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
 }
 
 .menu-item label
 {
+    font-weight: 500;
+}
+
+.menu-item input[type="number"]
+{
+    width: 60px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-standard);
+    background: var(--component-bg-standard);
+    color: var(--text-heading);
     font-size: 0.9rem;
-    color: var(--text-secondary);
+    font-family: inherit;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.menu-item input[type="number"]:focus
+{
+    border-color: var(--accent-color);
 }
 
 #cycles-input
@@ -112,6 +159,7 @@ section
     border-radius: 8px;
     color: var(--text-secondary);
     padding: 8px;
+    margin: 10px 0px;
     font-size: 0.9rem;
     font-family: inherit;
     cursor: pointer;
@@ -125,119 +173,189 @@ section
     color: var(--text-heading);
 }
 
-.menu-action-btn.active
-{
-    background: var(--accent-color);
-    border-color: var(--accent-color);
-    color: var(--accent-contract-text);
-    font-weight: bold;
-}
-
 /* main main main main main main main main main main */
 
-.time-box
+.pomodoro-container
 {
+    max-width: 520px;
+    margin: 40px auto;
+    padding: 32px 28px;
     background: var(--component-bg-standard);
-    padding: 15px 20px;
-    border-radius: 30px;
-    text-align: center;
-    min-width: 100px;
-    box-sizing: border-box;
-
+    border: 1px solid var(--border-standard);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
 }
 
-.time-box.mode-single
+.phase-indicator
 {
-    min-width: 280px;
-    width: auto;
-    padding: 25px 30px;
-}
-
-/* 數字 */
-.time-box div
-{
-    font-size: 2.5rem;
-    font-weight: bold;
+    font-size: 1.1rem;
+    font-weight: 600;
     color: var(--accent-color);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
 
-    width: max-content;
-    /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */
+.timer-display
+{
+    font-size: 4.5rem;
+    font-weight: 700;
+    font-family: monospace;
     font-variant-numeric: tabular-nums;
+    color: var(--text-heading);
+    line-height: 1;
+    margin: 12px 0 24px 0;
+    letter-spacing: 2px;
 }
 
-.time-box.mode-single div
+.timeline-container
 {
-    font-size: 3.5rem;
-    letter-spacing: 0.8rem;
+    width: 100%;
+    margin-bottom: 32px;
 }
 
-/* 單位 */
-.time-box span
+.timeline-track
 {
-    font-size: 0.8rem;
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 18px;
+    background: var(--button-secondary-bg);
+    border-radius: 9px;
+    overflow: hidden;
+    margin: 12px 0px 8px 0px;
+    box-shadow: inset 0px 2px 4px rgba(0,0,0,0.15);
+}
+
+.segment
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    transition: flex 0.3s ease;
+}
+
+.segment-label
+{
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    user-select: none;
+}
+
+.segment.work-segment
+{
+    background: var(--accent-color);
+    transition: flex 0.3s ease;
+}
+
+.segment.break-segment
+{
+    background: rgba(255,255,255,0.15);
+    transition: flex 0.3s ease;
+}
+
+.timeline-pin
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #ffffff;
+    box-shadow: 0px 0px 8px rgba(255,255,255,0.8);
+    transform: translateX(-50%);
+    transition: left 0.1s linear;
+    z-index: 2;
+}
+
+.timeline-markers
+{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-family: monospace;
     color: var(--text-secondary);
-    display: block;
-    margin: 5px;
-    width: 55px;
+    padding: 0 2px;
 }
 
-.time-box.mode-single span
+.control-group
 {
-    font-size: 1.5rem;
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
 }
+
+.action-btn
+{
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition-timing-function: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.action-btn.primary
+{
+    background: var(--accent-color);
+    color: var(--accent-contract-text);
+}
+
+.action-btn.primary:hover
+{
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.action-btn.secondary
+{
+    background: var(--component-bg-hover);
+    color: var(--text-heading);
+    border-color: var(--border-standard);
+}
+
+.action-btn.secondary:hover:not(:disabled)
+{
+    border-color: var(--border-hover);
+}
+
+.action-btn.ghost
+{
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.action-btn.ghost:hover
+{
+    color: var(--text-heading);
+    background: rgba(255,255,255,0.05);
+}
+
+.action-btn:disabled
+{
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
 
 /* footer footer footer footer footer footer footer footer footer footer */
-
-#target-label
-{
-    color: var(--text-secondary);
-    align-items: center;
-    font-size: 1rem;
-    font-weight: bold;
-
-    display: block;      /* 讓 margin 作用 */
-    text-align: center;  /* 文字置中 */
-    margin-top: clamp(15px, 3vh, 40px);
-    width: 100%;         /* 強制換行，推開到倒數方塊下方 */
-}
 
 /* on moblie */
 
 @media (max-width: 600px) 
 {
-    section
-    {
-        gap: 10px;
-    }
-
-    .time-box
-    {
-        padding: 10px 5px;
-        border-radius: 15px;
-    }
-
-    .time-box div 
-    {
-        font-size: 1.6rem;
-    }
-    
-    .time-box.mode-single
-    {
-        padding: 5px 15px;
-    }
-    
-    .time-box.mode-single div
-    {
-        letter-spacing: 0.4rem;
-    }
-
-    .time-box.mode-single span
-    {
-        margin-top: -10px;
-    }
 
 }
 </style>
