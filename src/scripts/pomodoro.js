@@ -64,7 +64,7 @@ function formatTime(seconds)
 {
     const mins=Math.floor(seconds/60);
     const secs=seconds%60;
-    return `${String(mins).padStart(2,'0')}${Srting(secs).padStart(2,'0')}`;
+    return `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
 }
 
 function renderUI(state)
@@ -109,6 +109,7 @@ function renderUI(state)
     }
 
     updateTimelineProgress(state);
+    updateEstimatedTimeDisplay(state);
 }
 
 
@@ -165,7 +166,7 @@ function startTimer(state)
 
     timerInterval=setInterval(()=>
     {
-        const now=Date.noe();
+        const now=Date.now();
         const diffSeconds=Math.round((state.endTime-now)/1000);
 
         if(diffSeconds<=0)
@@ -224,7 +225,7 @@ function resetTimer(state)
     renderUI(state);
 }
 
-function bindEvents()
+function bindEvents(state)
 {
     const startBtn=document.getElementById("start-btn");
     const pauseBtn=document.getElementById("pause-btn");
@@ -266,3 +267,68 @@ function bindEvents()
         });
     }
 }
+
+function handlePhaseEnd(state)
+{
+    playNotifSound();
+
+    if(state.mode==='work')
+    {
+        state.mode='break';
+        state.timeRemaining=state.breakDuration;
+
+        startTimer(state);
+    }
+    else
+    {
+        if(state.currentCycle<state.totalCycles)
+        {
+            state.currentCycle+=1;
+            state.mode='work';
+            state.timeRemaining=state.workDuration;
+
+            startTimer(state);
+        }
+        else
+        {
+            alert("All pomodoro cycles completed.");
+            resetTimer(state);
+            return;
+        }
+    }
+    saveStateToLocalStorage(state);
+    renderUI(state);
+}
+
+function updateEstimatedTimeDisplay(state)
+{
+    const displayEl=document.getElementById("estimated-time-display");
+    if(!displayEl)return;
+
+    const totalSeconds=(state.workDuration+state.breakDuration)*state.totalCycles;
+
+    const hours=Math.floor(totalSeconds/3600);
+    const minutes=Math.floor((totalSeconds%3600)/60);
+
+    if(hours>0)
+    {
+        displayEl.textContent=`${hours}h ${minutes}m`;
+    }
+    else
+    {
+        displayEl.textContent=`${minutes}m`;
+    }
+}
+
+function playNotifSound()
+{
+    const notifAudio=new Audio("/public/sounds/notif.wav");
+
+    notifAudio.volume=0.6;
+
+    notifAudio.play().catch(err=>
+    {
+        console.warn("Audio play blocked by brower interation policy: ",err);
+    });
+}
+
