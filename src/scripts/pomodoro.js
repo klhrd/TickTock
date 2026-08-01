@@ -148,3 +148,121 @@ function updateTimelineProgress(state)
     pin.style.left=`${progressRatio*100}%`
 
 }
+
+let timerInterval=null;
+
+function startTimer(state)
+{
+    if(state.status==='running')return;
+
+    state.status='running';
+
+    state.endTime=Date.now()+state.timeRemaining*1000;
+    saveStateToLocalStorage(state);
+    renderUI(state);
+
+    if(timerInterval)clearInterval(timerInterval);
+
+    timerInterval=setInterval(()=>
+    {
+        const now=Date.noe();
+        const diffSeconds=Math.round((state.endTime-now)/1000);
+
+        if(diffSeconds<=0)
+        {
+            state.timeRemaining=0;
+            renderUI(state);
+            clearInterval(timerInterval);
+            timerInterval=null;
+
+            if(typeof handlePhaseEnd==="function")
+            {
+                handlePhaseEnd(state);
+            }
+        }
+        else
+        {
+            state.timeRemaining=diffSeconds;
+            renderUI(state);
+            saveStateToLocalStorage(state);
+        }
+    },1000);
+}
+
+function pauseTimer(state)
+{
+    if(state.status!=='running')return;
+
+    if(timerInterval)
+    {
+        clearInterval(timerInterval);
+        timerInterval=null;
+    }
+
+    state.status='pause'
+    state.endTime=null;
+
+    saveStateToLocalStorage(state);
+    renderUI(state);
+}
+
+function resetTimer(state)
+{
+    if(timerInterval)
+    {
+        clearInterval(timerInterval);
+        timerInterval=null;
+    }
+
+    state.status='idle'
+    state.mode='work';
+    state.currentCycle=1;
+    state.timeRemaining=state.workDuration;
+    state.endTime=null;
+
+    saveStateToLocalStorage(state);
+    renderUI(state);
+}
+
+function bindEvents()
+{
+    const startBtn=document.getElementById("start-btn");
+    const pauseBtn=document.getElementById("pause-btn");
+    const resetBtn=document.getElementById("reset-btn");
+    const menuStartBtn=document.getElementById("menu-start-btn");
+    const cyclesInput=document.getElementById("cycles-input");
+
+    startBtn?.addEventListener("click",()=>startTimer(state));
+    pauseBtn?.addEventListener("click",()=>pauseTimer(state));
+    resetBtn?.addEventListener("click",()=>resetTimer(state));
+
+    if(menuStartBtn)
+    {
+        menuStartBtn.addEventListener("click",()=>
+        {
+            if(state.status==='running')
+            {
+                pauseTimer(state);
+            }
+            else
+            {
+                startTimer(state);
+            }
+        });
+    }
+
+    if(cyclesInput)
+    {
+        cyclesInput.value=state.totalCycles;
+        cyclesInput.addEventListener("change",(e)=>
+        {
+            const val=parseInt(e.target.value,10);
+            if(!isNaN(val)&&val>=1&&val<=12)
+            {
+                state.totalCycles=val;
+                saveStateToLocalStorage(state);
+                renderUI(state);
+            }
+        });
+    }
+}
