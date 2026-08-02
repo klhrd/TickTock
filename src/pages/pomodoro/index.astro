@@ -22,7 +22,7 @@ import pomodoroScript from "../../scripts/pomodoro.js?url";
         </div>
 
         <div class="menu-item">
-            <label>Estimated Time</label>
+            <label>Estimated Time: </label>
             <span id="estimated-time-display">2h 00m</span>
         </div>
 
@@ -49,6 +49,11 @@ import pomodoroScript from "../../scripts/pomodoro.js?url";
             </div>
             <div class="timeline-markers">
                 <span>0m</span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
                 <span id="work-end-mark">25m</span>
                 <span id="total-end-mark">30m</span>
             </div>
@@ -106,7 +111,7 @@ section
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
     margin-bottom: 12px;
     font-size: 0.9rem;
     color: var(--text-secondary);

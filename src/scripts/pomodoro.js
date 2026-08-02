@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded",()=>
 {
     initPomodoro();
+    DEFAULT_STATE.timeRemaining=DEFAULT_STATE.workDuration;
 });
 
 const STORAGE_KEY="ticktock_pomodoro_state";
@@ -51,11 +52,15 @@ function loadStateFromLocalStorage()
     try
     {
         const data=localStorage.getItem(STORAGE_KEY);
-        return data?JSON.parse():null;
+
+        if(data==="undefined"||!data)return null;
+
+        return JSON.parse();
     }
     catch(e)
     {
         console.warn("Failed to load state from localStorage",e);
+        localStorage.removeItem(STORAGE_KEY);
         return null;
     }
 }
@@ -156,30 +161,32 @@ function startTimer(state)
 {
     if(state.status==='running')return;
 
-    state.status='running';
+    if(timerInterval)
+    {
+        clearInterval(timerInterval);
+        timerInterval=null;
+    }
 
+    state.status='running';
     state.endTime=Date.now()+state.timeRemaining*1000;
     saveStateToLocalStorage(state);
     renderUI(state);
 
-    if(timerInterval)clearInterval(timerInterval);
 
     timerInterval=setInterval(()=>
     {
         const now=Date.now();
-        const diffSeconds=Math.round((state.endTime-now)/1000);
+        const diffSeconds=Math.ceil((state.endTime-now)/1000);
 
         if(diffSeconds<=0)
         {
             state.timeRemaining=0;
             renderUI(state);
+
             clearInterval(timerInterval);
             timerInterval=null;
 
-            if(typeof handlePhaseEnd==="function")
-            {
-                handlePhaseEnd(state);
-            }
+            handlePhaseEnd(state);
         }
         else
         {
@@ -200,7 +207,7 @@ function pauseTimer(state)
         timerInterval=null;
     }
 
-    state.status='pause'
+    state.status='paused'
     state.endTime=null;
 
     saveStateToLocalStorage(state);
@@ -272,10 +279,16 @@ function handlePhaseEnd(state)
 {
     playNotifSound();
 
+    state.status='idle';
+
     if(state.mode==='work')
     {
         state.mode='break';
         state.timeRemaining=state.breakDuration;
+        state.endTime=Date.now()+state.timeRemaining*1000;
+
+        saveStateToLocalStorage(state);
+        renderUI(state);
 
         startTimer(state);
     }
@@ -286,6 +299,10 @@ function handlePhaseEnd(state)
             state.currentCycle+=1;
             state.mode='work';
             state.timeRemaining=state.workDuration;
+            state.endTime=Date.now()+state.timeRemaining*1000;
+
+            saveStateToLocalStorage(state);
+            renderUI(state);
 
             startTimer(state);
         }
@@ -293,7 +310,6 @@ function handlePhaseEnd(state)
         {
             alert("All pomodoro cycles completed.");
             resetTimer(state);
-            return;
         }
     }
     saveStateToLocalStorage(state);
