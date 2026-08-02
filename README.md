@@ -40,8 +40,8 @@ TickTock will expand to include the following time utility tools:
 - [x] [**Long-term Countdown**](https://klhrd.github.io/TickTock/countdown)
 - [x] [**Digital Clock**](https://klhrd.github.io/TickTock/digital-clock)
 - [x] [**Time Progress Bar**](https://klhrd.github.io/TickTock/time-progress)
+- [x] [**Pomodoro Timer**](https://klhrd.github.io/TickTock/pomodoro)
 - [ ] 🎯 **Minimalist Timer** (coming soon)
-- [ ] ⏳ **Pomodoro Timer** (coming soon)
 - [ ] 🌐 **World Clock Board** (coming soon)
 
 ---
@@ -53,18 +53,24 @@ The project is built using **Astro**, a modern web framework optimized for speed
 ```text
 src/
 ├── layouts/
-│   └── BaseLayout.astro       # Unified layout (Sidebar, Header, Overlay)
+│   └── BaseLayout.astro        # Unified layout (Sidebar, Header, Overlay)
 ├── pages/
-│   ├── index.astro            # Dashboard Hub / Home
+│   ├── index.astro             # Dashboard Hub / Home
 │   ├── countdown/
-│   │   └── index.astro        # Countdown Clock tool page
-│   └── digital-clock/
-│       └── index.astro        # Digital Clock tool page
-├── scripts/
-│   ├── countdown.js           # Client-side countdown logic
-│   └── digital-clock.js       # Client-side clock logic
+│   │   └── index.astro         # Countdown Clock tool page
+│   ├── digital-clock/
+│   │   └── index.astro         # Digital Clock tool page
+│   ├── pomodoro/
+│   │   └── index.astro         # Pomodoro Timer tool page
+│   └── time-progress/
+│       └── index.astro         # Time progress bar tool page
+├── scripts/                    # Tool logic
+│   ├── countdown.js
+│   ├── digital-clock.js
+│   ├── pomodoro.js
+│   └── time-progress.js
 └── styles/
-    └── (Scoped styles within Astro components)
+    └── global.css
 
 ```
 
