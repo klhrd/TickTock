@@ -15,53 +15,90 @@ import timerScript from "../../scripts/timer.js?url";
     </div>
 
     <div slot="custom-menu">
-        <div class="timer-adding-container menu-item" id="timer-adding-container" style="margin-top: 10px;">
-            <div class="timer-editor">
-                <div class="timer-unit-box" id="hour-unit-box">
-                    <button class="number-up arrow" id="hour-number-up">
-                        <span class="material-symbols-outlined">arrow_drop_up</span>
-                    </button>
-                    <input class="timer-number-input no-arrow" id="hour-number-input" 
+        <div class="menu-item" style="margin-top: 0px;">
+            <label>Add Timer: </label>
+            <div class="timer-adding-container" id="timer-adding-container" >
+                <div class="timer-editor">
+                    <div class="timer-unit-box" id="hour-unit-box">
+                        <button class="number-up arrow" id="hour-number-up">
+                            <span class="material-symbols-outlined">arrow_drop_up</span>
+                        </button>
+                        <input class="timer-number-input no-arrow" id="hour-number-input" 
+                            type="number" min="0" max="59" placeholder="00"
+                            oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                            onblur="if(value!=='')value=value.padStart(2,'0');">
+                        <button class="number-down arrow" id="hour-number-down">
+                            <span class="material-symbols-outlined">arrow_drop_down</span>
+                        </button>
+                    </div>
+                    <span>:</span>
+                    <div class="timer-unit-box" id="hour-unit-box">
+                        <button class="number-up arrow" id="hour-number-up">
+                            <span class="material-symbols-outlined">arrow_drop_up</span>
+                        </button>
+                        <input class="timer-number-input no-arrow" id="hour-number-input" 
                         type="number" min="0" max="59" placeholder="00"
                         oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
                         onblur="if(value!=='')value=value.padStart(2,'0');">
-                    <button class="number-down arrow" id="hour-number-down">
-                        <span class="material-symbols-outlined">arrow_drop_down</span>
+                        <button class="number-down arrow" id="hour-number-down">
+                            <span class="material-symbols-outlined">arrow_drop_down</span>
+                        </button>
+                    </div>
+                    <span>:</span>
+                    <div class="timer-unit-box" id="hour-unit-box">
+                        <button class="number-up arrow" id="hour-number-up">
+                            <span class="material-symbols-outlined">arrow_drop_up</span>
+                        </button>
+                        <input class="timer-number-input no-arrow" id="hour-number-input" 
+                            type="number" min="0" max="59" placeholder="00"
+                            oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                            onblur="if(value!=='')value=value.padStart(2,'0');">
+                        <button class="number-down arrow" id="hour-number-down">
+                            <span class="material-symbols-outlined">arrow_drop_down</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="timer-adding-action-btn">
+                    <button>
+                        <span class="material-symbols-outlined">add</span>
                     </button>
                 </div>
-                <div class="timer-unit-box" id="hour-unit-box">
-                    <button class="number-up arrow" id="hour-number-up">
-                        <span class="material-symbols-outlined">arrow_drop_up</span>
-                    </button>
-                    <input class="timer-number-input no-arrow" id="hour-number-input" 
-                        type="number" min="0" max="59" placeholder="00"
-                        oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
-                        onblur="if(value!=='')value=value.padStart(2,'0');">
-                    <button class="number-down arrow" id="hour-number-down">
-                        <span class="material-symbols-outlined">arrow_drop_down</span>
-                    </button>
-                </div>
-                <div class="timer-unit-box" id="hour-unit-box">
-                    <button class="number-up arrow" id="hour-number-up">
-                        <span class="material-symbols-outlined">arrow_drop_up</span>
-                    </button>
-                    <input class="timer-number-input no-arrow" id="hour-number-input" 
-                        type="number" min="0" max="59" placeholder="00"
-                        oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
-                        onblur="if(value!=='')value=value.padStart(2,'0');">
-                    <button class="number-down arrow" id="hour-number-down">
-                        <span class="material-symbols-outlined">arrow_drop_down</span>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="timer-adding-action-btn">
-                <button>
-                    <span class="material-symbols-outlined">add</span>
-                </button>
             </div>
         </div>
         
+        <hr class="menu-divider menu-item" />
+
+        <div class="menu-item">
+            <label>Timer: </label>
+            <div class="time-list-container" id="timer-list-container">
+                <div class="listed-timer">
+                    <div class="listed-timer-demo">
+                        <div class="timer-unit-box" id="hour-unit-box">
+                            <input class="timer-number-input no-arrow" id="hour-number-input" 
+                                type="number" min="0" max="59" placeholder="00"
+                                oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                                onblur="if(value!=='')value=value.padStart(2,'0');">
+                        </div>
+                        <span>:</span>
+                        <div class="timer-unit-box" id="hour-unit-box">
+                            <input class="timer-number-input no-arrow" id="hour-number-input" 
+                                type="number" min="0" max="59" placeholder="00"
+                                oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                                onblur="if(value!=='')value=value.padStart(2,'0');">
+                        </div>
+                        <span>:</span>
+                        <div class="timer-unit-box" id="hour-unit-box">
+                            <input class="timer-number-input no-arrow" id="hour-number-input" 
+                                type="number" min="0" max="59" placeholder="00"
+                                oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                                onblur="if(value!=='')value=value.padStart(2,'0');">
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div slot="main-content" class="countdown-container">
@@ -126,8 +163,14 @@ section
 .timer-editor
 {
     display: flex;
-    gap: 10px;
+    gap: 5px;
     flex-direction: row;
+    align-items: center;
+}
+
+.timer-editor>span
+{
+    font-size: 1.4rem;
 }
 
 .timer-unit-box
@@ -251,8 +294,10 @@ section
 
 .menu-item
 {
+    display: flex;
     margin-top: 15px;
     gap: 10px;
+    flex-direction: column;
 }
 
 .menu-item label
@@ -261,7 +306,7 @@ section
     color: var(--text-secondary);
 }
 
-#date-input, #title-input
+.listed-timer-demo
 {
     background: var(--component-bg-standard);
     border: 1px solid var(--border-standard);
@@ -271,6 +316,16 @@ section
     font-size: 1rem;
     font-family: inherit;
     outline: none;
+    
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.listed-timer-demo>span
+{
+    font-size: 1.4rem;
 }
 
 /* main main main main main main main main main main */
