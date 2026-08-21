@@ -24,36 +24,36 @@ import timerScript from "../../scripts/timer.js?url";
                             <span class="material-symbols-outlined">arrow_drop_up</span>
                         </button>
                         <input class="timer-number-input no-arrow" id="hour-number-input" 
-                            type="number" min="0" max="59" placeholder="00"
-                            oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                            type="number" min="0" max="99" placeholder="00"
+                            oninput="if(value>99)value=99; if(value.length>2)value=value.slice(0,2);"
                             onblur="if(value!=='')value=value.padStart(2,'0');">
                         <button class="number-down arrow" id="hour-number-down">
                             <span class="material-symbols-outlined">arrow_drop_down</span>
                         </button>
                     </div>
                     <span>:</span>
-                    <div class="timer-unit-box" id="hour-unit-box">
-                        <button class="number-up arrow" id="hour-number-up">
+                    <div class="timer-unit-box" id="minute-unit-box">
+                        <button class="number-up arrow" id="minute-number-up">
                             <span class="material-symbols-outlined">arrow_drop_up</span>
                         </button>
-                        <input class="timer-number-input no-arrow" id="hour-number-input" 
+                        <input class="timer-number-input no-arrow" id="minute-number-input" 
                         type="number" min="0" max="59" placeholder="00"
                         oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
                         onblur="if(value!=='')value=value.padStart(2,'0');">
-                        <button class="number-down arrow" id="hour-number-down">
+                        <button class="number-down arrow" id="minute-number-down">
                             <span class="material-symbols-outlined">arrow_drop_down</span>
                         </button>
                     </div>
                     <span>:</span>
-                    <div class="timer-unit-box" id="hour-unit-box">
-                        <button class="number-up arrow" id="hour-number-up">
+                    <div class="timer-unit-box" id="second-unit-box">
+                        <button class="number-up arrow" id="second-number-up">
                             <span class="material-symbols-outlined">arrow_drop_up</span>
                         </button>
-                        <input class="timer-number-input no-arrow" id="hour-number-input" 
+                        <input class="timer-number-input no-arrow" id="second-number-input" 
                             type="number" min="0" max="59" placeholder="00"
                             oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
                             onblur="if(value!=='')value=value.padStart(2,'0');">
-                        <button class="number-down arrow" id="hour-number-down">
+                        <button class="number-down arrow" id="second-number-down">
                             <span class="material-symbols-outlined">arrow_drop_down</span>
                         </button>
                     </div>
@@ -76,25 +76,31 @@ import timerScript from "../../scripts/timer.js?url";
                     <div class="listed-timer-demo">
                         <div class="timer-unit-box" id="hour-unit-box">
                             <input class="timer-number-input no-arrow" id="hour-number-input" 
+                                type="number" min="0" max="99" placeholder="00"
+                                oninput="if(value>99)value=99; if(value.length>2)value=value.slice(0,2);"
+                                onblur="if(value!=='')value=value.padStart(2,'0');">
+                        </div>
+                        <span>:</span>
+                        <div class="timer-unit-box" id="minute-unit-box">
+                            <input class="timer-number-input no-arrow" id="minute-number-input" 
                                 type="number" min="0" max="59" placeholder="00"
                                 oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
                                 onblur="if(value!=='')value=value.padStart(2,'0');">
                         </div>
                         <span>:</span>
-                        <div class="timer-unit-box" id="hour-unit-box">
-                            <input class="timer-number-input no-arrow" id="hour-number-input" 
-                                type="number" min="0" max="59" placeholder="00"
-                                oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
-                                onblur="if(value!=='')value=value.padStart(2,'0');">
-                        </div>
-                        <span>:</span>
-                        <div class="timer-unit-box" id="hour-unit-box">
-                            <input class="timer-number-input no-arrow" id="hour-number-input" 
+                        <div class="timer-unit-box" id="second-unit-box">
+                            <input class="timer-number-input no-arrow" id="second-number-input" 
                                 type="number" min="0" max="59" placeholder="00"
                                 oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
                                 onblur="if(value!=='')value=value.padStart(2,'0');">
                     
                         </div>
+                    </div>
+
+                    <div class="listed-timer-action">
+                        <button class="delete">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -196,7 +202,7 @@ section
     outline: none;
 
     background: var(--component-bg-standard);
-    border: 1px solid var(--border-standard);
+    border: 0px solid var(--border-standard);
     color: var(--text-heading);
 }
 
@@ -242,15 +248,12 @@ section
     justify-content: center;
     transition: color 0.2s ease;
     
-    background: var(--button-secondary-bg);
+    background: #00000000;
     color: var(--text-secondary);
     
     border-radius: 12px;
     border: none;
     cursor: pointer;
-
-    height: 45px;
-    width: 45px;
 }
 
 .timer-adding-action-btn>button:hover
@@ -263,33 +266,56 @@ section
     font-size: 2rem;
 }
 
-.mode-btn-item
+.listed-timer
 {
-    flex: 1;
     background: var(--component-bg-standard);
     border: 1px solid var(--border-standard);
     border-radius: 8px;
-    color: var(--text-secondary);
-    padding: 8px;
-    font-size: 0.9rem;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.mode-btn-item:hover
-{
-    background: var(--component-bg-hover);
-    border-color: var(--border-hover);
     color: var(--text-heading);
+    padding: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.mode-btn-item.active
+.listed-timer-demo
 {
-    background: var(--accent-color);
-    border-color: var(--accent-color);
-    color: var(--accent-contract-text);
-    font-weight: bold;
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.delete
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    
+    background: #00000000;
+    color: var(--text-secondary);
+    
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+
+}
+
+.delete:hover
+{
+    color: var(--text-body);
+}
+
+.delete>span
+{
+    font-size: 2rem;
 }
 
 .menu-item
@@ -306,27 +332,8 @@ section
     color: var(--text-secondary);
 }
 
-.listed-timer-demo
-{
-    background: var(--component-bg-standard);
-    border: 1px solid var(--border-standard);
-    border-radius: 8px;
-    color: var(--text-heading);
-    padding: 10px;
-    font-size: 1rem;
-    font-family: inherit;
-    outline: none;
-    
-    display: flex;
-    gap: 5px;
-    flex-direction: row;
-    align-items: center;
-}
 
-.listed-timer-demo>span
-{
-    font-size: 1.4rem;
-}
+
 
 /* main main main main main main main main main main */
 
