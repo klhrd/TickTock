@@ -74,22 +74,22 @@ import timerScript from "../../scripts/timer.js?url";
             <div class="time-list-container" id="timer-list-container">
                 <div class="listed-timer">
                     <div class="listed-timer-demo">
-                        <div class="timer-unit-box" id="hour-unit-box">
-                            <input class="timer-number-input no-arrow" id="hour-number-input" 
+                        <div class="timer-unit-box">
+                            <input class="timer-number-input no-arrow" 
                                 type="number" min="0" max="99" placeholder="00"
                                 oninput="if(value>99)value=99; if(value.length>2)value=value.slice(0,2);"
                                 onblur="if(value!=='')value=value.padStart(2,'0');">
                         </div>
                         <span>:</span>
-                        <div class="timer-unit-box" id="minute-unit-box">
-                            <input class="timer-number-input no-arrow" id="minute-number-input" 
+                        <div class="timer-unit-box">
+                            <input class="timer-number-input no-arrow" 
                                 type="number" min="0" max="59" placeholder="00"
                                 oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
                                 onblur="if(value!=='')value=value.padStart(2,'0');">
                         </div>
                         <span>:</span>
-                        <div class="timer-unit-box" id="second-unit-box">
-                            <input class="timer-number-input no-arrow" id="second-number-input" 
+                        <div class="timer-unit-box">
+                            <input class="timer-number-input no-arrow" 
                                 type="number" min="0" max="59" placeholder="00"
                                 oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
                                 onblur="if(value!=='')value=value.padStart(2,'0');">
@@ -107,15 +107,18 @@ import timerScript from "../../scripts/timer.js?url";
         </div>
     </div>
 
-    <div slot="main-content" class="countdown-container">
-        <section>
-            <div class="time-box"><div id="years">00</div><span>years</span></div>
-            <div class="time-box"><div id="months">00</div><span>months</span></div>
-            <div class="time-box"><div id="days">00</div><span>days</span></div>
-            <div class="time-box"><div id="hours">00</div><span>hours</span></div>
-            <div class="time-box"><div id="minutes">00</div><span>minutes</span></div>
-            <div class="time-box"><div id="seconds">00</div><span>seconds</span></div>
-        </section>
+    <div slot="main-content" class="timer-container">
+        <div class="timer-card">
+            <div>
+                <svg class="progress-ring" width="240" height="240">
+                    <circle class="progress-ring__bg" cx="120" cy="120" r="105" />
+                    <circle class="progress-ring__circle" cx="120" cy="120" r="105" />
+                </svg>
+
+                
+                <div class="timer-text">00:00:00</div>
+            </div>
+        </div>
     </div>
 
     <div slot="footer-content">
@@ -130,16 +133,7 @@ import timerScript from "../../scripts/timer.js?url";
 </BaseLayout>
 
 <style>
-section
-{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    max-width: 1200px;
-    width: 100%;
-}
+
 
 /* header header header header header header header header header header */
 
@@ -332,63 +326,75 @@ section
     color: var(--text-secondary);
 }
 
-
-
-
 /* main main main main main main main main main main */
 
-.time-box
+.timer-container
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.timer-card
 {
     background: var(--component-bg-standard);
-    padding: 15px 20px;
     border-radius: 30px;
-    text-align: center;
-    min-width: 100px;
-    box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+
+    position: relative;
+    width: 240px;
+    height: 240px;
 }
 
-.time-box.mode-single
+.progress-ring
 {
-    min-width: 280px;
-    width: auto;
-    padding: 25px 30px;
+
+    fill: none;
+    transform: rotate(-90deg);
+}
+
+.progress-ring circle
+{
+    fill: none;
+    stroke-width: 10;
+}
+
+.progress-ring__bg
+{
+    stroke: #e6e6e6;
+}
+
+.progress-ring__circle
+{
+    stroke: var(--accent-color);
+    stroke-dasharray: 659.7;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear;
 }
 
 /* 數字 */
-.time-box div
+.timer-text
 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--accent-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    font-size: 1.5rem;
+    color: var(--text-secondary);
 
     width: max-content;
     /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */
     font-variant-numeric: tabular-nums;
-}
-
-.time-box.mode-single div
-{
-    font-size: 3.5rem;
-    letter-spacing: 0.8rem;
-}
-
-/* 單位 */
-.time-box span
-{
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    display: block;
-    margin: 5px;
-    width: 55px;
-}
-
-.time-box.mode-single span
-{
-    font-size: 1.5rem;
 }
 
 /* footer footer footer footer footer footer footer footer footer footer */
