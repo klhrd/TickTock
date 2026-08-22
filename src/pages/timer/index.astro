@@ -109,14 +109,24 @@ import timerScript from "../../scripts/timer.js?url";
 
     <div slot="main-content" class="timer-container">
         <div class="timer-card">
-            <div>
-                <svg class="progress-ring" width="240" height="240">
-                    <circle class="progress-ring__bg" cx="120" cy="120" r="105" />
-                    <circle class="progress-ring__circle" cx="120" cy="120" r="105" />
-                </svg>
-
-                
+            <svg class="progress-ring" width="240" height="240">
+                <circle class="progress-ring__bg" cx="120" cy="120" r="105" />
+                <circle class="progress-ring__circle" cx="120" cy="120" r="105" />
+            </svg>
+            <div class="in-progress-ring">
                 <div class="timer-text">00:00:00</div>
+
+                <div class="timer-card-action-btn">
+                    <button class="start">
+                        <span class="material-symbols-outlined">play_arrow</span>
+                    </button>
+                    <button class="pause">
+                        <span class="material-symbols-outlined">pause</span>
+                    </button>
+                    <button class="replay">
+                        <span class="material-symbols-outlined">replay</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -342,6 +352,7 @@ import timerScript from "../../scripts/timer.js?url";
 .timer-card
 {
     background: var(--component-bg-standard);
+    background: #00000000;
     border-radius: 30px;
 
     display: flex;
@@ -369,26 +380,34 @@ import timerScript from "../../scripts/timer.js?url";
 
 .progress-ring__bg
 {
-    stroke: #e6e6e6;
+    stroke: var(--text-dimmed);
 }
 
 .progress-ring__circle
 {
     stroke: var(--accent-color);
     stroke-dasharray: 659.7;
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 300;
     stroke-linecap: round;
     transition: stroke-dashoffset 1s linear;
 }
 
-/* 數字 */
-.timer-text
+.in-progress-ring
 {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 數字 */
+.timer-text
+{
     font-size: 1.5rem;
     color: var(--text-secondary);
 
@@ -397,6 +416,32 @@ import timerScript from "../../scripts/timer.js?url";
     font-variant-numeric: tabular-nums;
 }
 
+.timer-card-action-btn
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.timer-card-action-btn button
+{
+    background: var(--button-secondary-bg);
+    border-radius: 50%;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.timer-card-action-btn button:hover
+{
+    color: var(--text-body);
+}
 /* footer footer footer footer footer footer footer footer footer footer */
 
 #target-label
