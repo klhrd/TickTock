@@ -72,42 +72,49 @@ import timerScript from "../../scripts/timer.js?url";
         <div class="menu-item">
             <label>Timer: </label>
             <div class="time-list-container" id="timer-list-container">
-                <div class="listed-timer">
-                    <div class="listed-timer-demo">
-                        <div class="timer-unit-box">
-                            <input class="timer-number-input no-arrow" 
-                                type="number" min="0" max="99" placeholder="00"
-                                oninput="if(value>99)value=99; if(value.length>2)value=value.slice(0,2);"
-                                onblur="if(value!=='')value=value.padStart(2,'0');">
-                        </div>
-                        <span>:</span>
-                        <div class="timer-unit-box">
-                            <input class="timer-number-input no-arrow" 
-                                type="number" min="0" max="59" placeholder="00"
-                                oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
-                                onblur="if(value!=='')value=value.padStart(2,'0');">
-                        </div>
-                        <span>:</span>
-                        <div class="timer-unit-box">
-                            <input class="timer-number-input no-arrow" 
-                                type="number" min="0" max="59" placeholder="00"
-                                oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
-                                onblur="if(value!=='')value=value.padStart(2,'0');">
-                    
-                        </div>
-                    </div>
 
-                    <div class="listed-timer-action">
-                        <button class="delete">
-                            <span class="material-symbols-outlined">delete</span>
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
     <div slot="main-content" class="timer-container">
+    </div>
+
+    <template id="listed-timer-template">
+        <div class="listed-timer">
+            <div class="listed-timer-demo">
+                <div class="timer-unit-box">
+                    <input class="timer-number-input no-arrow" 
+                        type="number" min="0" max="99" placeholder="00"
+                        oninput="if(value>99)value=99; if(value.length>2)value=value.slice(0,2);"
+                        onblur="if(value!=='')value=value.padStart(2,'0');">
+                </div>
+                <span>:</span>
+                <div class="timer-unit-box">
+                    <input class="timer-number-input no-arrow" 
+                        type="number" min="0" max="59" placeholder="00"
+                        oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                        onblur="if(value!=='')value=value.padStart(2,'0');">
+                </div>
+                <span>:</span>
+                <div class="timer-unit-box">
+                    <input class="timer-number-input no-arrow" 
+                        type="number" min="0" max="59" placeholder="00"
+                        oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                        onblur="if(value!=='')value=value.padStart(2,'0');">
+            
+                </div>
+            </div>
+
+            <div class="listed-timer-action">
+                <button class="delete">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <template id="timer-card-template">
         <div class="timer-card">
             <svg class="progress-ring" width="240" height="240">
                 <circle class="progress-ring__bg" cx="120" cy="120" r="105" />
@@ -129,7 +136,7 @@ import timerScript from "../../scripts/timer.js?url";
                 </div>
             </div>
         </div>
-    </div>
+    </template>
 
     <div slot="footer-content">
         <div id="target-label"></div>
@@ -387,7 +394,7 @@ import timerScript from "../../scripts/timer.js?url";
 {
     stroke: var(--accent-color);
     stroke-dasharray: 659.7;
-    stroke-dashoffset: 300;
+    stroke-dashoffset: 0;
     stroke-linecap: round;
     transition: stroke-dashoffset 1s linear;
 }
@@ -428,6 +435,9 @@ import timerScript from "../../scripts/timer.js?url";
     border-radius: 50%;
     border: none;
     color: var(--text-secondary);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
     cursor: pointer;
     padding: 5px;
     margin: 5px;
@@ -435,13 +445,21 @@ import timerScript from "../../scripts/timer.js?url";
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .timer-card-action-btn button:hover
 {
     color: var(--text-body);
 }
+
+.timer-card-action-btn button.is-hidden
+{
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
 /* footer footer footer footer footer footer footer footer footer footer */
 
 #target-label
