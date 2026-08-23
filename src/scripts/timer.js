@@ -4,7 +4,7 @@ if (typeof window !== "undefined")
 {
     window.addEventListener("DOMContentLoaded",()=>
     {
-        loadInitialState();
+        //loadInitialState();
         initializeApp();
     });
 }
@@ -96,7 +96,7 @@ function handleAddTimer()
 
     timers.push(newTimer);
     saveTimers();
-    // renderAll();
+    renderAll();
 }
 
 function renderTimerCard(timerData)
@@ -131,4 +131,53 @@ function updateCardBtns(cardEl,status)
     pauseBtn.classList.toggle("is-hidden",status!=="running");
     replayBtn.classList.toggle("is-hidden",status==="idle");
 
+}
+
+function renderAll()
+{
+    const container=document.getElementById("timer-container");
+    const listContainer=document.getElementById("timer-list-container");
+
+    if(container)container.innerHTML="";
+    if(listContainer)listContainer.innerHTML="";
+
+    timers.forEach((timer)=>
+    {
+        renderListedTimer(timer);
+        renderTimerCard(timer);
+    });
+}
+
+function renderListedTimer(timerData)
+{
+    const listContainer=document.getElementById("timer-list-container");
+    const template=document.getElementById("listed-timer-template");
+    if(!listContainer||!template)return;
+
+    const clone=template.content.cloneNode(true);
+    const itemEl=clone.querySelector(".listed-timer");
+    itemEl.dataset.id=timerData.id;
+
+    const inputs=itemEl.querySelectorAll("input");
+    const h=Math.floor(timerData.totalSeconds/3600);
+    const m=Math.floor((timerData.totalSeconds%3600)/60);
+    const s=timerData.totalSeconds%60;
+    
+    inputs[0].value=String(h).padStart(2,"0");
+    inputs[1].value=String(m).padStart(2,"0");
+    inputs[2].value=String(s).padStart(2,"0");
+
+    const deleteBtn=itemEl.querySelector(".delete");
+    deleteBtn.addEventListener("click",()=>handleDelete(timerData.id));
+
+    listContainer.appendChild(clone);
+}
+
+
+
+function handleDelete(id)
+{
+    timers=timers.filter((t)=>t.id!==id);
+    saveTimers();
+    renderAll();
 }
