@@ -77,66 +77,68 @@ import timerScript from "../../scripts/timer.js?url";
         </div>
     </div>
 
-    <div slot="main-content" class="timer-container">
+    <div slot="main-content" class="timer-container" id="timer-container">
     </div>
 
-    <template id="listed-timer-template">
-        <div class="listed-timer">
-            <div class="listed-timer-demo">
-                <div class="timer-unit-box">
-                    <input class="timer-number-input no-arrow" 
-                        type="number" min="0" max="99" placeholder="00"
-                        oninput="if(value>99)value=99; if(value.length>2)value=value.slice(0,2);"
-                        onblur="if(value!=='')value=value.padStart(2,'0');">
+    <div slot="template-content">
+        <template id="listed-timer-template">
+            <div class="listed-timer">
+                <div class="listed-timer-demo">
+                    <div class="timer-unit-box">
+                        <input class="timer-number-input no-arrow" 
+                            type="number" min="0" max="99" placeholder="00"
+                            oninput="if(value>99)value=99; if(value.length>2)value=value.slice(0,2);"
+                            onblur="if(value!=='')value=value.padStart(2,'0');">
+                    </div>
+                    <span>:</span>
+                    <div class="timer-unit-box">
+                        <input class="timer-number-input no-arrow" 
+                            type="number" min="0" max="59" placeholder="00"
+                            oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                            onblur="if(value!=='')value=value.padStart(2,'0');">
+                    </div>
+                    <span>:</span>
+                    <div class="timer-unit-box">
+                        <input class="timer-number-input no-arrow" 
+                            type="number" min="0" max="59" placeholder="00"
+                            oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                            onblur="if(value!=='')value=value.padStart(2,'0');">
+                
+                    </div>
                 </div>
-                <span>:</span>
-                <div class="timer-unit-box">
-                    <input class="timer-number-input no-arrow" 
-                        type="number" min="0" max="59" placeholder="00"
-                        oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
-                        onblur="if(value!=='')value=value.padStart(2,'0');">
-                </div>
-                <span>:</span>
-                <div class="timer-unit-box">
-                    <input class="timer-number-input no-arrow" 
-                        type="number" min="0" max="59" placeholder="00"
-                        oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
-                        onblur="if(value!=='')value=value.padStart(2,'0');">
-            
-                </div>
-            </div>
 
-            <div class="listed-timer-action">
-                <button class="delete">
-                    <span class="material-symbols-outlined">delete</span>
-                </button>
-            </div>
-        </div>
-    </template>
-
-    <template id="timer-card-template">
-        <div class="timer-card">
-            <svg class="progress-ring" width="240" height="240">
-                <circle class="progress-ring__bg" cx="120" cy="120" r="105" />
-                <circle class="progress-ring__circle" cx="120" cy="120" r="105" />
-            </svg>
-            <div class="in-progress-ring">
-                <div class="timer-text">00:00:00</div>
-
-                <div class="timer-card-action-btn">
-                    <button class="start">
-                        <span class="material-symbols-outlined">play_arrow</span>
-                    </button>
-                    <button class="pause">
-                        <span class="material-symbols-outlined">pause</span>
-                    </button>
-                    <button class="replay">
-                        <span class="material-symbols-outlined">replay</span>
+                <div class="listed-timer-action">
+                    <button class="delete">
+                        <span class="material-symbols-outlined">delete</span>
                     </button>
                 </div>
             </div>
-        </div>
-    </template>
+        </template>
+
+        <template id="timer-card-template">
+            <div class="timer-card">
+                <svg class="progress-ring" width="240" height="240">
+                    <circle class="progress-ring__bg" cx="120" cy="120" r="105" />
+                    <circle class="progress-ring__circle" cx="120" cy="120" r="105" />
+                </svg>
+                <div class="in-progress-ring">
+                    <div class="timer-text">00:00:00</div>
+
+                    <div class="timer-card-action-btn">
+                        <button class="start">
+                            <span class="material-symbols-outlined">play_arrow</span>
+                        </button>
+                        <button class="pause">
+                            <span class="material-symbols-outlined">pause</span>
+                        </button>
+                        <button class="replay">
+                            <span class="material-symbols-outlined">replay</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
 
     <div slot="footer-content">
         <div id="target-label"></div>
