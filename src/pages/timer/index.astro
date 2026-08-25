@@ -71,7 +71,7 @@ import timerScript from "../../scripts/timer.js?url";
 
         <div class="menu-item">
             <label>Timer: </label>
-            <div class="time-list-container" id="timer-list-container">
+            <div class="timer-list-container" id="timer-list-container">
 
             </div>
         </div>
@@ -277,6 +277,13 @@ import timerScript from "../../scripts/timer.js?url";
 .timer-adding-action-btn>button>span
 {
     font-size: 2rem;
+}
+
+#timer-list-container
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .listed-timer
