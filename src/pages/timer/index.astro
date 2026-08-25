@@ -441,20 +441,24 @@ import timerScript from "../../scripts/timer.js?url";
 .timer-card-action-btn button
 {
     background: var(--button-secondary-bg);
+    color: var(--text-secondary);
+
     border-radius: 50%;
     border: none;
-    color: var(--text-secondary);
+
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    cursor: pointer;
     padding: 5px;
     margin: 5px;
+    max-width: 1000;
+    
+    cursor: pointer;
     
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s ease, opacity 0.5s ease, visibility 0.5s ease;
+    transition: opacity 1s ease, visibility 1s ease, transform 1s ease, width 1s ease;
 }
 
 .timer-card-action-btn button:hover
@@ -465,8 +469,13 @@ import timerScript from "../../scripts/timer.js?url";
 .timer-card-action-btn button.is-hidden
 {
     opacity: 0;
+    max-width: 0;
+    margin: 0;
+    padding: 0;
     visibility: hidden;
     pointer-events: none;
+    
+    transition: opacity 0s ease, visibility 0s ease, transform 0s ease, width 0s ease;
 }
 
 /* footer footer footer footer footer footer footer footer footer footer */
