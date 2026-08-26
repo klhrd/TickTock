@@ -121,6 +121,8 @@ import timerScript from "../../scripts/timer.js?url";
                     <circle class="progress-ring__circle" cx="120" cy="120" r="105" />
                 </svg>
                 <div class="in-progress-ring">
+                    <div class="timer-text-sub">00:00:00</div>
+
                     <div class="timer-text">00:00:00</div>
 
                     <div class="timer-card-action-btn">
@@ -441,8 +443,36 @@ import timerScript from "../../scripts/timer.js?url";
 /* 數字 */
 .timer-text
 {
-    font-size: 1.5rem;
-    color: var(--text-secondary);
+    font-size: 1.8rem;
+    color: var(--text-body);
+
+    width: max-content;
+    /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */
+    font-variant-numeric: tabular-nums;
+}
+
+.timer-text.is-running
+{
+    animation: timer-text-flash 0.5s infinite alternate ease-in-out;
+}
+
+@keyframes timer-text-flash
+{
+    0%
+    {
+        color: var(--text-secondary);
+    }
+    100%
+    {
+        color: var(--text-heading);
+    }
+}
+
+.timer-text-sub
+{
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 100;
 
     width: max-content;
     /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */

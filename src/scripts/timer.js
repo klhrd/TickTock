@@ -14,11 +14,6 @@ if (typeof window !== "undefined")
 const STORAGE_KEY="ticktock_timer_state";
 let timers=[];
 
-const DEFAULT_STATE=
-{
-    
-};
-
 function initializeApp()
 {
     const addBtn=document.querySelector(".timer-adding-action-btn button");
@@ -242,6 +237,14 @@ function updateCardUI(timer)
     if(textEl)
     {
         textEl.textContent=formatTime(timer.remainingSeconds);
+        textEl.classList.toggle("is-running",timer.status==="running")
+
+    }
+
+    const textSubEl=cardEl.querySelector(".timer-text-sub");
+    if(textSubEl)
+    {
+        textSubEl.textContent=formatTime(timer.totalSeconds);
     }
 
     const bgCircle=cardEl.querySelector(".progress-ring__bg");
