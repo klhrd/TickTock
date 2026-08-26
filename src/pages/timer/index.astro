@@ -110,6 +110,14 @@ import timerScript from "../../scripts/timer.js?url";
                     <button class="delete">
                         <span class="material-symbols-outlined">delete</span>
                     </button>
+                    <div class="sort-action">
+                        <button class="sort sort-up">
+                            <span class="material-symbols-outlined">keyboard_arrow_up</span>
+                        </button>
+                        <button class="sort sort-down">
+                            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </template>
@@ -284,6 +292,7 @@ import timerScript from "../../scripts/timer.js?url";
 {
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 10px;
 }
 
@@ -299,7 +308,6 @@ import timerScript from "../../scripts/timer.js?url";
     outline: none;
     
     display: flex;
-    gap: 5px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -308,12 +316,18 @@ import timerScript from "../../scripts/timer.js?url";
 .listed-timer-demo
 {
     display: flex;
-    gap: 5px;
+    gap: 4px;
     flex-direction: row;
     align-items: center;
 }
 
-.delete
+.listed-timer-action
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.listed-timer-action>button
 {
     display: flex;
     align-items: center;
@@ -323,20 +337,58 @@ import timerScript from "../../scripts/timer.js?url";
     background: #00000000;
     color: var(--text-secondary);
     
-    border-radius: 12px;
     border: none;
-    cursor: pointer;
 
+    padding: 0;
 }
 
-.delete:hover
+.listed-timer-action>button:hover
 {
     color: var(--text-body);
 }
 
+.delete
+{
+    cursor: pointer;
+}
+
 .delete>span
 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+}
+
+.sort-action
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sort-action>button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    
+    background: #00000000;
+    color: var(--text-secondary);
+    
+    border: none;
+
+    padding: 0;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.sort-action>button>span
+{
+    font-size: 1.2rem;
+}
+
+.sort-action>button:hover
+{
+    color: var(--text-body);
 }
 
 .menu-item

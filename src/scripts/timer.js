@@ -301,7 +301,7 @@ function renderListedTimer(timerData)
     const h=Math.floor(timerData.totalSeconds/3600);
     const m=Math.floor((timerData.totalSeconds%3600)/60);
     const s=timerData.totalSeconds%60;
-    
+
     inputs[0].value=String(h).padStart(2,"0");
     inputs[1].value=String(m).padStart(2,"0");
     inputs[2].value=String(s).padStart(2,"0");
@@ -312,7 +312,12 @@ function renderListedTimer(timerData)
     });
 
     const deleteBtn=itemEl.querySelector(".delete");
-    deleteBtn.addEventListener("click",()=>handleDelete(timerData.id));
+    deleteBtn?.addEventListener("click",()=>handleDelete(timerData.id));
+
+    const sortUpBtn=itemEl.querySelector(".sort-up");
+    const sortDownBtn=itemEl.querySelector(".sort-down");
+    sortUpBtn?.addEventListener("click",()=>handleMoveTimer(timerData.id,-1));
+    sortDownBtn?.addEventListener("click",()=>handleMoveTimer(timerData.id,+1));
 
     listContainer.appendChild(clone);
 }
@@ -333,6 +338,23 @@ function handleListedTimerInput(id,itemEl)
     timer.totalSeconds=totalSeconds;
 
     handleReset(id);
+}
+
+function handleMoveTimer(id,direction)
+{
+    const index=timers.findIndex((t)=>t.id===id);
+    if(index===-1)return;
+
+    const targetIndex=index+direction;
+
+    if(targetIndex<0||targetIndex>=timers.length)return;
+
+    const temp=timers[index];
+    timers[index]=timers[targetIndex];
+    timers[targetIndex]=temp;
+
+    saveTimers();
+    renderAll();
 }
 
 let intervalId=null;
