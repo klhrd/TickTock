@@ -306,10 +306,33 @@ function renderListedTimer(timerData)
     inputs[1].value=String(m).padStart(2,"0");
     inputs[2].value=String(s).padStart(2,"0");
 
+    inputs.forEach((input)=>
+    {
+        input.addEventListener("change",()=>handleListedTimerInput(timerData.id,itemEl));
+    });
+
     const deleteBtn=itemEl.querySelector(".delete");
     deleteBtn.addEventListener("click",()=>handleDelete(timerData.id));
 
     listContainer.appendChild(clone);
+}
+
+function handleListedTimerInput(id,itemEl)
+{
+    const timer=timers.find((t)=>t.id===id);
+    if(!timer)return;
+
+    const inputs=itemEl.querySelectorAll("input");
+    const h=parseInt(inputs[0].value)||0;
+    const m=parseInt(inputs[1].value)||0;
+    const s=parseInt(inputs[2].value)||0;
+
+    const totalSeconds=h*3600+m*60+s;
+    if(totalSeconds<=0)return;
+
+    timer.totalSeconds=totalSeconds;
+
+    handleReset(id);
 }
 
 let intervalId=null;
