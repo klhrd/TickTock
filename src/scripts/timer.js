@@ -38,7 +38,8 @@ function initializeApp()
 
 function saveTimers()
 {
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(timers));
+    const cleanTimers=timers.map(({alarmAudio,...rest})=>rest);
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(cleanTimers));
 }
 
 function loadTimers()
@@ -100,7 +101,8 @@ function handleAddTimer()
         remainingSeconds: totalSeconds,     // 剩餘秒數(停止時以此為主)
         startTime: null,                    // 啟動時間(倒數時以此為主)
         endTime: null,
-        status: "idle"                      // 'idle' | 'running' | 'paused' | 'ended'
+        status: "idle",                     // 'idle' | 'running' | 'paused' | 'ended'
+        alarmAudio: null
     };
 
     timers.push(newTimer);
@@ -125,9 +127,9 @@ function renderTimerCard(timerData)
     const pauseBtn=cardEl.querySelector(".pause");
     const replayBtn=cardEl.querySelector(".replay");
 
-    playBtn.addEventListener("click",()=>handleStart(timerData.id));
-    pauseBtn.addEventListener("click",()=>handlePause(timerData.id));
-    replayBtn.addEventListener("click",()=>handleReset(timerData.id));
+    playBtn?.addEventListener("click",()=>handleStart(timerData.id));
+    pauseBtn?.addEventListener("click",()=>handlePause(timerData.id));
+    replayBtn?.addEventListener("click",()=>handleReset(timerData.id));
 
     container.appendChild(clone);
 
@@ -163,14 +165,52 @@ function handleReset(id)
 {
     const timer=timers.find((t)=>t.id===id);
     if (!timer)return;
-
+    
+    stopAlarm(timer);
     timer.status="idle";
     timer.remainingSeconds=timer.totalSeconds;
     timer.startTime=null;
-    timer.endTime;
-
+    timer.endTime=null;
+    
     saveTimers();
     updateCardUI(timer);
+}
+
+function handleDelete(id)
+{
+    const timer=timers.find((t)=>t.id===id);
+    if (!timer)
+    {
+        return;
+    }
+    else
+    {
+        stopAlarm(timer);
+    }
+
+    timers=timers.filter((t)=>t.id!==id);
+    saveTimers();
+    renderAll();
+}
+
+function playAlarm(timer)
+{
+    if(!timer.alarmAudio)
+    {
+        timer.alarmAudio=new Audio("/public/sounds/alarm.wav");
+        timer.alarmAudio.loop=true;
+    }
+    timer.alarmAudio.play().catch(()=>{});
+}
+
+function stopAlarm(timer)
+{
+    if(timer.alarmAudio&&typeof timer.alarmAudio.pause()==="function")
+    {
+        timer.alarmAudio.pause();
+        timer.alarmAudio.currentTime=0;
+    }
+    timer.alarmAudio=null;
 }
 
 function updateCardBtns(cardEl,status)
@@ -204,6 +244,12 @@ function updateCardUI(timer)
         textEl.textContent=formatTime(timer.remainingSeconds);
     }
 
+    const bgCircle=cardEl.querySelector(".progress-ring__bg");
+    if(bgCircle)
+    {
+        bgCircle.classList.toggle("is-flashing",timer.status==="ended")
+    }
+
     const circle=cardEl.querySelector(".progress-ring__circle");
     if(circle)
     {
@@ -228,6 +274,11 @@ function renderAll()
     {
         renderListedTimer(timer);
         renderTimerCard(timer);
+
+        if(timer.status==="ended")
+        {
+            playAlarm(timer);
+        }
     });
 }
 
@@ -258,13 +309,6 @@ function renderListedTimer(timerData)
     listContainer.appendChild(clone);
 }
 
-function handleDelete(id)
-{
-    timers=timers.filter((t)=>t.id!==id);
-    saveTimers();
-    renderAll();
-}
-
 let intervalId=null;
 
 function startGlobalTick()
@@ -290,6 +334,7 @@ function startGlobalTick()
                 {
                     timer.status="ended";
                     timer.remainingSeconds=0;
+                    playAlarm(timer);
                 }
 
                 console.log(timer);

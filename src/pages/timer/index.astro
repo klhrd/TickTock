@@ -6,8 +6,7 @@ import timerScript from "../../scripts/timer.js?url";
 
 <BaseLayout>
     <div slot="head">
-        <title>TickTock | Timer
-        </title>
+        <title>TickTock | Timer</title>
     </div>
 
     <div slot="header-content">
@@ -399,13 +398,31 @@ import timerScript from "../../scripts/timer.js?url";
     stroke: var(--text-dimmed);
 }
 
+.progress-ring__bg.is-flashing
+{
+    animation: ring-flash 0.1s infinite alternate ease-in-out;
+}
+
+@keyframes ring-flash
+{
+    0%
+    {
+        stroke: var(--text-dimmed);
+    }
+    100%
+    {
+        stroke: #ff4d4d;
+        filter: drop-shadow(0 0 8px #ff4d4d);
+    }
+}
+
 .progress-ring__circle
 {
     stroke: var(--accent-color);
     stroke-dasharray: 659.7;
     stroke-dashoffset: 0;
     stroke-linecap: round;
-    transition: stroke-dashoffset 1s linear;
+    transition: stroke-dashoffset 0.2s linear;
 }
 
 .in-progress-ring
