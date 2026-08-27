@@ -1,0 +1,631 @@
+---
+// src/pages/timer/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import timerScript from "../../scripts/timer.js?url";
+---
+
+<BaseLayout>
+    <div slot="head">
+        <title>TickTock | Timer</title>
+    </div>
+
+    <div slot="header-content">
+        <div id="event-label"></div>
+    </div>
+
+    <div slot="custom-menu">
+        <div class="menu-item" style="margin-top: 0px;">
+            <label>Add Timer: </label>
+            <div class="timer-adding-container" id="timer-adding-container" >
+                <div class="timer-editor">
+                    <div class="timer-unit-box" id="hour-unit-box">
+                        <button class="number-up arrow" id="hour-number-up">
+                            <span class="material-symbols-outlined">arrow_drop_up</span>
+                        </button>
+                        <input class="timer-number-input no-arrow" id="hour-number-input" 
+                            type="number" min="0" max="99" placeholder="00"
+                            oninput="if(value>99)value=99; if(value.length>2)value=value.slice(0,2);"
+                            onblur="if(value!=='')value=value.padStart(2,'0');">
+                        <button class="number-down arrow" id="hour-number-down">
+                            <span class="material-symbols-outlined">arrow_drop_down</span>
+                        </button>
+                    </div>
+                    <span>:</span>
+                    <div class="timer-unit-box" id="minute-unit-box">
+                        <button class="number-up arrow" id="minute-number-up">
+                            <span class="material-symbols-outlined">arrow_drop_up</span>
+                        </button>
+                        <input class="timer-number-input no-arrow" id="minute-number-input" 
+                        type="number" min="0" max="59" placeholder="00"
+                        oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                        onblur="if(value!=='')value=value.padStart(2,'0');">
+                        <button class="number-down arrow" id="minute-number-down">
+                            <span class="material-symbols-outlined">arrow_drop_down</span>
+                        </button>
+                    </div>
+                    <span>:</span>
+                    <div class="timer-unit-box" id="second-unit-box">
+                        <button class="number-up arrow" id="second-number-up">
+                            <span class="material-symbols-outlined">arrow_drop_up</span>
+                        </button>
+                        <input class="timer-number-input no-arrow" id="second-number-input" 
+                            type="number" min="0" max="59" placeholder="00"
+                            oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                            onblur="if(value!=='')value=value.padStart(2,'0');">
+                        <button class="number-down arrow" id="second-number-down">
+                            <span class="material-symbols-outlined">arrow_drop_down</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="timer-adding-action-btn">
+                    <button>
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="menu-divider menu-item" />
+
+        <div class="menu-item">
+            <label>Timer: </label>
+            <div class="timer-list-container" id="timer-list-container">
+
+            </div>
+        </div>
+    </div>
+
+    <div slot="main-content" class="timer-container" id="timer-container">
+    </div>
+
+    <div slot="template-content">
+        <template id="listed-timer-template">
+            <div class="listed-timer">
+                <div class="listed-timer-demo">
+                    <div class="timer-unit-box">
+                        <input class="timer-number-input no-arrow" 
+                            type="number" min="0" max="99" placeholder="00"
+                            oninput="if(value>99)value=99; if(value.length>2)value=value.slice(0,2);"
+                            onblur="if(value!=='')value=value.padStart(2,'0');">
+                    </div>
+                    <span>:</span>
+                    <div class="timer-unit-box">
+                        <input class="timer-number-input no-arrow" 
+                            type="number" min="0" max="59" placeholder="00"
+                            oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                            onblur="if(value!=='')value=value.padStart(2,'0');">
+                    </div>
+                    <span>:</span>
+                    <div class="timer-unit-box">
+                        <input class="timer-number-input no-arrow" 
+                            type="number" min="0" max="59" placeholder="00"
+                            oninput="if(value>59)value=59; if(value.length>2)value=value.slice(0,2);"
+                            onblur="if(value!=='')value=value.padStart(2,'0');">
+                
+                    </div>
+                </div>
+
+                <div class="listed-timer-action">
+                    <button class="delete">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                    <div class="sort-action">
+                        <button class="sort sort-up">
+                            <span class="material-symbols-outlined">keyboard_arrow_up</span>
+                        </button>
+                        <button class="sort sort-down">
+                            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="timer-card-template">
+            <div class="timer-card">
+                <svg class="progress-ring" width="240" height="240">
+                    <circle class="progress-ring__bg" cx="120" cy="120" r="105" />
+                    <circle class="progress-ring__circle" cx="120" cy="120" r="105" />
+                </svg>
+                <div class="in-progress-ring">
+                    <div class="timer-text-sub">00:00:00</div>
+
+                    <div class="timer-text">00:00:00</div>
+
+                    <div class="timer-card-action-btn">
+                        <button class="start">
+                            <span class="material-symbols-outlined">play_arrow</span>
+                        </button>
+                        <button class="pause">
+                            <span class="material-symbols-outlined">pause</span>
+                        </button>
+                        <button class="replay">
+                            <span class="material-symbols-outlined">replay</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <div slot="footer-content">
+        <div id="target-label"></div>
+    </div>
+
+    <script
+        slot="foot-script"
+        type="module"
+        src={timerScript}>
+    </script>
+</BaseLayout>
+
+<style>
+
+
+/* header header header header header header header header header header */
+
+#event-label
+{
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-heading);
+    font-size: 3rem;
+    margin-top: 15px;
+    margin-bottom: clamp(5px, 2vh, 30px);
+    padding: 0 10px;
+}
+
+/* aside aside aside aside aside aside aside aside aside aside */
+
+.timer-adding-container
+{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+.timer-editor
+{
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.timer-editor>span
+{
+    font-size: 1.4rem;
+}
+
+.timer-unit-box
+{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.timer-number-input
+{
+    
+    width: 2rem;
+    padding: 5px;
+    border-radius: 8px;
+
+    font-size: 1.2rem;
+    font-family: inherit;
+    text-align: center;
+
+    outline: none;
+
+    background: var(--component-bg-standard);
+    border: 0px solid var(--border-standard);
+    color: var(--text-heading);
+}
+
+.no-arrow::-webkit-inner-spin-button,
+.no-arrow::-webkit-outer-spin-button
+{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.arrow
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    
+    background: var(--button-secondary-bg);
+    color: var(--text-secondary);
+    
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+
+    height: 26px;
+    width: 45px;
+}
+
+.arrow:hover
+{
+    color: var(--text-body);
+}
+
+.arrow>span
+{
+    font-size: 2rem;
+}
+
+.timer-adding-action-btn>button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    
+    background: #00000000;
+    color: var(--text-secondary);
+    
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.timer-adding-action-btn>button:hover
+{
+    color: var(--text-body);
+}
+
+.timer-adding-action-btn>button>span
+{
+    font-size: 2rem;
+}
+
+#timer-list-container
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.listed-timer
+{
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-standard);
+    border-radius: 8px;
+    color: var(--text-heading);
+    padding: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.listed-timer-demo
+{
+    display: flex;
+    gap: 4px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.listed-timer-action
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.listed-timer-action>button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    
+    background: #00000000;
+    color: var(--text-secondary);
+    
+    border: none;
+
+    padding: 0;
+}
+
+.listed-timer-action>button:hover
+{
+    color: var(--text-body);
+}
+
+.delete
+{
+    cursor: pointer;
+}
+
+.delete>span
+{
+    font-size: 1.8rem;
+}
+
+.sort-action
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sort-action>button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    
+    background: #00000000;
+    color: var(--text-secondary);
+    
+    border: none;
+
+    padding: 0;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.sort-action>button>span
+{
+    font-size: 1.2rem;
+}
+
+.sort-action>button:hover
+{
+    color: var(--text-body);
+}
+
+.menu-item
+{
+    display: flex;
+    margin-top: 15px;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.menu-item label
+{
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* main main main main main main main main main main */
+
+.timer-container
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.timer-card
+{
+    background: var(--component-bg-standard);
+    background: #00000000;
+    border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    width: 240px;
+    height: 240px;
+}
+
+.progress-ring
+{
+
+    fill: none;
+    transform: rotate(-90deg);
+}
+
+.progress-ring circle
+{
+    fill: none;
+    stroke-width: 10;
+}
+
+.progress-ring__bg
+{
+    stroke: var(--text-dimmed);
+}
+
+.progress-ring__bg.is-flashing
+{
+    animation: ring-flash 0.1s infinite alternate ease-in-out;
+}
+
+@keyframes ring-flash
+{
+    0%
+    {
+        stroke: var(--text-dimmed);
+    }
+    100%
+    {
+        stroke: #ff4d4d;
+        filter: drop-shadow(0 0 8px #ff4d4d);
+    }
+}
+
+.progress-ring__circle
+{
+    stroke: var(--accent-color);
+    stroke-dasharray: 659.7;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.2s linear;
+}
+
+.in-progress-ring
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 數字 */
+.timer-text
+{
+    font-size: 1.8rem;
+    color: var(--text-body);
+
+    width: max-content;
+    /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */
+    font-variant-numeric: tabular-nums;
+}
+
+.timer-text.is-running
+{
+    animation: timer-text-flash 0.5s infinite alternate ease-in-out;
+}
+
+@keyframes timer-text-flash
+{
+    0%
+    {
+        color: var(--text-secondary);
+    }
+    100%
+    {
+        color: var(--text-heading);
+    }
+}
+
+.timer-text-sub
+{
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 100;
+
+    width: max-content;
+    /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */
+    font-variant-numeric: tabular-nums;
+}
+
+.timer-card-action-btn
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.timer-card-action-btn button
+{
+    background: var(--button-secondary-bg);
+    color: var(--text-secondary);
+
+    border-radius: 50%;
+    border: none;
+
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    padding: 5px;
+    margin: 5px;
+    max-width: 1000;
+    
+    cursor: pointer;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease, visibility 1s ease, transform 1s ease, width 1s ease;
+}
+
+.timer-card-action-btn button:hover
+{
+    color: var(--text-body);
+}
+
+.timer-card-action-btn button.is-hidden
+{
+    opacity: 0;
+    max-width: 0;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+    pointer-events: none;
+    
+    transition: opacity 0s ease, visibility 0s ease, transform 0s ease, width 0s ease;
+}
+
+/* footer footer footer footer footer footer footer footer footer footer */
+
+#target-label
+{
+    color: var(--text-secondary);
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+
+    display: block;      /* 讓 margin 作用 */
+    text-align: center;  /* 文字置中 */
+    margin-top: clamp(15px, 3vh, 40px);
+    width: 100%;         /* 強制換行，推開到倒數方塊下方 */
+}
+
+/* on moblie */
+
+@media (max-width: 600px) 
+{
+    section
+    {
+        gap: 10px;
+    }
+
+    .time-box
+    {
+        padding: 10px 5px;
+        border-radius: 15px;
+    }
+
+    .time-box div 
+    {
+        font-size: 1.6rem;
+    }
+    
+    .time-box.mode-single
+    {
+        padding: 5px 15px;
+    }
+    
+    .time-box.mode-single div
+    {
+        letter-spacing: 0.4rem;
+    }
+
+    .time-box.mode-single span
+    {
+        margin-top: -10px;
+    }
+
+}
+</style>
