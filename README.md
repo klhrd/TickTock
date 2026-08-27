@@ -41,7 +41,7 @@ TickTock will expand to include the following time utility tools:
 - [x] [**Digital Clock**](https://klhrd.github.io/TickTock/digital-clock)
 - [x] [**Time Progress Bar**](https://klhrd.github.io/TickTock/time-progress)
 - [x] [**Pomodoro Timer**](https://klhrd.github.io/TickTock/pomodoro)
-- [ ] 🎯 **Minimalist Timer** (coming soon)
+- [x] [**Minimalist Timer**](https://klhrd.github.io/TickTock/timer)
 - [ ] 🌐 **World Clock Board** (coming soon)
 
 ---
@@ -62,13 +62,16 @@ src/
 │   │   └── index.astro         # Digital Clock tool page
 │   ├── pomodoro/
 │   │   └── index.astro         # Pomodoro Timer tool page
-│   └── time-progress/
-│       └── index.astro         # Time progress bar tool page
+│   ├── time-progress/
+│   │   └── index.astro         # Time progress bar tool page
+│   └── timer/
+│       └── index.astro         # Timer tool page
 ├── scripts/                    # Tool logic
 │   ├── countdown.js
 │   ├── digital-clock.js
 │   ├── pomodoro.js
-│   └── time-progress.js
+│   ├── time-progress.js
+│   └── timer.js
 └── styles/
     └── global.css
 
