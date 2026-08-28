@@ -10,7 +10,6 @@ import timerScript from "../../scripts/timer.js?url";
     </div>
 
     <div slot="header-content">
-        <div id="event-label"></div>
     </div>
 
     <div slot="custom-menu">
@@ -150,7 +149,6 @@ import timerScript from "../../scripts/timer.js?url";
     </div>
 
     <div slot="footer-content">
-        <div id="target-label"></div>
     </div>
 
     <script
@@ -164,18 +162,6 @@ import timerScript from "../../scripts/timer.js?url";
 
 
 /* header header header header header header header header header header */
-
-#event-label
-{
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    color: var(--text-heading);
-    font-size: 3rem;
-    margin-top: 15px;
-    margin-bottom: clamp(5px, 2vh, 30px);
-    padding: 0 10px;
-}
 
 /* aside aside aside aside aside aside aside aside aside aside */
 
@@ -578,18 +564,4 @@ import timerScript from "../../scripts/timer.js?url";
 }
 
 /* footer footer footer footer footer footer footer footer footer footer */
-
-#target-label
-{
-    color: var(--text-secondary);
-    align-items: center;
-    font-size: 1rem;
-    font-weight: bold;
-
-    display: block;      /* 讓 margin 作用 */
-    text-align: center;  /* 文字置中 */
-    margin-top: clamp(15px, 3vh, 40px);
-    width: 100%;         /* 強制換行，推開到倒數方塊下方 */
-}
-
 </style>
