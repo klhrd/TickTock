@@ -139,12 +139,12 @@ function handleReset(id)
     if (!stopwatch)return;
     
     stopwatch.status="idle";
-    stopwatch.remainingSeconds=stopwatch.totalSeconds;
     stopwatch.startTime=null;
-    stopwatch.endTime=null;
+    stopwatch.laps=[];
     
     saveStopwatches();
     updateCardUI(stopwatch);
+    renderAll();
 }
 
 function handleLap(id)
@@ -212,7 +212,6 @@ function updateCardUI(stopwatch)
             textSubEl.innerHTML=formatTime(0);
         }
     }
-
 
     updateCardLapGrid(cardEl,stopwatch.laps);
     updateCardBtns(cardEl,stopwatch.status);
