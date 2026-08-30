@@ -147,9 +147,9 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
 
 <style>
 
+
+
 /* header header header header header header header header header header */
-
-
 
 /* aside aside aside aside aside aside aside aside aside aside */
 
@@ -331,9 +331,6 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
     align-items: center;
     justify-content: center;
 
-    position: relative;
-    width: 240px;
-    height: 240px;
 }
 
 /* 數字 */
@@ -341,10 +338,6 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
 {
     font-size: 1.8rem;
     color: var(--text-body);
-
-    width: max-content;
-    /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */
-    font-variant-numeric: tabular-nums;
 }
 
 .stopwatch-text.is-running
@@ -367,12 +360,8 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
 .stopwatch-text-sub
 {
     font-size: 1rem;
-    color: var(--text-muted);
+    /*color: var(--text-muted);*/
     font-weight: 100;
-
-    width: max-content;
-    /* 新增：強制數字等寬，防止字元縮放導致邊框抖動 */
-    font-variant-numeric: tabular-nums;
 }
 
 .stopwatch-card-action-btn
@@ -435,13 +424,14 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
 {
     font-weight: 500;
     border-bottom: 2px solid #80808080;
-    text-align: center;
+    align-self: center;
+
     color: var(--text-secondary);
 }
 
 .stopwatch-lap-data
 {
-    font-weight: lighter;
+    font-weight: 100;
     text-align: center;
     color: var(--text-muted);
 }

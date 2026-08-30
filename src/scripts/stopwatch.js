@@ -61,8 +61,25 @@ function formatTime(ms)
     const h=Math.floor(ms/3600000);
     const m=Math.floor((ms%3600000)/60000);
     const s=Math.floor((ms%60000)/1000);
-    const f=ms%1000
-    return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}.${String(f).padStart(3,"0")}`
+    const f=ms%1000;
+
+    const timeStr=`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}.${String(f).padStart(3,"0")}`;
+
+    return timeStr.split('').map(char=>
+    {
+        if(char===":"||char===".")
+        {
+            return `<span class="time-char" style="display: inline-block !important; width: 0.35em !important; text-align: center; ">${char}</span>`;
+        }
+        else if(char==="0")
+        {
+            return `<span class="time-char" style="display: inline-block !important; width: 0.7em !important; text-align: center; transform: scaleX(0.8); transform-origin: center;">${char}</span>`;        
+        }
+        else
+        {
+            return `<span class="time-char" style="display: inline-block !important; width: 0.7em !important; text-align: center; ">${char}</span>`;        
+        }
+    }).join('');
 }
 
 function handleAddStopwatch()
@@ -171,14 +188,14 @@ function updateCardUI(stopwatch)
         const textEl=cardEl.querySelector(".stopwatch-text");
         if(textEl)
         {
-            textEl.textContent=formatTime(now-stopwatch.laps[0].startTime);
+            textEl.innerHTML=formatTime(now-stopwatch.laps[0].startTime);
             textEl.classList.toggle("is-running",stopwatch.status==="running")
         }
     
         const textSubEl=cardEl.querySelector(".stopwatch-text-sub");
         if(textSubEl)
         {
-            textSubEl.textContent=formatTime(now-stopwatch.laps[stopwatch.laps.length-1].startTime);
+            textSubEl.innerHTML=formatTime(now-stopwatch.laps[stopwatch.laps.length-1].startTime);
         }
     }
     else
@@ -186,13 +203,13 @@ function updateCardUI(stopwatch)
         const textEl=cardEl.querySelector(".stopwatch-text");
         if(textEl)
         {
-            textEl.textContent=formatTime(0);
+            textEl.innerHTML=formatTime(0);
         }
     
         const textSubEl=cardEl.querySelector(".stopwatch-text-sub");
         if(textSubEl)
         {
-            textSubEl.textContent=formatTime(0);
+            textSubEl.innerHTML=formatTime(0);
         }
     }
 
@@ -343,7 +360,7 @@ function startGlobalTick()
 
     intervalId=setInterval(()=>
     {
-        const now=Date.now();
+        const now=  Date.now();
         let hasChanges=false;
 
         stopwatches.forEach((stopwatch)=>
@@ -361,5 +378,5 @@ function startGlobalTick()
         {
             saveStopwatches();
         }
-    },1);
+    },307);
 }
