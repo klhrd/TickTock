@@ -1,6 +1,8 @@
 # 依賴套件（npm install 產生的巨大資料夾）
 node_modules/
 
+.vscode/
+
 # Astro 執行與編譯產生的快取、暫存資料夾
 .astro/
 dist/
