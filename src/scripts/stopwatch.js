@@ -216,10 +216,10 @@ function updateCardLapGrid(cardEl,laps)
         for(let i=1;i<laps.length;i++)
         {
             let totalMS=0;
-            laps.forEach((aLap)=>
+            for(let j=0;j<=i;j++)
             {
-                totalMS+=aLap.duration;
-            })
+                totalMS+=laps[j].duration;
+            }
             
             toBeAdded+=`<div class="stopwatch-lap-data">${String(i).padStart(2,"0")}</div>`;
             toBeAdded+=`<div class="stopwatch-lap-data">${formatTime(laps[i].duration)}</div>`;
