@@ -22,7 +22,7 @@ let stopwatches=[];
     laps: [
         {
             id: Date.now(),
-            startTime: Date.now(),      // 啟動該 Lap 的時刻 (running 時用來算動態時間)
+            endTime: Date.now(),      // 啟動該 Lap 的時刻 (running 時用來算動態時間)
             duration: 0
         }
     ]
@@ -107,7 +107,7 @@ function handleStart(id)
     {
         const lap={
             id: now,
-            startTime: now,
+            endTime: now,
             duration: 0
         }
         stopwatch.laps.push(lap);
@@ -139,7 +139,7 @@ function handleReset(id)
     if (!stopwatch)return;
     
     stopwatch.status="idle";
-    stopwatch.startTime=null;
+    stopwatch.endTime=null;
     stopwatch.laps=[];
     
     saveStopwatches();
@@ -156,8 +156,8 @@ function handleLap(id)
     
     const lap={
         id: now,
-        startTime: now,
-        duration: now-stopwatch.laps[stopwatch.laps.length-1].startTime
+        endTime: now,
+        duration: now-stopwatch.laps[stopwatch.laps.length-1].endTime
     }
 
     stopwatch.laps.push(lap);
@@ -205,7 +205,7 @@ function renderListedStopwatch(stopwatch)
 
     const now=Date.now();
     const textEl=itemEl.querySelector(".listed-stopwatch-demo");
-    textEl.innerHTML=formatTime((now-stopwatch.laps?.[0]?.startTime)||0);
+    textEl.innerHTML=formatTime((now-stopwatch.laps?.[0]?.endTime)||0);
     textEl.classList.toggle("is-running",stopwatch.status==="running")
     
     const deleteBtn=itemEl.querySelector(".delete");
@@ -230,7 +230,7 @@ function updateListedStopwatch(stopwatch)
 
     const now=Date.now();
     const textEl=itemEl.querySelector(".listed-stopwatch-demo");
-    textEl.innerHTML=formatTime(now-stopwatch.laps[0].startTime);
+    textEl.innerHTML=formatTime(now-stopwatch.laps[0].endTime);
     textEl.classList.toggle("is-running",stopwatch.status==="running")
 }
 
@@ -274,14 +274,14 @@ function updateCardUI(stopwatch)
         const textEl=cardEl.querySelector(".stopwatch-text");
         if(textEl)
         {
-            textEl.innerHTML=formatTime(now-stopwatch.laps[0].startTime);
+            textEl.innerHTML=formatTime(now-stopwatch.laps[0].endTime);
             textEl.classList.toggle("is-running",stopwatch.status==="running")
         }
     
         const textSubEl=cardEl.querySelector(".stopwatch-text-sub");
         if(textSubEl)
         {
-            textSubEl.innerHTML=formatTime(now-stopwatch.laps[stopwatch.laps.length-1].startTime);
+            textSubEl.innerHTML=formatTime(now-stopwatch.laps[stopwatch.laps.length-1].endTime);
         }
     }
     else
