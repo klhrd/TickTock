@@ -176,6 +176,92 @@ function handleDelete(id)
     renderAll();
 }
 
+function renderAll()
+{
+    const container=document.getElementById("stopwatch-container");
+    const listContainer=document.getElementById("stopwatch-list-container");
+
+    if(container)container.innerHTML="";
+    if(listContainer)listContainer.innerHTML="";
+
+    stopwatches.forEach((stopwatch)=>
+    {
+        renderListedStopwatch(stopwatch);
+        renderStopwatchCard(stopwatch);
+    });
+}
+
+function renderListedStopwatch(stopwatch)
+{
+    const listContainer=document.getElementById("stopwatch-list-container");
+    const template=document.getElementById("listed-stopwatch-template");
+    if(!listContainer||!template)return;
+    console.log(`listed stopwatch container: ${listContainer}`);
+    console.log(`listed stopwatch template: ${template}`);
+
+    const clone=template.content.cloneNode(true);
+    const itemEl=clone.querySelector(".listed-stopwatch");
+    itemEl.dataset.id=stopwatch.id;
+
+    const now=Date.now();
+    const textEl=itemEl.querySelector(".listed-stopwatch-demo");
+    textEl.innerHTML=formatTime((now-stopwatch.laps?.[0]?.startTime)||0);
+    textEl.classList.toggle("is-running",stopwatch.status==="running")
+    
+    const deleteBtn=itemEl.querySelector(".delete");
+    deleteBtn?.addEventListener("click",()=>handleDelete(stopwatch.id));
+
+    const sortUpBtn=itemEl.querySelector(".sort-up");
+    const sortDownBtn=itemEl.querySelector(".sort-down");
+    sortUpBtn?.addEventListener("click",()=>handleMoveStopwatch(stopwatch.id,-1));
+    sortDownBtn?.addEventListener("click",()=>handleMoveStopwatch(stopwatch.id,+1));
+
+    listContainer.appendChild(clone);
+}
+
+function updateListedStopwatch(stopwatch)
+{
+    const cardEl=document.querySelector(`.listed-stopwatch-demo[data-id="${stopwatch.id}"]`);
+    if(!cardEl)
+    {
+        renderListedStopwatch(stopwatch);
+        return;
+    }
+
+    const now=Date.now();
+    const textEl=itemEl.querySelector(".listed-stopwatch-demo");
+    textEl.innerHTML=formatTime(now-stopwatch.laps[0].startTime);
+    textEl.classList.toggle("is-running",stopwatch.status==="running")
+}
+
+function renderStopwatchCard(stopwatch)
+{
+    const container=document.getElementById("stopwatch-container");
+    const template=document.getElementById("stopwatch-card-template");
+    if(!container||!template)return;
+    console.log(`stopwatch card container: ${container}`);
+    console.log(`stopwatch card template: ${template}`);
+
+    const clone=template.content.cloneNode(true);
+    const cardEl=clone.querySelector(".stopwatch-card");
+
+    cardEl.dataset.id=stopwatch.id;
+
+    const playBtn=cardEl.querySelector(".start");
+    const pauseBtn=cardEl.querySelector(".pause");
+    const replayBtn=cardEl.querySelector(".replay");
+    const lapBtn=cardEl.querySelector(".lap");
+
+    playBtn?.addEventListener("click",()=>handleStart(stopwatch.id));
+    pauseBtn?.addEventListener("click",()=>handlePause(stopwatch.id));
+    replayBtn?.addEventListener("click",()=>handleReset(stopwatch.id));
+    lapBtn?.addEventListener("click",()=>handleLap(stopwatch.id));
+
+    container.appendChild(clone);
+
+    updateCardUI(stopwatch);
+}
+
 function updateCardUI(stopwatch)
 {
     const cardEl=document.querySelector(`.stopwatch-card[data-id="${stopwatch.id}"]`);
@@ -268,72 +354,6 @@ function updateCardBtns(cardEl,status)
     lapBtn.classList.toggle("is-hidden",status==="idle");
 }
 
-function renderAll()
-{
-    const container=document.getElementById("stopwatch-container");
-    const listContainer=document.getElementById("stopwatch-list-container");
-
-    if(container)container.innerHTML="";
-    if(listContainer)listContainer.innerHTML="";
-
-    stopwatches.forEach((stopwatch)=>
-    {
-        renderListedStopwatch(stopwatch);
-        renderStopwatchCard(stopwatch);
-    });
-}
-
-function renderListedStopwatch(stopwatch)
-{
-    const listContainer=document.getElementById("stopwatch-list-container");
-    const template=document.getElementById("listed-stopwatch-template");
-    if(!listContainer||!template)return;
-    console.log(`listed stopwatch container: ${listContainer}`);
-    console.log(`listed stopwatch template: ${template}`);
-
-    const clone=template.content.cloneNode(true);
-    const itemEl=clone.querySelector(".listed-stopwatch");
-    itemEl.dataset.id=stopwatch.id;
-
-    const deleteBtn=itemEl.querySelector(".delete");
-    deleteBtn?.addEventListener("click",()=>handleDelete(stopwatch.id));
-
-    const sortUpBtn=itemEl.querySelector(".sort-up");
-    const sortDownBtn=itemEl.querySelector(".sort-down");
-    sortUpBtn?.addEventListener("click",()=>handleMoveStopwatch(stopwatch.id,-1));
-    sortDownBtn?.addEventListener("click",()=>handleMoveStopwatch(stopwatch.id,+1));
-
-    listContainer.appendChild(clone);
-}
-
-function renderStopwatchCard(stopwatch)
-{
-    const container=document.getElementById("stopwatch-container");
-    const template=document.getElementById("stopwatch-card-template");
-    if(!container||!template)return;
-    console.log(`stopwatch card container: ${container}`);
-    console.log(`stopwatch card template: ${template}`);
-
-    const clone=template.content.cloneNode(true);
-    const cardEl=clone.querySelector(".stopwatch-card");
-
-    cardEl.dataset.id=stopwatch.id;
-
-    const playBtn=cardEl.querySelector(".start");
-    const pauseBtn=cardEl.querySelector(".pause");
-    const replayBtn=cardEl.querySelector(".replay");
-    const lapBtn=cardEl.querySelector(".lap");
-
-    playBtn?.addEventListener("click",()=>handleStart(stopwatch.id));
-    pauseBtn?.addEventListener("click",()=>handlePause(stopwatch.id));
-    replayBtn?.addEventListener("click",()=>handleReset(stopwatch.id));
-    lapBtn?.addEventListener("click",()=>handleLap(stopwatch.id));
-
-    container.appendChild(clone);
-
-    updateCardUI(stopwatch);
-}
-
 function handleMoveStopwatch(id,direction)
 {
     const index=stopwatches.findIndex((t)=>t.id===id);
@@ -368,8 +388,13 @@ function startGlobalTick()
             {
                 hasChanges=true;
 
-                // console.log(stopwatch);
+                console.log(stopwatch);
                 updateCardUI(stopwatch);
+                updateListedStopwatch(stopwatch);
+            }
+            else if(stopwatch.status==="paused")
+            {
+                
             }
         });
 
