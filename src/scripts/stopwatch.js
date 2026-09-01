@@ -22,10 +22,11 @@ let stopwatches=[];
     laps: [
         {
             id: Date.now(),
-            endTime: Date.now(),      // 啟動該 Lap 的時刻 (running 時用來算動態時間)
+            endTime: Date.now(),      // 該 Lap 的時刻結束 ( lap 觸發時刻 )
             duration: 0
         }
     ]
+    pauseStartTime
 }
 */
 
@@ -114,8 +115,15 @@ function handleStart(id)
 
         stopwatch.status="running";
     }
-    else    // paused
+    else if(stopwatch.status==="paused")
     {
+        const pauseDuration=Date.now()-stopwatch.pauseStartTime;
+
+        stopwatch.laps.forEach((lap)=>
+        {
+            lap.endTime+=pauseDuration;
+        })
+
         stopwatch.status="running";
     }
     
@@ -129,6 +137,8 @@ function handlePause(id)
     if(!stopwatch)return;
 
     stopwatch.status="paused";
+    stopwatch.pauseStartTime=Date.now();
+
     saveStopwatches();
     updateCardUI(stopwatch);
 }
@@ -152,7 +162,7 @@ function handleLap(id)
     const stopwatch=stopwatches.find((t)=>t.id===id);
     if (!stopwatch)return;
 
-    const now=Date.now();
+    const now=stopwatch.status==="running"?Date.now():stopwatch.pauseStartTime;
     
     const lap={
         id: now,
@@ -203,7 +213,7 @@ function renderListedStopwatch(stopwatch)
     const itemEl=clone.querySelector(".listed-stopwatch");
     itemEl.dataset.id=stopwatch.id;
 
-    const now=Date.now();
+    const now=stopwatch.status==="running"?Date.now():stopwatch.pauseStartTime;
     const textEl=itemEl.querySelector(".listed-stopwatch-demo");
     textEl.innerHTML=formatTime((now-stopwatch.laps?.[0]?.endTime)||0);
     textEl.classList.toggle("is-running",stopwatch.status==="running")
@@ -228,7 +238,7 @@ function updateListedStopwatch(stopwatch)
         return;
     }
 
-    const now=Date.now();
+    const now=stopwatch.status==="running"?Date.now():stopwatch.pauseStartTime;
     const textEl=itemEl.querySelector(".listed-stopwatch-demo");
     textEl.innerHTML=formatTime(now-stopwatch.laps[0].endTime);
     textEl.classList.toggle("is-running",stopwatch.status==="running")
@@ -267,14 +277,14 @@ function updateCardUI(stopwatch)
     const cardEl=document.querySelector(`.stopwatch-card[data-id="${stopwatch.id}"]`);
     if(!cardEl)return;
 
-    const now=Date.now();
+    const now=stopwatch.status==="running"?Date.now():stopwatch.pauseStartTime;
 
     if(stopwatch.status!=="idle")
     {
         const textEl=cardEl.querySelector(".stopwatch-text");
         if(textEl)
         {
-            textEl.innerHTML=formatTime(now-stopwatch.laps[0].endTime);
+            textEl.innerHTML=formatTime(now-stopwatch?.laps[0]?.endTime||0);
             textEl.classList.toggle("is-running",stopwatch.status==="running")
         }
     
@@ -379,28 +389,16 @@ function startGlobalTick()
 
     intervalId=setInterval(()=>
     {
-        const now=  Date.now();
-        let hasChanges=false;
 
         stopwatches.forEach((stopwatch)=>
         {
             if(stopwatch.status==="running")
             {
-                hasChanges=true;
-
                 console.log(stopwatch);
                 updateCardUI(stopwatch);
                 updateListedStopwatch(stopwatch);
-            }
-            else if(stopwatch.status==="paused")
-            {
-                
+                saveStopwatches();
             }
         });
-
-        if(hasChanges)
-        {
-            saveStopwatches();
-        }
     },307);
 }
