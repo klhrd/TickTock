@@ -206,8 +206,8 @@ function renderListedStopwatch(stopwatch)
     const listContainer=document.getElementById("stopwatch-list-container");
     const template=document.getElementById("listed-stopwatch-template");
     if(!listContainer||!template)return;
-    console.log(`listed stopwatch container: ${listContainer}`);
-    console.log(`listed stopwatch template: ${template}`);
+    // console.log(`listed stopwatch container: ${listContainer}`);
+    // console.log(`listed stopwatch template: ${template}`);
 
     const clone=template.content.cloneNode(true);
     const itemEl=clone.querySelector(".listed-stopwatch");
@@ -231,7 +231,7 @@ function renderListedStopwatch(stopwatch)
 
 function updateListedStopwatch(stopwatch)
 {
-    const cardEl=document.querySelector(`.listed-stopwatch-demo[data-id="${stopwatch.id}"]`);
+    const cardEl=document.querySelector(`.listed-stopwatch[data-id="${stopwatch.id}"]`);
     if(!cardEl)
     {
         renderListedStopwatch(stopwatch);
@@ -239,8 +239,9 @@ function updateListedStopwatch(stopwatch)
     }
 
     const now=stopwatch.status==="running"?Date.now():stopwatch.pauseStartTime;
-    const textEl=itemEl.querySelector(".listed-stopwatch-demo");
-    textEl.innerHTML=formatTime(now-stopwatch.laps[0].endTime);
+    
+    const textEl=cardEl.querySelector(".listed-stopwatch-demo");
+    textEl.innerHTML=formatTime(now-stopwatch?.laps[0]?.endTime||0);
     textEl.classList.toggle("is-running",stopwatch.status==="running")
 }
 
@@ -400,5 +401,5 @@ function startGlobalTick()
                 saveStopwatches();
             }
         });
-    },307);
+    },73);
 }
