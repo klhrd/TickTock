@@ -354,15 +354,15 @@ function updateCardBtns(cardEl,status)
     /*
             play    pause   replay  lap     
     idle    1                               
-    running         1       1       1       
-    paused  1               1       1       
+    running         1               1       
+    paused  1               1               
     > 1=show                        
     */
 
     playBtn.classList.toggle("is-hidden", status==="running");
     pauseBtn.classList.toggle("is-hidden",status!=="running");
-    replayBtn.classList.toggle("is-hidden",status==="idle");
-    lapBtn.classList.toggle("is-hidden",status==="idle");
+    replayBtn.classList.toggle("is-hidden",status!=="paused");
+    lapBtn.classList.toggle("is-hidden",status!=="running");
 }
 
 function handleMoveStopwatch(id,direction)
@@ -395,7 +395,7 @@ function startGlobalTick()
         {
             if(stopwatch.status==="running")
             {
-                console.log(stopwatch);
+                // console.log(stopwatch);
                 updateCardUI(stopwatch);
                 updateListedStopwatch(stopwatch);
                 saveStopwatches();
