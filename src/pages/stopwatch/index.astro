@@ -27,63 +27,11 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
         <div class="menu-item">
             <label>Stopwatch: </label>
             <div class="stopwatch-list-container" id="stopwatch-list-container">
-                <div class="listed-stopwatch">
-                    <div class="listed-stopwatch-demo">00:00:00.000</div>
-
-                    <div class="listed-stopwatch-action">
-                        <button class="delete">
-                            <span class="material-symbols-outlined">delete</span>
-                        </button>
-                        <div class="sort-action">
-                            <button class="sort sort-up">
-                                <span class="material-symbols-outlined">keyboard_arrow_up</span>
-                            </button>
-                            <button class="sort sort-down">
-                                <span class="material-symbols-outlined">keyboard_arrow_down</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
     <div slot="main-content" class="stopwatch-container" id="stopwatch-container">
-        <div class="stopwatch-card">
-            <div class="stopwatch-text-sub">00:00:00.000</div>
-            
-            <div class="stopwatch-text">00:00:00.000</div>
-
-            <div class="stopwatch-card-action-btn">
-                <button class="start">
-                    <span class="material-symbols-outlined">play_arrow</span>
-                </button>
-                <button class="pause">
-                    <span class="material-symbols-outlined">pause</span>
-                </button>
-                <button class="replay">
-                    <span class="material-symbols-outlined">replay</span>
-                </button>
-                <button class="lap">
-                    <span class="material-symbols-outlined">flag</span>
-                </button>
-            </div>
-
-            <div class="stopwatch-lap-container">
-                <div class="stopwatch-lap-header">i</div>
-                <div class="stopwatch-lap-header">lap</div>
-                <div class="stopwatch-lap-header">total</div>
-                
-                <div class="stopwatch-lap-data">01</div>
-                <div class="stopwatch-lap-data">00:00:00.000</div>
-                <div class="stopwatch-lap-data">00:00:00.000</div>
-                
-                <div class="stopwatch-lap-data">10</div>
-                <div class="stopwatch-lap-data">00:00:00.000</div>
-                <div class="stopwatch-lap-data">00:00:00.000</div>
-            </div>
-            
-        </div>
     </div>
 
     <div slot="template-content">
@@ -125,6 +73,9 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
                     </button>
                     <button class="lap">
                         <span class="material-symbols-outlined">flag</span>
+                    </button>
+                    <button class="copy">
+                        <span class="material-symbols-outlined">content_copy</span>
                     </button>
                 </div>
 
@@ -318,6 +269,7 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
     align-items: center;
     max-width: 1200px;
     width: 100%;
+    margin-top: 20px;
 }
 
 .stopwatch-card

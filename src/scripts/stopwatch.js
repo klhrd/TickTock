@@ -57,7 +57,7 @@ function loadStopwatches()
     stopwatches=data?JSON.parse(data):[];
 }
 
-function formatTime(ms)
+function formatTimeIntoHTML(ms)
 {
     const h=Math.floor(ms/3600000);
     const m=Math.floor((ms%3600000)/60000);
@@ -81,6 +81,50 @@ function formatTime(ms)
             return `<span class="time-char" style="display: inline-block !important; width: 0.7em !important; text-align: center; ">${char}</span>`;        
         }
     }).join('');
+}
+
+function formatTimeIntoText(ms)
+{
+    const h=Math.floor(ms/3600000);
+    const m=Math.floor((ms%3600000)/60000);
+    const s=Math.floor((ms%60000)/1000);
+    const f=ms%1000;
+
+    const timeStr=`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}.${String(f).padStart(3,"0")}`;
+
+    return timeStr;
+}
+
+function formatLapsOutput(id,now)
+{
+    const stopwatch=stopwatches.find((t)=>t.id===id);
+    if (!stopwatch)return;
+
+    let output=
+`Total: 
+${formatTimeIntoText(now-stopwatch?.laps[0]?.endTime||0)}
+`;
+
+    const laps=stopwatch.laps;
+    if(laps.length>1)
+    {
+        output+="\n";
+
+        for(let i=1;i<laps.length;i++)
+        {
+            let totalMS=0;
+            for(let j=0;j<=i;j++)
+            {
+                totalMS+=laps[j].duration;
+            }
+            
+            output+=`${String(i).padStart(2,"0")}`+"\t";
+            output+=`${formatTimeIntoText(laps[i].duration)}`+"\t";
+            output+=`${formatTimeIntoText(totalMS)}`+"\n";
+        }
+    }
+
+    return output;    
 }
 
 function handleAddStopwatch()
@@ -176,6 +220,26 @@ function handleLap(id)
     renderAll();
 }
 
+async function handleCopy(textToCopy)
+{
+    let success=false;
+
+    try
+    {
+        await navigator.clipboard.writeText(textToCopy);
+
+        success=true;
+        console.log("succeeded to copy: ",textToCopy);
+    }
+    catch(err)
+    {
+        console.error("failed to copy: ",textToCopy);
+        alert("failed to copy")
+    }
+
+    return success;
+}
+
 function handleDelete(id)
 {
     const stopwatch=stopwatches.find((t)=>t.id===id);
@@ -215,7 +279,7 @@ function renderListedStopwatch(stopwatch)
 
     const now=stopwatch.status==="running"?Date.now():stopwatch.pauseStartTime;
     const textEl=itemEl.querySelector(".listed-stopwatch-demo");
-    textEl.innerHTML=formatTime((now-stopwatch.laps?.[0]?.endTime)||0);
+    textEl.innerHTML=formatTimeIntoHTML((now-stopwatch.laps?.[0]?.endTime)||0);
     textEl.classList.toggle("is-running",stopwatch.status==="running")
     
     const deleteBtn=itemEl.querySelector(".delete");
@@ -241,7 +305,7 @@ function updateListedStopwatch(stopwatch)
     const now=stopwatch.status==="running"?Date.now():stopwatch.pauseStartTime;
     
     const textEl=cardEl.querySelector(".listed-stopwatch-demo");
-    textEl.innerHTML=formatTime(now-stopwatch?.laps[0]?.endTime||0);
+    textEl.innerHTML=formatTimeIntoHTML(now-stopwatch?.laps[0]?.endTime||0);
     textEl.classList.toggle("is-running",stopwatch.status==="running")
 }
 
@@ -262,11 +326,25 @@ function renderStopwatchCard(stopwatch)
     const pauseBtn=cardEl.querySelector(".pause");
     const replayBtn=cardEl.querySelector(".replay");
     const lapBtn=cardEl.querySelector(".lap");
+    const copyBtn=cardEl.querySelector(".copy");
 
     playBtn?.addEventListener("click",()=>handleStart(stopwatch.id));
     pauseBtn?.addEventListener("click",()=>handlePause(stopwatch.id));
     replayBtn?.addEventListener("click",()=>handleReset(stopwatch.id));
     lapBtn?.addEventListener("click",()=>handleLap(stopwatch.id));
+    copyBtn?.addEventListener("click",()=>
+    {
+        const copyData=formatLapsOutput(stopwatch.id,Date.now());
+
+        const icon=copyBtn.querySelector(".material-symbols-outlined");        
+        icon.textContent=handleCopy(copyData)?"check":"error";
+        icon.style.color="var(--accent-color)";
+        setTimeout(()=>
+        {
+            icon.textContent="content_copy";
+            icon.style.color="var(--text-secondary)";
+        }, 2000);
+    });
 
     container.appendChild(clone);
 
@@ -285,14 +363,14 @@ function updateCardUI(stopwatch)
         const textEl=cardEl.querySelector(".stopwatch-text");
         if(textEl)
         {
-            textEl.innerHTML=formatTime(now-stopwatch?.laps[0]?.endTime||0);
+            textEl.innerHTML=formatTimeIntoHTML(now-stopwatch?.laps[0]?.endTime||0);
             textEl.classList.toggle("is-running",stopwatch.status==="running")
         }
     
         const textSubEl=cardEl.querySelector(".stopwatch-text-sub");
         if(textSubEl)
         {
-            textSubEl.innerHTML=formatTime(now-stopwatch.laps[stopwatch.laps.length-1].endTime);
+            textSubEl.innerHTML=formatTimeIntoHTML(now-stopwatch.laps[stopwatch.laps.length-1].endTime);
         }
     }
     else
@@ -300,13 +378,13 @@ function updateCardUI(stopwatch)
         const textEl=cardEl.querySelector(".stopwatch-text");
         if(textEl)
         {
-            textEl.innerHTML=formatTime(0);
+            textEl.innerHTML=formatTimeIntoHTML(0);
         }
     
         const textSubEl=cardEl.querySelector(".stopwatch-text-sub");
         if(textSubEl)
         {
-            textSubEl.innerHTML=formatTime(0);
+            textSubEl.innerHTML=formatTimeIntoHTML(0);
         }
     }
 
@@ -335,8 +413,8 @@ function updateCardLapGrid(cardEl,laps)
             }
             
             toBeAdded+=`<div class="stopwatch-lap-data">${String(i).padStart(2,"0")}</div>`;
-            toBeAdded+=`<div class="stopwatch-lap-data">${formatTime(laps[i].duration)}</div>`;
-            toBeAdded+=`<div class="stopwatch-lap-data">${formatTime(totalMS)}</div>`;
+            toBeAdded+=`<div class="stopwatch-lap-data">${formatTimeIntoHTML(laps[i].duration)}</div>`;
+            toBeAdded+=`<div class="stopwatch-lap-data">${formatTimeIntoHTML(totalMS)}</div>`;
         }
 
         LapGrid.insertAdjacentHTML('beforeend',toBeAdded);
