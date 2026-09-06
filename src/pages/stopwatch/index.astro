@@ -263,21 +263,26 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
 .stopwatch-container
 {
     display: flex;
-    flex-wrap: wrap;
+    overflow-x: auto;
+    flex-wrap: nowrap;
     gap: 15px;
-    justify-content: center;
-    align-items: center;
-    max-width: 1200px;
-    width: 100%;
-    margin-top: 20px;
+
+    justify-content: flex-start; 
+    align-items: flex-start;
+    width: 90svw;
+    min-height: 100svh;
+    margin-top: 30px;
+
+    padding: 0 15px 10px 15px; 
 }
 
 .stopwatch-card
 {
     background: var(--component-bg-standard);
     background: #00000000;
-    border-radius: 30px;
+    padding: 10px;
 
+    flex: 0 0 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -292,7 +297,7 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
     color: var(--text-body);
 }
 
-.stopwatch-text.is-running
+.is-running
 {
     animation: stopwatch-text-flash 1s infinite alternate ease-in-out;
 }
@@ -312,7 +317,7 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
 .stopwatch-text-sub
 {
     font-size: 1rem;
-    /*color: var(--text-muted);*/
+    color: var(--text-muted);
     font-weight: 100;
 }
 
@@ -377,16 +382,21 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
     font-weight: 500;
     border-bottom: 2px solid #80808080;
     align-self: center;
-
-    color: var(--text-secondary);
+    color: var(--text-secondary) !important;
 }
 
 .stopwatch-lap-data
 {
     font-weight: 100;
     text-align: center;
-    color: var(--text-muted);
 }
+
+.stopwatch-lap-data span
+{
+    color: var(--text-muted) !important;
+}
+
+
 
 /* footer footer footer footer footer footer footer footer footer footer */
 

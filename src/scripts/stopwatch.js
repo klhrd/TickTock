@@ -364,13 +364,14 @@ function updateCardUI(stopwatch)
         if(textEl)
         {
             textEl.innerHTML=formatTimeIntoHTML(now-stopwatch?.laps[0]?.endTime||0);
-            textEl.classList.toggle("is-running",stopwatch.status==="running")
+            textEl.classList.toggle("is-running",stopwatch.status==="running");
         }
     
         const textSubEl=cardEl.querySelector(".stopwatch-text-sub");
         if(textSubEl)
         {
             textSubEl.innerHTML=formatTimeIntoHTML(now-stopwatch.laps[stopwatch.laps.length-1].endTime);
+            textSubEl.classList.toggle("is-running",stopwatch.status==="running");
         }
     }
     else
@@ -379,6 +380,7 @@ function updateCardUI(stopwatch)
         if(textEl)
         {
             textEl.innerHTML=formatTimeIntoHTML(0);
+            textEl.classList.toggle("is-running",stopwatch.status==="running")
         }
     
         const textSubEl=cardEl.querySelector(".stopwatch-text-sub");
