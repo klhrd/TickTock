@@ -1,3 +1,6 @@
+// src/scripts/pomodoro.js
+import notifSoundUrl from '../assets/sounds/notif.wav'
+
 document.addEventListener("DOMContentLoaded",()=>
 {
     initPomodoro();
@@ -338,7 +341,7 @@ function updateEstimatedTimeDisplay(state)
 
 function playNotifSound()
 {
-    const notifAudio=new Audio("/public/sounds/notif.wav");
+    const notifAudio=new Audio(notifSoundUrl);
 
     notifAudio.volume=0.6;
 
