@@ -1,0 +1,403 @@
+---
+// src/pages/stopwatch/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import stopwatchScript from "../../scripts/stopwatch.js?url";
+---
+
+<BaseLayout>
+    <div slot="head">
+        <title>TickTock | Stopwatch</title>
+    </div>
+
+    <div slot="header-content">
+    </div>
+
+    <div slot="custom-menu" id="custom-menu">
+        <div class="menu-item">
+            <div class="stopwatch-adding-action-btn">
+                <button style="">
+                    <span class="material-symbols-outlined">add</span>
+                    <span style="font-family: Carter One; font-size: 1.5rem; padding-left: 10px;">Add Stopwatch</span>
+                </button>
+            </div>
+        </div>
+        
+        <hr class="menu-divider menu-item" />
+
+        <div class="menu-item">
+            <label>Stopwatch: </label>
+            <div class="stopwatch-list-container" id="stopwatch-list-container">
+            </div>
+        </div>
+    </div>
+
+    <div slot="main-content" class="stopwatch-container" id="stopwatch-container">
+    </div>
+
+    <div slot="template-content">
+        <template id="listed-stopwatch-template">
+            <div class="listed-stopwatch">
+                <div class="listed-stopwatch-demo">00:00:00.000</div>
+
+                <div class="listed-stopwatch-action">
+                    <button class="delete">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                    <div class="sort-action">
+                        <button class="sort sort-up">
+                            <span class="material-symbols-outlined">keyboard_arrow_up</span>
+                        </button>
+                        <button class="sort sort-down">
+                            <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="stopwatch-card-template">
+            <div class="stopwatch-card">
+                <div class="stopwatch-text-sub">00:00:00.000</div>
+                
+                <div class="stopwatch-text">00:00:00.000</div>
+
+                <div class="stopwatch-card-action-btn">
+                    <button class="start">
+                        <span class="material-symbols-outlined">play_arrow</span>
+                    </button>
+                    <button class="pause">
+                        <span class="material-symbols-outlined">pause</span>
+                    </button>
+                    <button class="replay">
+                        <span class="material-symbols-outlined">replay</span>
+                    </button>
+                    <button class="lap">
+                        <span class="material-symbols-outlined">flag</span>
+                    </button>
+                    <button class="copy">
+                        <span class="material-symbols-outlined">content_copy</span>
+                    </button>
+                </div>
+
+                <div class="stopwatch-lap-container">
+                </div>
+                
+            </div>
+        </template>
+    </div>
+
+    <div slot="footer-content">
+    </div>
+
+    <script
+        slot="foot-script"
+        type="module"
+        src={stopwatchScript}>
+    </script>
+</BaseLayout>
+
+<style>
+
+
+
+/* header header header header header header header header header header */
+
+/* aside aside aside aside aside aside aside aside aside aside */
+
+.stopwatch-adding-container
+{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+.stopwatch-adding-action-btn>button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    
+    background: #00000000;
+    color: var(--text-secondary);
+    
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.stopwatch-adding-action-btn>button:hover
+{
+    color: var(--text-body);
+}
+
+.stopwatch-adding-action-btn>button>span
+{
+    font-size: 2rem;
+}
+
+#stopwatch-list-container
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.listed-stopwatch
+{
+    background: var(--component-bg-standard);
+    border: 1px solid var(--border-standard);
+    border-radius: 8px;
+    color: var(--text-heading);
+    padding: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.listed-stopwatch-demo
+{
+    padding-left: 2px;
+    font-size: 1.3rem;
+}
+
+.listed-stopwatch-action
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.listed-stopwatch-action>button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    
+    background: #00000000;
+    color: var(--text-secondary);
+    
+    border: none;
+
+    padding: 0;
+}
+
+.listed-stopwatch-action>button:hover
+{
+    color: var(--text-body);
+}
+
+.delete
+{
+    cursor: pointer;
+}
+
+.delete>span
+{
+    font-size: 1.8rem;
+}
+
+.sort-action
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sort-action>button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    
+    background: #00000000;
+    color: var(--text-secondary);
+    
+    border: none;
+
+    padding: 0;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.sort-action>button>span
+{
+    font-size: 1.2rem;
+}
+
+.sort-action>button:hover
+{
+    color: var(--text-body);
+}
+
+.menu-item
+{
+    display: flex;
+    margin-top: 15px;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.menu-item:first-child
+{
+    margin-top: 0px;
+}
+
+.menu-item label
+{
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* main main main main main main main main main main */
+
+.stopwatch-container
+{
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 15px;
+
+    justify-content: flex-start; 
+    align-items: flex-start;
+    width: 90svw;
+    min-height: 100svh;
+    margin-top: 30px;
+
+    padding: 0 15px 10px 15px; 
+}
+
+.stopwatch-card
+{
+    background: var(--component-bg-standard);
+    background: #00000000;
+    padding: 10px;
+
+    flex: 0 0 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+/* 數字 */
+.stopwatch-text
+{
+    font-size: 1.8rem;
+    color: var(--text-body);
+}
+
+.is-running
+{
+    animation: stopwatch-text-flash 1s infinite alternate ease-in-out;
+}
+
+@keyframes stopwatch-text-flash
+{
+    0%
+    {
+        color: var(--text-secondary);
+    }
+    100%
+    {
+        color: var(--text-heading);
+    }
+}
+
+.stopwatch-text-sub
+{
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 100;
+}
+
+.stopwatch-card-action-btn
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.stopwatch-card-action-btn button
+{
+    background: var(--button-secondary-bg);
+    color: var(--text-secondary);
+
+    border-radius: 50%;
+    border: none;
+
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    padding: 5px;
+    margin: 5px;
+    max-width: 1000;
+    
+    cursor: pointer;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease, visibility 1s ease, transform 1s ease, width 1s ease;
+}
+
+.stopwatch-card-action-btn button:hover
+{
+    color: var(--text-body);
+}
+
+.stopwatch-card-action-btn button.is-hidden
+{
+    opacity: 0;
+    max-width: 0;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+    pointer-events: none;
+    
+    transition: opacity 0s ease, visibility 0s ease, transform 0s ease, width 0s ease;
+}
+
+.stopwatch-lap-container
+{
+    display: grid;
+    grid-template-columns: 1fr 145px 145px;
+    row-gap: 10px;
+    min-width: 330px;
+    max-width: 400px;
+    margin-top: 10px;
+}
+
+.stopwatch-lap-header
+{
+    font-weight: 500;
+    border-bottom: 2px solid #80808080;
+    align-self: center;
+    color: var(--text-secondary) !important;
+}
+
+.stopwatch-lap-data
+{
+    font-weight: 100;
+    text-align: center;
+}
+
+.stopwatch-lap-data span
+{
+    color: var(--text-muted) !important;
+}
+
+
+
+/* footer footer footer footer footer footer footer footer footer footer */
+
+</style>

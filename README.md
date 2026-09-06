@@ -1,13 +1,17 @@
 <table align="center" border="0" cellpadding="0" cellspacing="10">
     <tr>
-        <td width="33%"><img src="./public/images/home.png" width="100%"></td>
-        <td width="33%"><img src="./public/images/countdown.png" width="100%"></td>
-        <td width="33%"><img src="./public/images/digital-clock.png" width="100%"></td>
+        <td width="20%"><img src="./public/images/home.png" width="100%"></td>
+        <td width="20%"><img src="./public/images/countdown.png" width="100%"></td>
+        <td width="20%"><img src="./public/images/digital-clock.png" width="100%"></td>
+        <td width="20%"><img src="./public/images/timer.png" width="100%"></td>
+        <td width="20%"><img src="./public/images/stopwatch.png" width="100%"></td>
     </tr>
     <tr>
         <td>Home</td>
         <td>Countdown</td>
         <td>Digital Clock</td>
+        <td>Timer</td>
+        <td>Stopwatch</td>
     </tr>
 </table>
 
@@ -42,6 +46,7 @@ TickTock will expand to include the following time utility tools:
 - [x] [**Time Progress Bar**](https://klhrd.github.io/TickTock/time-progress)
 - [x] [**Pomodoro Timer**](https://klhrd.github.io/TickTock/pomodoro)
 - [x] [**Minimalist Timer**](https://klhrd.github.io/TickTock/timer)
+- [x] [**Stopwacth**](https://klhrd.github.io/TickTock/stopwatch)
 - [ ] 🌐 **World Clock Board** (coming soon)
 
 ---
@@ -62,6 +67,8 @@ src/
 │   │   └── index.astro         # Digital Clock tool page
 │   ├── pomodoro/
 │   │   └── index.astro         # Pomodoro Timer tool page
+│   ├── stopwatch/
+│   │   └── index.astro         # Stopwatch tool page
 │   ├── time-progress/
 │   │   └── index.astro         # Time progress bar tool page
 │   └── timer/
@@ -70,6 +77,7 @@ src/
 │   ├── countdown.js
 │   ├── digital-clock.js
 │   ├── pomodoro.js
+│   ├── stopwatch.js
 │   ├── time-progress.js
 │   └── timer.js
 └── styles/
