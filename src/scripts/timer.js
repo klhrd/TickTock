@@ -192,9 +192,8 @@ function playAlarm(timer)
 {
     if(!timer.alarmAudio)
     {
-        const soundPath=`${import.meta.env.BASE_URL}sounds/alarm.wav`;
-        timer.alarmAudio=new Audio(soundPath);
-        timer.alarmAudio.loop=true;
+        timer.alarmAudio = new Audio('/TickTock/sounds/alarm.wav');
+        timer.alarmAudio.loop = true;
     }
     timer.alarmAudio.play().catch(()=>{});
 }
