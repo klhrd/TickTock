@@ -267,13 +267,16 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
     flex-wrap: nowrap;
     gap: 15px;
 
-    justify-content: flex-start; 
-    align-items: flex-start;
+    justify-content: safe center; 
+    align-items: flex-end;
     width: 90svw;
-    min-height: 100svh;
-    margin-top: 30px;
+    min-height: calc(100svh - 85px);
+    margin-top: 35px;
 
     padding: 0 15px 10px 15px; 
+
+    transform: rotateX(180deg);
+    direction: ltr;
 }
 
 .stopwatch-card
@@ -287,6 +290,8 @@ import stopwatchScript from "../../scripts/stopwatch.js?url";
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    transform: rotateX(180deg);
 
 }
 

@@ -263,6 +263,11 @@ function renderAll()
         renderListedStopwatch(stopwatch);
         renderStopwatchCard(stopwatch);
     });
+
+    if(stopwatches.length===0)
+    {
+        container.innerHTML=`<p style="transform: rotateX(180deg); color: var(--text-muted)">add stopwatches from the menu</p>`;
+    }
 }
 
 function renderListedStopwatch(stopwatch)

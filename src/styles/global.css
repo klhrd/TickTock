@@ -265,6 +265,7 @@ body
 {
     /* 讓捲動條變細 */
     width: 6px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track, 

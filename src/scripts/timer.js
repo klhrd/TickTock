@@ -284,6 +284,11 @@ function renderAll()
             playAlarm(timer);
         }
     });
+
+    if(timers.length===0)
+    {
+        container.innerHTML=`<p style="color: var(--text-muted)">add timers from the menu</p>`;
+    }
 }
 
 function renderListedTimer(timerData)
