@@ -1,5 +1,4 @@
 // src/scripts/timer.js
-import alarmSoundUrl from '../assets/sounds/alarm.wav'
 
 if (typeof window !== "undefined")
 {
@@ -193,7 +192,8 @@ function playAlarm(timer)
 {
     if(!timer.alarmAudio)
     {
-        timer.alarmAudio=new Audio(alarmSoundUrl);
+        const soundPath=`${import.meta.env.BASE_URL}sounds/alarm.wav`;
+        timer.alarmAudio=new Audio(soundPath);
         timer.alarmAudio.loop=true;
     }
     timer.alarmAudio.play().catch(()=>{});
